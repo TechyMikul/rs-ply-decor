@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RS Ply & Decor | Premium Plywood, Louvers & Mica | Chennai</title>
+    <meta name="description" content="RS Ply & Decor - Direct wholesale destination for BWP 710 Marine Plywood, PVC Louvers, Charcoal Louvers, Designer Mica, and Architectural Decor Items in Chennai.">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#12091f" />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* 🔮 Luxury Lavender, Pinkish Violet & Obsidian Glow Palette */
+            --bg-dark-primary: #12091f;      /* Deep Midnight Obsidian Violet background */
+            --bg-dark-secondary: #1a0f2e;    /* Rich Lavender Obsidian section background */
+            --bg-dark-tertiary: #0a0414;     /* Deepest Violet Black for footer */
+            --bg-surface-glass: rgba(28, 16, 48, 0.65); /* Glassmorphism card surface */
+            
+            /* Text Colors */
+            --text-dark-theme: #f5efff;      /* High-contrast crisp white-violet text */
+            --text-dark-muted: #d0c2e5;      /* Soft lavender gray for subtext */
+
+            /* Glowing Accents */
+            --accent-lavender: #d8b4fe;      /* Soft Lavender Glow */
+            --accent-pink-violet: #e879f9;  /* Pinkish Violet / Magenta Highlight */
+            --accent-purple-glow: #a855f7;   /* Glowing Purple */
+            --accent-gold: #fef08a;          /* Champagne Gold */
+            --accent-green: #25d366;         /* WhatsApp Green */
+            --border-glow: rgba(232, 121, 249, 0.35);
+            
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 8px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-dark-theme);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            padding-bottom: 75px;
+        }
+
+        /* 🖼️ Fullscreen Intro Loader Screen (Obsidian Violet + Lavender Glow) */
+        .intro-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-dark-primary);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+        }
+        .intro-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .intro-logo {
+            max-width: 340px;
+            width: 80%;
+            height: auto;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: logoFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            filter: drop-shadow(0 0 30px rgba(232, 121, 249, 0.4));
+        }
+        @keyframes logoFadeIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            50% { opacity: 0.85; transform: scale(1.04); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Scroll-triggered reveal animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Top Announcement Bar */
+        .top-announce {
+            background: #0a0414;
+            color: #ffffff;
+            padding: 0.55rem 1rem;
+            font-size: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glow);
+            font-weight: 600;
+        }
+        .top-announce a {
+            color: var(--accent-pink-violet);
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* 🔮 RESTORED DARK GLASSMORPHIC HEADER (Non-white, Glass Backdrop Blur) */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(18, 9, 31, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 1.25rem 2rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .header.scrolled {
+            padding: 0.75rem 2rem;
+            background: rgba(10, 4, 20, 0.95);
+            box-shadow: 0 10px 35px rgba(232, 121, 249, 0.15);
+        }
+        .header-container {
+            max-width: 1350px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Brand Logo Image */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .header-full-logo {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+            filter: drop-shadow(0 0 12px rgba(232, 121, 249, 0.3));
+        }
+        .header.scrolled .header-full-logo {
+            height: 40px;
+        }
+
+        /* Desktop Nav Menu Links */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-menu a {
+            color: var(--text-dark-theme);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.4rem 0;
+            transition: var(--transition);
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-pink-violet), var(--accent-lavender));
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--accent-pink-violet);
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:hover {
+            color: var(--accent-lavender);
+            text-shadow: 0 0 10px rgba(216, 180, 254, 0.5);
+        }
+
+        /* Header Action Buttons */
+        .header-actions {
+            display: flex;
+            gap: 0.85rem;
+            align-items: center;
+        }
+        .btn-call {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border: 1px solid var(--border-glow);
+            padding: 0.65rem 1.35rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-call:hover {
+            background: var(--accent-pink-violet);
+            color: #12091f;
+            border-color: var(--accent-pink-violet);
+            box-shadow: 0 0 20px rgba(232, 121, 249, 0.5);
+        }
+        .btn-whatsapp {
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            padding: 0.65rem 1.35rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            background: #1eb855;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Mobile Hamburger Icon */
+        .hamburger-menu-btn {
+            display: none;
+            font-size: 1.6rem;
+            color: var(--text-dark-theme);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* Mobile Slide Drawer */
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--bg-dark-secondary);
+            border-left: 1px solid var(--border-glow);
+            z-index: 2000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+        .mobile-nav-drawer.open {
+            right: 0;
+        }
+        .mobile-nav-close {
+            align-self: flex-end;
+            font-size: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-dark-theme);
+            cursor: pointer;
+        }
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .mobile-nav-links a {
+            color: var(--text-dark-theme);
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        /* Page Content Spacer */
+        .page-content {
+            margin-top: 90px;
+        }
+
+        /* SECTION BASE LAYOUTS & GLOWING CARDS */
+        .sec-dark {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-dark-theme);
+            padding: 5.5rem 1.5rem;
+            border-bottom: 1px solid rgba(232, 121, 249, 0.1);
+        }
+        .sec-dark-alt {
+            background-color: var(--bg-dark-secondary);
+            color: var(--text-dark-theme);
+            padding: 5.5rem 1.5rem;
+            border-bottom: 1px solid rgba(232, 121, 249, 0.1);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 3.5rem;
+        }
+        .section-badge {
+            display: inline-block;
+            padding: 0.35rem 1.1rem;
+            border-radius: 50px;
+            background: rgba(232, 121, 249, 0.12);
+            border: 1px solid var(--border-glow);
+            color: var(--accent-pink-violet);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.85rem;
+            box-shadow: 0 0 15px rgba(232, 121, 249, 0.15);
+        }
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 4.2vw, 3.2rem);
+            font-weight: 400;
+            color: var(--text-dark-theme);
+            margin-bottom: 0.75rem;
+        }
+        .section-header p {
+            color: var(--text-dark-muted);
+            font-size: 1.05rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 5.5rem 2rem 6.5rem;
+            overflow: hidden;
+            background: var(--bg-dark-primary);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(232, 121, 249, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            background: rgba(232, 121, 249, 0.12);
+            border: 1px solid var(--border-glow);
+            color: var(--accent-pink-violet);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 0 15px rgba(232, 121, 249, 0.2);
+        }
+        .hero-left h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+            font-weight: 400;
+            line-height: 1.12;
+            margin-bottom: 1.25rem;
+            color: var(--text-dark-theme);
+        }
+        .hero-left h1 span {
+            color: var(--accent-pink-violet);
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(232, 121, 249, 0.35);
+        }
+        .hero-left p {
+            color: var(--text-dark-muted);
+            font-size: 1.08rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .hero-btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-hero {
+            padding: 0.9rem 2.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 0.925rem;
+        }
+        .btn-hero-primary {
+            background: linear-gradient(135deg, var(--accent-pink-violet), var(--accent-purple-glow));
+            color: #ffffff;
+            box-shadow: 0 6px 25px rgba(232, 121, 249, 0.35);
+        }
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(232, 121, 249, 0.55);
+        }
+        .btn-hero-outline {
+            border: 1.5px solid var(--border-glow);
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .btn-hero-outline:hover {
+            border-color: var(--accent-lavender);
+            color: var(--accent-lavender);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(216, 180, 254, 0.3);
+        }
+
+        .hexagon-photo-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .hexagon-wrapper {
+            width: 310px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            filter: drop-shadow(0 0 35px rgba(232, 121, 249, 0.35));
+        }
+        .hexagon-border {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark-secondary);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: 2px solid var(--accent-pink-violet);
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hexagon-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--bg-dark-secondary);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        /* 🔄 INFINITE SEAMLESS LOOPING NEWS TICKER */
+        .ticker-wrap {
+            width: 100%;
+            background: #0a0414;
+            border-top: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+            overflow: hidden;
+            padding: 0.85rem 0;
+            display: flex;
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: seamlessTicker 28s linear infinite;
+        }
+        .ticker-wrap:hover .ticker-track {
+            animation-play-state: paused;
+        }
+        .ticker-item {
+            font-size: 0.875rem;
+            color: var(--accent-lavender);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            padding: 0 1.5rem;
+        }
+        @keyframes seamlessTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* PRODUCT LINES (6 RS Ply Categories with Hover Glow) */
+        .product-lines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .product-line-card {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-glow);
+            padding: 2.25rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .product-line-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-pink-violet);
+            box-shadow: 0 0 30px rgba(232, 121, 249, 0.4);
+        }
+        .product-line-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(232, 121, 249, 0.12);
+            border: 1px solid var(--border-glow);
+            color: var(--accent-pink-violet);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 0 15px rgba(232, 121, 249, 0.2);
+        }
+        .product-line-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-dark-theme);
+        }
+        .product-line-card p {
+            font-size: 0.925rem;
+            color: var(--text-dark-muted);
+            line-height: 1.6;
+        }
+        .btn-line-wa {
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: var(--accent-green);
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            margin-top: auto;
+            transition: var(--transition);
+        }
+        .btn-line-wa:hover {
+            background: var(--accent-green);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* 🧮 MATERIAL REQUIREMENT ESTIMATOR */
+        .calculator-box {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 40px rgba(232, 121, 249, 0.15);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .calc-input-field {
+            width: 100%;
+            padding: 1.1rem 1.5rem;
+            border-radius: 50px;
+            border: 1.5px solid var(--border-glow);
+            background: #0a0414;
+            color: #ffffff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .calc-input-field:focus {
+            border-color: var(--accent-pink-violet);
+            box-shadow: 0 0 25px rgba(232, 121, 249, 0.4);
+        }
+        .calc-output-box {
+            background: #0a0414;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glow);
+            text-align: center;
+        }
+        .calc-output-sentence {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark-theme);
+            line-height: 1.6;
+            margin: 1rem 0 1.25rem;
+        }
+        .calc-output-highlight {
+            color: var(--accent-pink-violet);
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(232, 121, 249, 0.4);
+        }
+
+        /* LOUVER BUILDER VISUALIZER */
+        .visualizer-game {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 40px rgba(232, 121, 249, 0.15);
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .visualizer-viewport {
+            height: 300px;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+        }
+        .panel-motion-element {
+            width: 55px;
+            height: 100%;
+            margin: 0 3px;
+            transition: transform 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-radius: 4px;
+        }
+        .visualizer-viewport:hover .panel-motion-element {
+            transform: scaleY(1.04);
+        }
+        .visualizer-viewport.v-wood { background: #2b1810; }
+        .panel-motion-element.v-wood {
+            background: linear-gradient(90deg, #5c341a 0%, #8c5225 50%, #422412 100%);
+            border-left: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(0,0,0,0.25);
+        }
+        .visualizer-viewport.v-charcoal { background: #12091f; }
+        .panel-motion-element.v-charcoal {
+            background: linear-gradient(90deg, #281440 0%, #45226d 50%, #1a0b2e 100%);
+            border-left: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(0,0,0,0.4);
+        }
+        .visualizer-viewport.v-gold { background: #141108; }
+        .panel-motion-element.v-gold {
+            background: linear-gradient(90deg, #aa862c 0%, #e5c158 50%, #85661b 100%);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(0,0,0,0.3);
+        }
+        .visualizer-card {
+            position: absolute;
+            bottom: 20px;
+            background: rgba(18, 9, 31, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 1px solid var(--accent-pink-violet);
+            box-shadow: 0 0 20px rgba(232, 121, 249, 0.3);
+            z-index: 10;
+        }
+        .visualizer-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+        .visualizer-card p {
+            color: var(--text-dark-muted);
+            font-size: 0.8rem;
+        }
+        .pill-btn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.6rem 1.35rem;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .pill-btn:hover {
+            border-color: var(--accent-pink-violet);
+            color: var(--accent-pink-violet);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(232, 121, 249, 0.3);
+        }
+        .pill-btn.active {
+            background: linear-gradient(135deg, var(--accent-pink-violet), var(--accent-purple-glow));
+            color: #ffffff;
+            border-color: var(--accent-pink-violet);
+            box-shadow: 0 0 20px rgba(232, 121, 249, 0.45);
+        }
+
+        /* PRODUCTS WE OFFER CATALOG (Glassmorphic Cards) */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .catalog-sidebar {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid var(--border-glow);
+        }
+        .catalog-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark-theme);
+        }
+        .catalog-list { list-style: none; }
+        .catalog-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+            color: var(--text-dark-theme);
+            border: 1px solid transparent;
+        }
+        .catalog-item.active, .catalog-item:hover {
+            background: rgba(232, 121, 249, 0.15);
+            border-color: var(--accent-pink-violet);
+            color: var(--accent-lavender);
+            box-shadow: 0 0 15px rgba(232, 121, 249, 0.2);
+        }
+        .products-scroll-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.5rem;
+        }
+        .catalog-card {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+        .catalog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-pink-violet);
+            box-shadow: 0 0 25px rgba(232, 121, 249, 0.35);
+        }
+        .catalog-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark-theme);
+        }
+        .catalog-card p {
+            font-size: 0.875rem;
+            color: var(--text-dark-muted);
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+        .catalog-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(232, 121, 249, 0.15);
+            padding-top: 0.85rem;
+            margin-top: auto;
+        }
+        .catalog-price {
+            font-weight: 800;
+            color: var(--accent-pink-violet);
+            font-size: 1.15rem;
+            text-shadow: 0 0 10px rgba(232, 121, 249, 0.3);
+        }
+        .btn-whatsapp-inquire {
+            background: var(--accent-green);
+            color: #ffffff;
+            padding: 0.45rem 0.95rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+        .btn-whatsapp-inquire:hover {
+            background: #1eb855;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* STORE LOCATOR */
+        .connect-cta-box {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.5rem;
+        }
+        .connect-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.12;
+        }
+        .connect-desc {
+            color: var(--text-dark-muted);
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .connect-buttons-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+        .btn-connect-wa {
+            background: var(--accent-green);
+            color: #ffffff;
+            padding: 0.95rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+            transition: var(--transition);
+        }
+        .btn-connect-wa:hover {
+            transform: translateY(-3px);
+            background: #1eb855;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+        }
+        .btn-connect-ig {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid var(--border-glow);
+            padding: 0.95rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .btn-connect-ig:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-pink-violet);
+            color: var(--accent-pink-violet);
+            box-shadow: 0 0 20px rgba(232, 121, 249, 0.35);
+        }
+
+        .store-location-card {
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(16px);
+            color: var(--text-dark-theme);
+            border-radius: var(--radius-lg);
+            padding: 2.75rem 3rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 40px rgba(232, 121, 249, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .store-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .store-badge {
+            background: rgba(232, 121, 249, 0.15);
+            border: 1px solid var(--accent-pink-violet);
+            color: var(--accent-pink-violet);
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+        .store-name {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-dark-theme);
+        }
+        .store-address {
+            font-size: 0.95rem;
+            color: var(--text-dark-muted);
+            max-width: 480px;
+            line-height: 1.5;
+        }
+        .store-hours {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #10b981;
+            font-weight: 700;
+        }
+        .store-hours-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+        .btn-maps {
+            background: linear-gradient(135deg, var(--accent-pink-violet), var(--accent-purple-glow));
+            color: #ffffff;
+            padding: 0.95rem 1.85rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 0 20px rgba(232, 121, 249, 0.3);
+        }
+        .btn-maps:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(232, 121, 249, 0.5);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-dark-tertiary);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 4.5rem 2rem 2rem;
+            border-top: 1px solid var(--border-glow);
+        }
+        .footer-content-grid {
+            max-width: 1280px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1.2fr 1.6fr;
+            gap: 3rem;
+        }
+        .footer-brand p {
+            color: var(--text-dark-muted);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 1.15rem;
+            font-weight: 600;
+        }
+        .footer-links-list { list-style: none; }
+        .footer-links-list li { margin-bottom: 0.75rem; }
+        .footer-links-list a {
+            color: var(--text-dark-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .footer-links-list a:hover {
+            color: var(--accent-pink-violet);
+            padding-left: 4px;
+        }
+        .footer-bottom-flex {
+            max-width: 1280px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dark-muted);
+        }
+
+        /* MP Digital Agency Logo FIRST, then "Made by MP Digital Agency" */
+        .footer-mp-branding {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-mp-img {
+            height: 22px;
+            width: auto;
+            object-fit: contain;
+        }
+        .mp-agency-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* Mobile Bottom App Navigation */
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0a0414;
+            border-top: 1px solid var(--border-glow);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.65rem 0;
+            z-index: 999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-dark-muted);
+            text-decoration: none;
+            font-size: 0.72rem;
+            font-weight: 700;
+            gap: 0.2rem;
+            transition: var(--transition);
+        }
+        .bottom-nav-item.active, .bottom-nav-item:hover {
+            color: var(--accent-pink-violet);
+        }
+        .bottom-nav-item i { font-size: 1.2rem; }
+
+        /* Mobile Optimizations */
+        @media (max-width: 900px) {
+            .hero-container, .catalog-layout, .footer-content-grid, .store-location-card, .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-menu, .header-actions { display: none; }
+            .hamburger-menu-btn { display: block; }
+            .page-content { margin-top: 85px; }
+            .header { padding: 1rem 1.25rem; }
+            .header.scrolled { padding: 0.65rem 1.25rem; }
+            .header-full-logo { height: 40px; }
+            .products-scroll-view { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+            .catalog-sidebar { padding: 0.75rem; overflow-x: auto; }
+            .catalog-title { display: none; }
+            .catalog-list { display: flex; gap: 0.5rem; overflow-x: auto; }
+            .catalog-item { white-space: nowrap; border-radius: 50px; padding: 0.4rem 0.95rem; font-size: 0.8rem; }
+        }
+        @media (min-width: 901px) {
+            .mobile-bottom-bar { display: none; }
+            body { padding-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fullscreen Intro Loader Screen (Midnight Obsidian Violet) -->
+    <div class="intro-loader" id="introLoader">
+        <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Brand Logo" class="intro-logo">
+    </div>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-announce">
+        <span>📍 Direct Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
+        <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
+    </div>
+
+    <!-- 🔮 RESTORED DARK GLASSMORPHIC HEADER (Non-white, Glass Blur) -->
+    <header class="header" id="mainHeader">
+        <div class="header-container">
+            <a href="#" class="brand-logo">
+                <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
+            </a>
+            
+            <!-- Restored Full Desktop Nav Menu Links -->
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#product-lines">Our Products</a></li>
+                <li><a href="#estimator">Estimator</a></li>
+                <li><a href="#products">Products We Offer</a></li>
+                <li><a href="#motion-studio">Louver Visualizer</a></li>
+                <li><a href="#locator">Contact Us</a></li>
+            </ul>
+
+            <!-- Restored Desktop Action Buttons: Call Us & WhatsApp -->
+            <div class="header-actions">
+                <a href="tel:8667506984" class="btn-call"><i class="fa-solid fa-phone"></i> Call Us</a>
+                <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <!-- Mobile Hamburger Button -->
+                <button class="hamburger-menu-btn" onclick="toggleMobileNav()" title="Open Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide Drawer Navigation -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" onclick="toggleMobileNav()">Home</a></li>
+            <li><a href="#product-lines" onclick="toggleMobileNav()">Our Products</a></li>
+            <li><a href="#estimator" onclick="toggleMobileNav()">Estimator</a></li>
+            <li><a href="#products" onclick="toggleMobileNav()">Products We Offer</a></li>
+            <li><a href="#motion-studio" onclick="toggleMobileNav()">Louver Visualizer</a></li>
+            <li><a href="#locator" onclick="toggleMobileNav()">Contact Us</a></li>
+        </ul>
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: auto;">
+            <a href="tel:8667506984" class="btn-call" style="justify-content: center;"><i class="fa-solid fa-phone"></i> Call Us</a>
+            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." class="btn-whatsapp" style="justify-content: center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- 1️⃣ HERO SECTION -->
+        <section class="sec-dark hero" id="home">
+            <div class="hero-container">
+                <div class="hero-left">
+                    <span class="hero-badge"><i class="fa-solid fa-gem"></i> Premium Wholesale Destination</span>
+                    <h1>Crafting Premium Spaces <span>With Quality Plywood & Louvers</span></h1>
+                    <p>Direct factory prices for BWP 710 Marine Plywood, PVC Louvered Panels, Charcoal Accent Slats, Designer High-Gloss Mica, and Architectural Decor Items across Chennai.</p>
+                    <div class="hero-btn-group">
+                        <a href="#products" class="btn-hero btn-hero-primary">
+                            Explore Products <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20I%20want%20to%20inquire%20about%20wholesale%20plywood%20and%20louvers." target="_blank" class="btn-hero btn-hero-outline">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp Inquiry
+                        </a>
+                    </div>
+                </div>
+                <div class="hexagon-photo-container">
+                    <div class="hexagon-wrapper">
+                        <div class="hexagon-border">
+                            <img src="assets/images/logo-emblem-clean.png" alt="RS Logo Emblem" class="hexagon-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔄 INFINITE SEAMLESS LOOPING NEWS TICKER -->
+        <div class="ticker-wrap">
+            <div class="ticker-track">
+                <div class="ticker-item">🪵 BWP 710 MARINE PLYWOOD</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🧱 PVC FLUTED LOUVER PANELS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">⬛ CHARCOAL ACCENT LOUVER SLATS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">✨ DESIGNER HIGH-GLOSS MICA SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🚪 WARP-PROOF FLUSH DOORS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🏠 EXTERIOR SOFFIT BOARDS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🛡️ FLOOR PROTECTION SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">📦 DIRECT WHOLESALE PRICES IN CHENNAI</div>
+                <div class="ticker-item">|</div>
+
+                <!-- Duplicated for 100% seamless 0-gap infinite loop -->
+                <div class="ticker-item">🪵 BWP 710 MARINE PLYWOOD</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🧱 PVC FLUTED LOUVER PANELS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">⬛ CHARCOAL ACCENT LOUVER SLATS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">✨ DESIGNER HIGH-GLOSS MICA SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🚪 WARP-PROOF FLUSH DOORS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🏠 EXTERIOR SOFFIT BOARDS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🛡️ FLOOR PROTECTION SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">📦 DIRECT WHOLESALE PRICES IN CHENNAI</div>
+                <div class="ticker-item">|</div>
+            </div>
+        </div>
+
+        <!-- 2️⃣ OUR PRODUCT LINES (6 RS Ply Categories) -->
+        <section class="sec-dark-alt reveal-on-scroll" id="product-lines">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">OUR PRODUCT LINES</span>
+                    <h2>Everything Your Space Needs</h2>
+                    <p>Explore our complete architectural surface and plywood solutions.</p>
+                </div>
+                <div class="product-lines-grid">
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <h3>BWP 710 Marine Plywood</h3>
+                        <p>100% boiling-water waterproof marine grade hardwood plywood engineered for kitchens and wardrobes.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20BWP%20710%20Marine%20Plywood" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-border-all"></i></div>
+                        <h3>PVC Fluted Louvers</h3>
+                        <p>Waterproof decorative louvered wall panels in realistic natural wood-grain and metallic textures.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20PVC%20Fluted%20Louvers" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-cube"></i></div>
+                        <h3>Charcoal Accent Louvers</h3>
+                        <p>Deep charcoal vertical accent louver slats designed for modern TV wall backdrops and foyer features.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Charcoal%20Accent%20Louvers" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3>Designer High-Gloss Mica</h3>
+                        <p>High-gloss acrylic and marble-finish mica laminates to give interior furniture a luxury finish.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Designer%20High-Gloss%20Mica" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-door-open"></i></div>
+                        <h3>Warp-Proof Flush Doors</h3>
+                        <p>Solid timber core flush doors and wooden door frames engineered for long term warp resistance.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Warp-Proof%20Flush%20Doors" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-line-icon"><i class="fa-solid fa-house"></i></div>
+                        <h3>Exterior Soffit Panels</h3>
+                        <p>All-weather exterior soffit ceiling boards and protective floor sheets for heavy construction sites.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Exterior%20Soffit%20Panels" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3️⃣ MATERIAL REQUIREMENT ESTIMATOR -->
+        <section class="sec-dark reveal-on-scroll" id="estimator">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">INTERACTIVE CALCULATOR</span>
+                    <h2>Material Requirement Estimator</h2>
+                    <p>Calculate your required Plywood sheets and Louver panels in seconds.</p>
+                </div>
+                <div class="calculator-box">
+                    <div class="calc-grid">
+                        <div>
+                            <label style="display: block; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Enter Total Surface Area (sq. ft)</label>
+                            <input type="number" id="calcAreaInput" class="calc-input-field" value="200" oninput="calculateMaterialRequirement()">
+                            <span style="font-size: 0.825rem; color: var(--text-dark-muted); margin-top: 0.75rem; display: block;">* Enter your wall or room square footage and we'll tell you how many sheets or panels you need.</span>
+                        </div>
+                        <div class="calc-output-box">
+                            <span style="font-size: 0.8rem; color: var(--accent-pink-violet); font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Requirement Breakdown</span>
+                            <div class="calc-output-sentence" id="calcOutputSentence">
+                                For <span class="calc-output-highlight">200 sq.ft</span>, you need <span class="calc-output-highlight">7 Plywood Sheets</span> (8x4 ft) or <span class="calc-output-highlight">13 PVC Louver Panels</span>.
+                            </div>
+                            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20I%20calculated%20my%20material%20requirement%20on%20your%20website." target="_blank" class="btn-hero btn-hero-primary" style="padding: 0.75rem 1.5rem; font-size: 0.875rem; width: 100%; justify-content: center;">
+                                <i class="fa-brands fa-whatsapp"></i> Send Estimate on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4️⃣ LOUVER BUILDER VISUALIZER -->
+        <section class="sec-dark-alt reveal-on-scroll" id="motion-studio">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">INTERACTIVE MODULE</span>
+                    <h2>Louver Builder Visualizer</h2>
+                    <p>Select your backdrop finish below to interactively visualize wall textures in real-time.</p>
+                </div>
+                <div class="visualizer-game">
+                    <div id="gameViewport" class="visualizer-viewport v-wood">
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="panel-motion-element v-wood"></div>
+                        <div class="visualizer-card">
+                            <h4 id="gameTitle">Teak Wood Louvers</h4>
+                            <p id="gameDesc">Standard fluted vertical wooden backdrop panels</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="pill-btn active" onclick="playGame(1, 'Teak Wood Louvers', 'Standard fluted vertical wooden backdrop panels')">Teak Wood</button>
+                        <button class="pill-btn" onclick="playGame(2, 'Charcoal Louvers', 'Deep modern charcoal louver wall panels')">Charcoal Louver</button>
+                        <button class="pill-btn" onclick="playGame(3, 'Brushed Gold Slat', 'Metallic gold highlights for TV accent backdrops')">Brushed Gold</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5️⃣ PRODUCTS WE OFFER (GLASSMORPHIC CARDS) -->
+        <section class="sec-dark reveal-on-scroll" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">INVENTORY CATALOG</span>
+                    <h2>Products We Offer</h2>
+                    <p>Filter by category to view wholesale options and live pricing for your project.</p>
+                </div>
+
+                <div class="catalog-layout" id="catalog">
+                    <!-- Left Sidebar Categories -->
+                    <aside class="catalog-sidebar">
+                        <h3 class="catalog-title">Categories</h3>
+                        <ul class="catalog-list">
+                            <li class="catalog-item active" onclick="filterCatalogList('all')">
+                                <span>📁 All Products</span> <span id="count-all">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('plywood')">
+                                <span>🪵 Plywood Boards</span> <span id="count-plywood">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('louvers')">
+                                <span>🧱 Louvered Panels</span> <span id="count-louvers">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('mica')">
+                                <span>✨ Designer Mica</span> <span id="count-mica">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('items')">
+                                <span>🏠 Interior Items</span> <span id="count-items">0</span>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- Right Products Grid -->
+                    <div id="productsScrollGrid" class="products-scroll-view">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6️⃣ STORE LOCATOR / LET'S CONNECT -->
+        <section class="sec-dark-alt reveal-on-scroll" id="locator">
+            <div class="container">
+                <div class="connect-cta-box">
+                    <span class="section-badge">LET'S CONNECT</span>
+                    <h2 class="connect-title">Have a Project?<br>Let's Talk Materials.</h2>
+                    <p class="connect-desc">Whether you're fitting out a single room or sourcing for a major commercial project, our team is ready to help with product selection, pricing, and fulfillment.</p>
+                    <div class="connect-buttons-row">
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="btn-connect-wa">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> WhatsApp +91 86675 06984
+                        </a>
+                        <a href="https://share.google/rZFBMKaKAfE7nxxQm" target="_blank" class="btn-connect-ig">
+                            <i class="fa-brands fa-instagram" style="font-size: 1.25rem;"></i> Follow @rsplydecor
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Store Location Card -->
+                <div class="store-location-card">
+                    <div class="store-info-left">
+                        <div class="store-badge"><i class="fa-solid fa-map-pin"></i> STORE LOCATION</div>
+                        <h3 class="store-name">RS Ply & Decor</h3>
+                        <p class="store-address">Avadhanam Papier Road, Near Choolai Park, Choolai, Chennai, Tamil Nadu 600007</p>
+                        <div class="store-hours">
+                            <div class="store-hours-dot"></div>
+                            <span>Open 10:00 AM – 8:30 PM (Mon–Sat)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://share.google/rZFBMKaKAfE7nxxQm" target="_blank" class="btn-maps">
+                            <i class="fa-solid fa-location-arrow"></i> Open in Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 7️⃣ FOOTER -->
+    <footer>
+        <div class="footer-content-grid">
+            <div class="footer-brand">
+                <a href="#" class="brand-logo" style="margin-bottom: 1rem;">
+                    <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Brand Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(232, 121, 249, 0.3));">
+                </a>
+                <p>Direct wholesale distribution of BWP 710 marine plywood, PVC louvers, charcoal panels, and designer mica across Chennai.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product Lines</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#products">Plywood Boards</a></li>
+                    <li><a href="#products">Charcoal Louvers</a></li>
+                    <li><a href="#products">PVC Louvered Panels</a></li>
+                    <li><a href="#products">Designer Mica</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="footer-links-list">
+                    <li><i class="fa-solid fa-location-dot" style="color: var(--accent-pink-violet);"></i> Avadhanam Papier Road, Choolai, Chennai - 600007</li>
+                    <li><a href="tel:8667506984"><i class="fa-solid fa-phone" style="color: var(--accent-pink-violet);"></i> +91 86675 06984</a></li>
+                    <li><a href="mailto:rsplydecor@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--accent-pink-violet);"></i> rsplydecor@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#product-lines">Our Products</a></li>
+                    <li><a href="#estimator">Material Estimator</a></li>
+                    <li><a href="#locator">Store Locator</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-flex">
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved.</p>
+
+            <!-- MP Digital Agency Logo FIRST, then "Made by MP Digital Agency" -->
+            <div class="footer-mp-branding">
+                <img src="assets/images/logo-mp.png" alt="MP Digital Agency Logo" class="logo-mp-img">
+                <span class="mp-agency-text">Made by MP Digital Agency</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="mobile-bottom-bar">
+        <a href="#home" class="bottom-nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#products" class="bottom-nav-item"><i class="fa-solid fa-boxes-stacked"></i> Products</a>
+        <a href="#estimator" class="bottom-nav-item"><i class="fa-solid fa-calculator"></i> Estimator</a>
+        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="bottom-nav-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="#locator" class="bottom-nav-item"><i class="fa-solid fa-location-dot"></i> Find Us</a>
+    </div>
+
+    <!-- JS Engine -->
+    <script>
+        let catalogProducts = [
+            { id: 1, name: "Premium BWP 710 Marine Plywood", category: "plywood", price: "₹85 / sq.ft", desc: "100% boiling waterproof marine grade hardwood plywood." },
+            { id: 2, name: "BWR Grade Commercial Plywood", category: "plywood", price: "₹65 / sq.ft", desc: "Moisture-resistant plywood engineered for bedroom wardrobes." },
+            { id: 3, name: "W18 PVC Fluted Louvered Panel", category: "louvers", price: "₹450 / piece", desc: "Fluted louvered panels in rich natural wood-grain finishes." },
+            { id: 4, name: "Charcoal Accent Louvered Panel", category: "louvers", price: "₹520 / piece", desc: "Deep charcoal modern vertical louvers for TV wall units." },
+            { id: 5, name: "Designer Glossy Mica Sheet", category: "mica", price: "₹1,200 / sheet", desc: "High-gloss mica sheets in marble & stone textures." },
+            { id: 6, name: "Warp-Resistant Flush Door", category: "items", price: "₹2,800 / piece", desc: "Solid timber core flush door for interior bedrooms." }
+        ];
+
+        // Header Scroll Effect (Smooth compact transition)
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 40) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle Mobile Nav Drawer
+        function toggleMobileNav() {
+            document.getElementById('mobileNavDrawer').classList.toggle('open');
+        }
+
+        // Hide Intro Loader Page after 2.2 seconds
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('introLoader');
+                if (loader) {
+                    loader.classList.add('fade-out');
+                }
+            }, 2200);
+        });
+
+        // Scroll Reveal Observer
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                }
+            });
+        };
+        const revealObserver = new IntersectionObserver(revealCallback, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Dynamic Category Counts
+        function updateCategoryCounts() {
+            document.getElementById('count-all').innerText = catalogProducts.length;
+            document.getElementById('count-plywood').innerText = catalogProducts.filter(p => p.category === 'plywood').length;
+            document.getElementById('count-louvers').innerText = catalogProducts.filter(p => p.category === 'louvers').length;
+            document.getElementById('count-mica').innerText = catalogProducts.filter(p => p.category === 'mica').length;
+            document.getElementById('count-items').innerText = catalogProducts.filter(p => p.category === 'items').length;
+        }
+
+        // Render Catalog Grid
+        function renderCatalogGrid(filter = 'all') {
+            const container = document.getElementById('productsScrollGrid');
+            container.innerHTML = '';
+
+            let list = catalogProducts;
+            if (filter !== 'all') {
+                list = list.filter(item => item.category === filter);
+            }
+
+            list.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'catalog-card';
+                card.innerHTML = `
+                    <h3>${p.name}</h3>
+                    <p>${p.desc}</p>
+                    <div class="catalog-price-row">
+                        <span class="catalog-price">${p.price}</span>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20Inquiry%20for%20${encodeURIComponent(p.name)}" target="_blank" class="btn-whatsapp-inquire">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterCatalogList(cat) {
+            document.querySelectorAll('.catalog-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderCatalogGrid(cat);
+        }
+
+        // Material Requirement Estimator Logic
+        function calculateMaterialRequirement() {
+            const area = parseFloat(document.getElementById('calcAreaInput').value) || 0;
+            const plywoodSheets = Math.ceil(area / 32); // 8x4 ft = 32 sq.ft
+            const louverPanels = Math.ceil(area / 16);  // 8x2 ft = 16 sq.ft approx
+            
+            const sentenceContainer = document.getElementById('calcOutputSentence');
+            sentenceContainer.innerHTML = `For <span class="calc-output-highlight">${area} sq.ft</span>, you need <span class="calc-output-highlight">${plywoodSheets} Plywood ${plywoodSheets === 1 ? 'Sheet' : 'Sheets'}</span> (8x4 ft) or <span class="calc-output-highlight">${louverPanels} PVC Louver Panels</span>.`;
+        }
+
+        // Louver Visualizer Logic
+        function playGame(num, title, desc) {
+            const viewport = document.getElementById('gameViewport');
+            viewport.innerHTML = '';
+            
+            let styleClass = 'v-wood';
+            if (num === 1) styleClass = 'v-wood';
+            else if (num === 2) styleClass = 'v-charcoal';
+            else if (num === 3) styleClass = 'v-gold';
+
+            viewport.className = `visualizer-viewport ${styleClass}`;
+            for (let i = 0; i < 6; i++) {
+                const slat = document.createElement('div');
+                slat.className = `panel-motion-element ${styleClass}`;
+                viewport.appendChild(slat);
+            }
+
+            const infoCard = document.createElement('div');
+            infoCard.className = 'visualizer-card';
+            infoCard.innerHTML = `
+                <h4>${title}</h4>
+                <p>${desc}</p>
+            `;
+            viewport.appendChild(infoCard);
+
+            document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Initialize App
+        updateCategoryCounts();
+        renderCatalogGrid('all');
+        calculateMaterialRequirement();
+    </script>
+</body>
+</html>
