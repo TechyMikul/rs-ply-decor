@@ -87,18 +87,19 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #ffffff;
+            background: #100a18;
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
         .intro-loader.fade-out {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none !important;
         }
         .intro-logo {
             max-width: 340px;
@@ -679,6 +680,7 @@
             margin-bottom: 2rem;
             position: relative;
             cursor: grab;
+            touch-action: pan-y;
         }
         .motion-studio-stage:active {
             cursor: grabbing;
@@ -1873,14 +1875,17 @@
             document.getElementById('mobileNavDrawer').classList.toggle('open');
         }
 
-        // Hide Intro Loader Page after 2.2 seconds
+        // Hide Intro Loader Page after 800 milliseconds
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('introLoader');
                 if (loader) {
                     loader.classList.add('fade-out');
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500);
                 }
-            }, 2200);
+            }, 800);
         });
 
         // Scroll Reveal Observer
