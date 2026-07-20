@@ -32,14 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     grain: 0,
     fade: 0,
     filterIntensity: 100,
-    replaceWatermark: false,
-    watermarkX: 85,
-    watermarkY: 7,
-    watermarkSize: 25,
-    embedPhone: false,
-    phoneText: 'Call: +91 86675 06984',
-    phoneSize: 18,
-    phoneOpacity: 80,
   };
 
   const defaultTransform = {
@@ -192,23 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const resizeHeight = document.getElementById('resize-height');
   const lockAspectCheckbox = document.getElementById('lock-aspect');
 
-  const imageWrapper = document.getElementById('image-wrapper');
-  const previewWatermarkOverlay = document.getElementById('preview-watermark-overlay');
-  const previewPhoneOverlay = document.getElementById('preview-phone-overlay');
-
-  // Branding UI Controls
-  const brandReplaceWatermark = document.getElementById('brand-replace-watermark');
-  const watermarkOptions = document.getElementById('watermark-options');
-  const watermarkX = document.getElementById('watermark-x');
-  const watermarkY = document.getElementById('watermark-y');
-  const watermarkSize = document.getElementById('watermark-size');
-
-  const brandEmbedPhone = document.getElementById('brand-embed-phone');
-  const phoneOptions = document.getElementById('phone-options');
-  const phoneText = document.getElementById('phone-text');
-  const phoneSize = document.getElementById('phone-size');
-  const phoneOpacity = document.getElementById('phone-opacity');
-
   // ==================== INITIALIZATION ====================
 
   // Generate Filter Preset Grid Items
@@ -245,11 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initFilterGrid();
-  initBrandingListeners();
-
-  // Resize listener for image wrapper
-  imagePreview.addEventListener('load', resizeImageWrapper);
-  window.addEventListener('resize', resizeImageWrapper);
 
   // Tab Switching
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -405,7 +375,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlidersUI(image.adjustments);
     updateTransformUI(image.transform);
     updateFilterPresetUI(image.activePreset);
-    updateBrandingUI(image.adjustments);
 
     // Apply adjustments
     applyAdjustments();
@@ -469,25 +438,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.currentIndex === -1) return;
     const image = state.images[state.currentIndex];
     
-    // Keep branding properties
-    const currentBranding = {
-      replaceWatermark: image.adjustments.replaceWatermark,
-      watermarkX: image.adjustments.watermarkX,
-      watermarkY: image.adjustments.watermarkY,
-      watermarkSize: image.adjustments.watermarkSize,
-      embedPhone: image.adjustments.embedPhone,
-      phoneText: image.adjustments.phoneText,
-      phoneSize: image.adjustments.phoneSize,
-      phoneOpacity: image.adjustments.phoneOpacity
-    };
-
     // Apply defined adjustments
     const basePreset = presets[presetId] || defaultAdjustments;
     image.adjustments = JSON.parse(JSON.stringify(basePreset));
-    
-    // Restore branding properties
-    Object.assign(image.adjustments, currentBranding);
-
     image.activePreset = presetId;
     image.edited = presetId !== 'none';
 
@@ -621,10 +574,6 @@ document.addEventListener('DOMContentLoaded', () => {
       transformStr.push('scaleY(-1)');
     }
     imagePreview.style.transform = transformStr.join(' ');
-
-    // Resize image wrapper and apply branding overlays
-    resizeImageWrapper();
-    updateBrandingOverlays();
   }
 
   // ==================== TRANSFORMS (ROTATE/FLIP/RESIZE) ====================
@@ -800,7 +749,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlidersUI(currentImg.adjustments);
     updateTransformUI(currentImg.transform);
     updateFilterPresetUI(currentImg.activePreset);
-    updateBrandingUI(currentImg.adjustments);
     applyAdjustments();
     updateUndoRedoButtons();
   }
@@ -831,7 +779,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlidersUI(currentImg.adjustments);
     updateTransformUI(currentImg.transform);
     updateFilterPresetUI('none');
-    updateBrandingUI(currentImg.adjustments);
     
     if (state.images.length > 1) updateBatchStrip();
     applyAdjustments();
@@ -865,7 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSlidersUI(currentImg.adjustments);
     updateFilterPresetUI(currentImg.activePreset);
-    updateBrandingUI(currentImg.adjustments);
     applyAdjustments();
     saveHistoryState();
     showToast('Pasted adjustments', 'success');
@@ -996,77 +942,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Apply Grain noise on canvas
       if (adj.grain > 0) {
         applyGrainCanvas(canvas, ctx, adj.grain);
-      }
-
-      // Apply Branding/Watermarks on Canvas
-      if (adj.replaceWatermark) {
-        const x = (adj.watermarkX / 100) * canvas.width;
-        const y = (adj.watermarkY / 100) * canvas.height;
-        const wmWidth = (adj.watermarkSize / 100) * canvas.width * 0.25;
-        const wmHeight = wmWidth * 0.45;
-        
-        ctx.save();
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = 'rgba(0,0,0,0.15)';
-        ctx.shadowBlur = Math.max(2, wmHeight * 0.1);
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = Math.max(1, wmHeight * 0.05);
-        
-        // Draw white card background
-        ctx.fillRect(x - wmWidth / 2, y - wmHeight / 2, wmWidth, wmHeight);
-        
-        // Draw logo text
-        ctx.fillStyle = '#d31f26'; // brand-red
-        const fontSize = Math.max(10, Math.round(wmHeight * 0.45));
-        ctx.font = `bold ${fontSize}px "Plus Jakarta Sans", sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.shadowColor = 'transparent'; // turn off shadows for text
-        ctx.fillText('RS Decor', x, y);
-        ctx.restore();
-      }
-
-      if (adj.embedPhone) {
-        ctx.save();
-        ctx.globalAlpha = adj.phoneOpacity / 100;
-        
-        // Scale phone font size to canvas resolution (reference size at 600px height)
-        const phoneFontSize = Math.max(12, Math.round(adj.phoneSize * (canvas.height / 600)));
-        const phoneTxtVal = adj.phoneText || 'Call: +91 86675 06984';
-        
-        ctx.font = `600 ${phoneFontSize}px "Plus Jakarta Sans", sans-serif`;
-        
-        const textWidth = ctx.measureText(phoneTxtVal).width;
-        const barHeight = phoneFontSize * 1.6;
-        const barY = canvas.height - barHeight - (canvas.height * 0.02); // 2% from bottom
-        const boxWidth = textWidth + phoneFontSize * 1.5;
-        const boxX = canvas.width / 2 - boxWidth / 2;
-        const radius = phoneFontSize * 0.4;
-        
-        // Draw black pill
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.beginPath();
-        if (ctx.roundRect) {
-          ctx.roundRect(boxX, barY, boxWidth, barHeight, radius);
-        } else {
-          // Manual rounded rect drawing
-          ctx.arc(boxX + radius, barY + radius, radius, Math.PI, 1.5 * Math.PI);
-          ctx.lineTo(boxX + boxWidth - radius, barY);
-          ctx.arc(boxX + boxWidth - radius, barY + radius, radius, 1.5 * Math.PI, 2 * Math.PI);
-          ctx.lineTo(boxX + boxWidth, barY + barHeight - radius);
-          ctx.arc(boxX + boxWidth - radius, barY + barHeight - radius, radius, 0, 0.5 * Math.PI);
-          ctx.lineTo(boxX + radius, barY + barHeight);
-          ctx.arc(boxX + radius, barY + barHeight - radius, radius, 0.5 * Math.PI, Math.PI);
-          ctx.closePath();
-        }
-        ctx.fill();
-        
-        // Draw white text
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(phoneTxtVal, canvas.width / 2, barY + barHeight / 2);
-        ctx.restore();
       }
 
       resolve(canvas);
@@ -1234,131 +1109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toast.classList.add('hidden');
       }, 300);
     }, 3000);
-  }
-
-  // ==================== BRANDING HELPERS ====================
-
-  function resizeImageWrapper() {
-    if (state.currentIndex === -1 || !imagePreview || !imageWrapper) return;
-    imageWrapper.style.width = `${imagePreview.clientWidth}px`;
-    imageWrapper.style.height = `${imagePreview.clientHeight}px`;
-  }
-
-  function updateBrandingOverlays() {
-    if (state.currentIndex === -1 || !previewWatermarkOverlay || !previewPhoneOverlay) return;
-    const img = state.images[state.currentIndex];
-    const adj = img.adjustments;
-
-    if (state.isComparing) {
-      previewWatermarkOverlay.classList.add('hidden');
-      previewPhoneOverlay.classList.add('hidden');
-      return;
-    }
-
-    // Watermark Overlay
-    if (adj.replaceWatermark) {
-      previewWatermarkOverlay.classList.remove('hidden');
-      previewWatermarkOverlay.style.left = `${adj.watermarkX}%`;
-      previewWatermarkOverlay.style.top = `${adj.watermarkY}%`;
-      
-      const wrapperWidth = imageWrapper.clientWidth || imagePreview.clientWidth || 300;
-      const wmWidth = (adj.watermarkSize / 100) * wrapperWidth * 0.25;
-      previewWatermarkOverlay.style.width = `${wmWidth}px`;
-      previewWatermarkOverlay.style.height = `${wmWidth * 0.45}px`;
-      previewWatermarkOverlay.style.fontSize = `${Math.max(8, wmWidth * 0.2)}px`;
-    } else {
-      previewWatermarkOverlay.classList.add('hidden');
-    }
-
-    // Phone Overlay
-    if (adj.embedPhone) {
-      previewPhoneOverlay.classList.remove('hidden');
-      previewPhoneOverlay.textContent = adj.phoneText;
-      previewPhoneOverlay.style.fontSize = `${adj.phoneSize}px`;
-      previewPhoneOverlay.style.opacity = adj.phoneOpacity / 100;
-    } else {
-      previewPhoneOverlay.classList.add('hidden');
-    }
-  }
-
-  function initBrandingListeners() {
-    if (!brandReplaceWatermark || !brandEmbedPhone) return;
-
-    brandReplaceWatermark.addEventListener('change', (e) => {
-      if (state.currentIndex === -1) return;
-      const adj = state.images[state.currentIndex].adjustments;
-      adj.replaceWatermark = e.target.checked;
-      watermarkOptions.classList.toggle('hidden', !adj.replaceWatermark);
-      applyAdjustments();
-      saveHistoryState();
-    });
-
-    watermarkX.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.watermarkX = parseInt(e.target.value);
-      applyAdjustments();
-    });
-    watermarkX.addEventListener('change', saveHistoryState);
-
-    watermarkY.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.watermarkY = parseInt(e.target.value);
-      applyAdjustments();
-    });
-    watermarkY.addEventListener('change', saveHistoryState);
-
-    watermarkSize.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.watermarkSize = parseInt(e.target.value);
-      applyAdjustments();
-    });
-    watermarkSize.addEventListener('change', saveHistoryState);
-
-    brandEmbedPhone.addEventListener('change', (e) => {
-      if (state.currentIndex === -1) return;
-      const adj = state.images[state.currentIndex].adjustments;
-      adj.embedPhone = e.target.checked;
-      phoneOptions.classList.toggle('hidden', !adj.embedPhone);
-      applyAdjustments();
-      saveHistoryState();
-    });
-
-    phoneText.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.phoneText = e.target.value;
-      applyAdjustments();
-    });
-    phoneText.addEventListener('change', saveHistoryState);
-
-    phoneSize.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.phoneSize = parseInt(e.target.value);
-      applyAdjustments();
-    });
-    phoneSize.addEventListener('change', saveHistoryState);
-
-    phoneOpacity.addEventListener('input', (e) => {
-      if (state.currentIndex === -1) return;
-      state.images[state.currentIndex].adjustments.phoneOpacity = parseInt(e.target.value);
-      applyAdjustments();
-    });
-    phoneOpacity.addEventListener('change', saveHistoryState);
-  }
-
-  function updateBrandingUI(adjustments) {
-    if (!brandReplaceWatermark || !brandEmbedPhone) return;
-
-    brandReplaceWatermark.checked = !!adjustments.replaceWatermark;
-    watermarkOptions.classList.toggle('hidden', !adjustments.replaceWatermark);
-    watermarkX.value = adjustments.watermarkX !== undefined ? adjustments.watermarkX : 85;
-    watermarkY.value = adjustments.watermarkY !== undefined ? adjustments.watermarkY : 7;
-    watermarkSize.value = adjustments.watermarkSize !== undefined ? adjustments.watermarkSize : 25;
-
-    brandEmbedPhone.checked = !!adjustments.embedPhone;
-    phoneOptions.classList.toggle('hidden', !adjustments.embedPhone);
-    phoneText.value = adjustments.phoneText !== undefined ? adjustments.phoneText : 'Call: +91 86675 06984';
-    phoneSize.value = adjustments.phoneSize !== undefined ? adjustments.phoneSize : 18;
-    phoneOpacity.value = adjustments.phoneOpacity !== undefined ? adjustments.phoneOpacity : 80;
   }
 
 });
