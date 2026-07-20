@@ -850,13 +850,30 @@
             border-radius: 10px;
         }
 
+        /* Full Brand Logo Image */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .header-full-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .header.scrolled .header-full-logo {
+            height: 44px;
+        }
+
         /* ARCHITECT B2B TRADE PROGRAM */
         .b2b-box {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(20, 13, 27, 0.4) 100%);
+            background: #140d1b;
             border-radius: var(--radius-lg);
             padding: 3.5rem 3rem;
-            border: 1px solid var(--accent-brand);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1.5px solid var(--brand-red);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
         .b2b-grid {
             display: grid;
@@ -865,19 +882,19 @@
             margin-top: 2.5rem;
         }
         .b2b-item {
-            background: rgba(16, 10, 24, 0.7);
+            background: #1c1326;
             border-radius: var(--radius-md);
             padding: 1.75rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(211, 31, 38, 0.3);
             transition: var(--transition);
         }
         .b2b-item:hover {
             transform: translateY(-5px);
-            border-color: var(--accent-brand);
+            border-color: var(--brand-red);
         }
         .b2b-icon {
             font-size: 2rem;
-            color: var(--accent-brand);
+            color: var(--brand-red);
             margin-bottom: 1rem;
         }
         .b2b-item h4 {
@@ -900,17 +917,17 @@
             align-items: start;
         }
         .catalog-sidebar {
-            background: var(--bg-light-secondary);
+            background: #140d1b;
             border-radius: var(--radius-md);
             padding: 1.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-brand);
         }
         .catalog-title {
             font-family: var(--font-heading);
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--text-light-theme);
+            color: #ffffff;
         }
         .catalog-list { list-style: none; }
         .catalog-item {
@@ -924,12 +941,12 @@
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
             transition: var(--transition);
-            color: var(--text-light-theme);
+            color: var(--text-dark-muted);
             border: 1px solid transparent;
         }
         .catalog-item .count-badge {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--accent-bronze);
+            background: rgba(211, 31, 38, 0.15);
+            color: var(--brand-red);
             padding: 0.15rem 0.65rem;
             border-radius: 50px;
             font-size: 0.75rem;
@@ -938,14 +955,14 @@
             transition: var(--transition);
         }
         .catalog-item.active, .catalog-item:hover {
-            background: #ffffff;
-            border-color: var(--accent-brand);
-            color: var(--accent-bronze);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(211, 31, 38, 0.3);
         }
         .catalog-item.active .count-badge, .catalog-item:hover .count-badge {
-            background: var(--accent-bronze);
-            color: #ffffff;
+            background: #ffffff;
+            color: var(--brand-red);
         }
         .products-scroll-view {
             display: grid;
@@ -953,19 +970,19 @@
             gap: 1.5rem;
         }
         .catalog-card {
-            background: #ffffff;
+            background: #140d1b;
             border-radius: var(--radius-md);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-brand);
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .catalog-card:hover {
             transform: translateY(-5px);
-            border-color: var(--accent-brand);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-color: var(--brand-red);
+            box-shadow: 0 15px 35px rgba(211, 31, 38, 0.25);
         }
         .catalog-card-img-wrap {
             position: relative;
@@ -974,7 +991,7 @@
             border-radius: var(--radius-sm);
             overflow: hidden;
             margin-bottom: 1rem;
-            background: #f4eff9;
+            background: #0f0a17;
         }
         .catalog-card-img {
             width: 100%;
@@ -991,8 +1008,8 @@
             left: 10px;
             background: rgba(16, 10, 24, 0.88);
             backdrop-filter: blur(6px);
-            color: var(--accent-brand);
-            border: 1px solid var(--accent-brand);
+            color: var(--brand-green);
+            border: 1px solid var(--brand-green);
             font-size: 0.68rem;
             font-weight: 800;
             padding: 0.2rem 0.6rem;
@@ -1017,11 +1034,11 @@
             font-size: 1.45rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--text-light-theme);
+            color: #ffffff;
         }
         .catalog-card p {
             font-size: 0.875rem;
-            color: var(--text-light-muted);
+            color: var(--text-dark-muted);
             margin-bottom: 1.25rem;
             flex-grow: 1;
             line-height: 1.5;
@@ -1030,13 +1047,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding-top: 0.85rem;
             margin-top: auto;
         }
         .catalog-price {
             font-weight: 800;
-            color: var(--accent-bronze);
+            color: var(--brand-red);
             font-size: 1.15rem;
         }
         .btn-whatsapp-inquire {
@@ -1056,11 +1073,12 @@
 
         /* STORE LOCATOR */
         .store-location-card {
-            background: #ffffff;
-            color: var(--text-light-theme);
+            background: #140d1b;
+            color: #ffffff;
             border-radius: var(--radius-lg);
             padding: 2.75rem 3rem;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 1.5px solid var(--brand-red);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1075,9 +1093,9 @@
             gap: 0.65rem;
         }
         .store-badge {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--accent-brand);
-            color: var(--accent-bronze);
+            background: rgba(0, 122, 72, 0.15);
+            border: 1px solid var(--brand-green);
+            color: var(--brand-green);
             padding: 0.35rem 0.85rem;
             border-radius: 6px;
             display: inline-flex;
@@ -1092,11 +1110,11 @@
             font-family: var(--font-heading);
             font-size: 2.2rem;
             font-weight: 600;
-            color: var(--text-light-theme);
+            color: #ffffff;
         }
         .store-address {
             font-size: 0.95rem;
-            color: var(--text-light-muted);
+            color: var(--text-dark-muted);
             max-width: 480px;
             line-height: 1.5;
         }
@@ -1115,7 +1133,7 @@
             border-radius: 50%;
         }
         .btn-maps {
-            background: var(--text-light-theme);
+            background: var(--brand-red);
             color: #ffffff;
             padding: 0.95rem 1.85rem;
             border-radius: 12px;
@@ -1127,7 +1145,7 @@
             font-size: 0.95rem;
             transition: var(--transition);
         }
-        .btn-maps:hover { background: var(--accent-bronze); }
+        .btn-maps:hover { background: var(--brand-red-dark); }
 
         /* FOOTER */
         footer {
@@ -1688,7 +1706,7 @@
         </section>
 
         <!-- 4️⃣ MATERIAL SPECIFIER (PRODUCTS CATALOG) -->
-        <section class="sec-light reveal-on-scroll" id="products">
+        <section class="sec-dark-alt reveal-on-scroll" id="products">
             <div class="container">
                 <div class="section-header">
                     <span class="section-badge">MATERIAL SPECIFIER & CATALOG</span>
