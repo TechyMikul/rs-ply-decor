@@ -117,12 +117,12 @@
             transform: translateY(0);
         }
 
-        /* Top Announcement Bar with GitHub Version Badge */
+        /* Top Announcement Bar inside Header */
         .top-announce {
             background: #140d1b;
             color: #ffffff;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
+            padding: 0.45rem 1rem;
+            font-size: 0.78rem;
             text-align: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             font-weight: 600;
@@ -132,8 +132,11 @@
             gap: 1rem;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 100vw;
             box-sizing: border-box;
+            transition: var(--transition);
+        }
+        .header.scrolled .top-announce {
+            display: none;
         }
         .top-announce a {
             color: var(--accent-brand);
@@ -151,7 +154,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* 👑 Pure White Expanding Header (3x Size initially, smooth animation on scroll) */
+        /* 👑 Pure White Expanding Header */
         .header {
             position: fixed;
             top: 0;
@@ -162,12 +165,11 @@
             z-index: 1000;
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 2.25rem 2.5rem;
+            padding: 0;
             transition: var(--transition);
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
         }
         .header.scrolled {
-            padding: 0.65rem 2rem;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
         .header-container {
@@ -178,6 +180,11 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
+            padding: 1.25rem 2.5rem;
+            transition: var(--transition);
+        }
+        .header.scrolled .header-container {
+            padding: 0.5rem 2rem;
         }
 
         /* Full Brand Logo Image (Expanded 3x size initially -> Compact on scroll) */
@@ -1298,11 +1305,13 @@
             .nav-menu { display: none; }
             .header-actions .btn-call, .header-actions .btn-whatsapp { display: none; }
             .hamburger-menu-btn { display: flex; align-items: center; justify-content: center; }
-            .page-content { margin-top: 100px; }
-            .header { padding: 1rem 1.25rem; }
-            .header.scrolled { padding: 0.65rem 1.25rem; }
-            .header-full-logo { height: 50px; }
+            .page-content { margin-top: 130px; }
+            .header { padding: 0; }
+            .header-container { padding: 0.75rem 1.25rem; }
+            .header.scrolled .header-container { padding: 0.5rem 1.25rem; }
+            .header-full-logo { height: 48px; }
             .header.scrolled .header-full-logo { height: 38px; }
+            .top-announce { padding: 0.4rem 0.75rem; font-size: 0.72rem; gap: 0.5rem; }
             .products-scroll-view { grid-template-columns: 1fr; gap: 1rem; }
             .catalog-sidebar { padding: 0.75rem 0.25rem; width: 100%; box-sizing: border-box; overflow-x: hidden; }
             .catalog-title { display: none; }
@@ -1313,6 +1322,42 @@
         }
 
         @media (max-width: 600px) {
+            .page-content { margin-top: 120px; }
+            .hero {
+                padding: 2rem 1rem 3rem !important;
+                text-align: left;
+            }
+            .hero-container {
+                gap: 2rem;
+            }
+            .hero h1 {
+                font-size: 2.1rem !important;
+                line-height: 1.2 !important;
+            }
+            .hero p {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+                max-width: 100% !important;
+                word-break: normal;
+                overflow-wrap: break-word;
+            }
+            .hero-btn-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.75rem;
+            }
+            .btn-hero {
+                width: 100%;
+                justify-content: center;
+                padding: 0.85rem 1.5rem;
+            }
+            .hexagon-photo-container {
+                margin-top: 0.5rem;
+            }
+            .hexagon-wrapper {
+                width: 270px !important;
+                height: 300px !important;
+            }
             .motion-studio-wrapper {
                 padding: 1.25rem 0.85rem;
             }
@@ -1346,10 +1391,6 @@
             .product-lines-grid {
                 grid-template-columns: 1fr;
             }
-            .hero h1 {
-                font-size: 2.1rem;
-                line-height: 1.2;
-            }
             .hero-badge {
                 font-size: 0.75rem;
             }
@@ -1371,18 +1412,16 @@
         <img src="assets/images/logo-full.jpg" alt="RS Ply and Decor Logo" class="intro-logo">
     </div>
 
-    <!-- Top Announcement Bar with GitHub Version Badge -->
-    <div class="top-announce">
-        <span>📍 Direct Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-        <span class="version-tag-pill" id="appVersionHeader">v1.0.1 • Live GitHub Build</span>
-        <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
-    </div>
-
-    <!-- 👑 Pure White Expanding Header (3x Size Logo Initially, Smooth Animation on Scroll) -->
+    <!-- 👑 Pure White Expanding Header with Top Announcement Bar -->
     <header class="header" id="mainHeader">
+        <div class="top-announce">
+            <span>📍 Direct Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
+            <span class="version-tag-pill" id="appVersionHeader">v1.0.1 • Live GitHub Build</span>
+            <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
+        </div>
         <div class="header-container">
             <a href="#" class="brand-logo">
-                <img src="assets/images/logo-full.jpg" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
+                <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
             </a>
             
             <!-- Restored Full Desktop Nav Menu Links -->
