@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RS Ply & Decor | Premium Plywood, Louvers & Mica | Chennai</title>
+    <meta name="description" content="RS Ply & Decor - Direct wholesale destination for BWP 710 Marine Plywood, PVC Louvers, Charcoal Louvers, Designer Mica, and Architectural Decor Items in Chennai.">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Warm Charcoal & Deep Violet Palette (NO BLUE) */
+            --bg-dark-primary: #181024;      /* Deep Luxury Obsidian Violet background */
+            --bg-dark-secondary: #1e132c;    /* Rich Deep Violet section background */
+            --bg-dark-tertiary: #130b1d;     /* Deepest Violet for footer */
+            --bg-light-primary: #ffffff;     /* Pure Pearl White light section background */
+            --bg-light-secondary: #fbf9fc;   /* Soft alabaster light background */
+            
+            /* Text Colors */
+            --text-dark-theme: #ffffff;      /* High-contrast bright white text for dark sections */
+            --text-dark-muted: #dcd4e8;      /* Soft light violet-gray for dark sections */
+            --text-light-theme: #181024;     /* Deep rich dark violet charcoal for light sections */
+            --text-light-muted: #5e536e;     /* Muted slate violet for light sections */
+
+            /* Metallic Polished Gold & Warm Accents */
+            --accent-brand: #d4af37;         /* Polished Metallic Gold */
+            --accent-brand-dark: #b58d20;    /* Deep Gold */
+            --accent-wood: #8c5225;          /* Warm Wood Accent */
+            --accent-green: #25d366;         /* WhatsApp Green */
+            --border-brand: rgba(212, 175, 55, 0.3);
+            
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 8px;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-dark-theme);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            padding-bottom: 75px;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen Video-Style Intro Loader Screen */
+        .intro-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+        }
+        .intro-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .intro-logo {
+            max-width: 360px;
+            width: 85%;
+            height: auto;
+            transform: scale(0.85);
+            opacity: 0;
+            animation: logoFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes logoFadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Scroll-triggered reveal animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Top Announcement Bar with GitHub Version Badge */
+        .top-announce {
+            background: #140d1b;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        .top-announce a {
+            color: var(--accent-brand);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .version-tag-pill {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--accent-brand);
+            color: var(--accent-brand);
+            padding: 0.15rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* 👑 Pure White Expanding Header (3x Size initially, smooth animation on scroll) */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            z-index: 1000;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 2.25rem 2.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+        }
+        .header.scrolled {
+            padding: 0.65rem 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        .header-container {
+            max-width: 1350px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        /* Full Brand Logo Image (Expanded 3x size initially -> Compact on scroll) */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .header-full-logo {
+            height: 110px; /* 3x Large initial size */
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+        .header.scrolled .header-full-logo {
+            height: 44px; /* Sleek compact size on scroll */
+        }
+
+        /* Desktop Navigation Menu Links */
+        .nav-menu {
+            display: flex;
+            gap: 1.85rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-menu a {
+            color: var(--text-light-theme);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.4rem 0;
+            transition: var(--transition);
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-brand-dark);
+            transition: var(--transition);
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:hover {
+            color: var(--accent-brand-dark);
+        }
+
+        /* Header action buttons: Call Us & WhatsApp */
+        .header-actions {
+            display: flex;
+            gap: 0.85rem;
+            align-items: center;
+        }
+        .btn-call {
+            background: var(--text-light-theme);
+            color: #ffffff;
+            border: none;
+            padding: 0.65rem 1.35rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-call:hover {
+            background: var(--accent-brand-dark);
+            color: #ffffff;
+        }
+        .btn-whatsapp {
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            padding: 0.65rem 1.35rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            background: #1eb855;
+        }
+
+        /* Mobile Hamburger Icon */
+        .hamburger-menu-btn {
+            display: none;
+            font-size: 1.6rem;
+            color: var(--text-light-theme);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* Mobile Drawer */
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 2000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+        .mobile-nav-drawer.open {
+            right: 0;
+        }
+        .mobile-nav-close {
+            align-self: flex-end;
+            font-size: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-light-theme);
+            cursor: pointer;
+        }
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .mobile-nav-links a {
+            color: var(--text-light-theme);
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        /* Page Content Spacer for initial 3x header */
+        .page-content {
+            margin-top: 170px;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* SECTIONS & TYPOGRAPHY */
+        .sec-dark {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-dark-theme);
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        .sec-dark-alt {
+            background-color: var(--bg-dark-secondary);
+            color: var(--text-dark-theme);
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        .sec-light {
+            background-color: var(--bg-light-primary);
+            color: var(--text-light-theme);
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 3.5rem;
+        }
+        .section-badge {
+            display: inline-block;
+            padding: 0.35rem 1.1rem;
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--border-brand);
+            color: var(--accent-brand);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.85rem;
+        }
+        .sec-dark .section-header h2, .sec-dark-alt .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 4.2vw, 3.2rem);
+            font-weight: 400;
+            color: var(--text-dark-theme);
+            margin-bottom: 0.75rem;
+        }
+        .sec-dark .section-header p, .sec-dark-alt .section-header p {
+            color: var(--text-dark-muted);
+            font-size: 1.05rem;
+        }
+        .sec-light .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 4.2vw, 3.2rem);
+            font-weight: 400;
+            color: var(--text-light-theme);
+            margin-bottom: 0.75rem;
+        }
+        .sec-light .section-header p {
+            color: var(--text-light-muted);
+            font-size: 1.05rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 4.5rem 1.5rem 5.5rem;
+            overflow: hidden;
+            background: var(--bg-dark-primary);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(24, 16, 36, 0) 70%);
+            pointer-events: none;
+        }
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--border-brand);
+            color: var(--accent-brand);
+            font-size: 0.8rem;
+            font-weight: 700;
+            width: fit-content;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 600;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+        .hero h1 span {
+            color: var(--accent-brand);
+            display: block;
+            font-style: italic;
+            font-weight: 400;
+        }
+        .hero p {
+            color: var(--text-dark-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 540px;
+        }
+        .hero-btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+        .btn-hero {
+            padding: 0.95rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-hero-primary {
+            background: var(--accent-brand);
+            color: #181024;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-hero-primary:hover {
+            background: #e5bf42;
+            transform: translateY(-2px);
+        }
+        .btn-hero-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+        .btn-hero-outline:hover {
+            border-color: var(--accent-brand);
+            color: var(--accent-brand);
+        }
+
+        .hexagon-photo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hexagon-wrapper {
+            position: relative;
+            width: 380px;
+            height: 420px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+        .hexagon-border {
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: linear-gradient(135deg, var(--accent-brand) 0%, #181024 100%);
+            border: 2px solid var(--accent-brand);
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hexagon-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        /* 🔄 INFINITE SEAMLESS LOOPING NEWS TICKER */
+        .ticker-wrap {
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            background: #140d1b;
+            border-top: 1px solid var(--border-brand);
+            border-bottom: 1px solid var(--border-brand);
+            overflow: hidden;
+            padding: 0.85rem 0;
+            display: flex;
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: seamlessTicker 28s linear infinite;
+        }
+        .ticker-wrap:hover .ticker-track {
+            animation-play-state: paused;
+        }
+        .ticker-item {
+            font-size: 0.875rem;
+            color: var(--accent-brand);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            padding: 0 1.5rem;
+        }
+        @keyframes seamlessTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* PRODUCT LINES */
+        .product-lines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .product-line-card {
+            background: var(--bg-dark-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-brand);
+            padding: 2.25rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .product-line-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-brand);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .product-line-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border-brand);
+            color: var(--accent-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+        .product-line-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-dark-theme);
+        }
+        .product-line-card p {
+            font-size: 0.925rem;
+            color: var(--text-dark-muted);
+            line-height: 1.6;
+        }
+        .btn-line-wa {
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: var(--accent-green);
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            margin-top: auto;
+            transition: var(--transition);
+        }
+        /* Product Line Card Image Thumbnails */
+        .product-card-img-wrapper {
+            width: 100%;
+            height: 190px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-brand);
+            background: #140d1b;
+        }
+        .product-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .product-line-card:hover .product-card-img {
+            transform: scale(1.08);
+        }
+
+        /* Inventory Catalog Image Cards */
+        .catalog-card-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 190px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: #f4eff9;
+        }
+        .catalog-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .catalog-card:hover .catalog-card-img {
+            transform: scale(1.06);
+        }
+        .catalog-card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(24, 16, 36, 0.85);
+            backdrop-filter: blur(6px);
+            color: var(--accent-brand);
+            border: 1px solid var(--accent-brand);
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+        }
+        .catalog-rating {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.4rem;
+        }
+
+        /* 🎨 INTERACTIVE 3D MOTION STUDIO & LOUVER VISUALIZER */
+        .motion-studio-wrapper {
+            background: linear-gradient(145deg, #181024 0%, #100a19 100%);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-brand);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            max-width: 1050px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motion-studio-stage {
+            perspective: 1200px;
+            width: 100%;
+            height: 380px;
+            margin-bottom: 2rem;
+            position: relative;
+            cursor: grab;
+        }
+        .motion-studio-stage:active {
+            cursor: grabbing;
+        }
+
+        .studio-wall-scene {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-md);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, background 0.5s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 50px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-brand);
+            background: #140d1b;
+        }
+
+        /* Ambient Backlight Effects */
+        .ambient-light-glow {
+            position: absolute;
+            inset: -20px;
+            transition: background 0.5s ease, opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .ambient-warm {
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0.08) 55%, transparent 80%);
+        }
+        .ambient-cool {
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.45) 0%, rgba(0, 210, 255, 0.08) 55%, transparent 80%);
+        }
+        .ambient-stealth {
+            background: radial-gradient(circle at center, rgba(140, 82, 37, 0.3) 0%, rgba(20, 13, 27, 0.05) 60%, transparent 80%);
+        }
+
+        /* Slat Track */
+        .slats-container-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 92%;
+            z-index: 2;
+            gap: 6px;
+            transition: gap 0.3s ease;
+        }
+
+        .studio-slat-item {
+            height: 88%;
+            flex: 1;
+            border-radius: 6px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.4), 4px 0 12px rgba(0,0,0,0.4), inset 1px 0 2px rgba(255,255,255,0.2);
+        }
+        .studio-slat-item:hover {
+            transform: translateZ(25px) scaleY(1.03);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            border-color: var(--accent-brand);
+        }
+
+        /* Material Textures */
+        .m-teak {
+            background: linear-gradient(90deg, #3d2211 0%, #734320 30%, #a06232 50%, #573117 75%, #301a0b 100%);
+            border-left: 1px solid rgba(255,255,255,0.15);
+        }
+        .m-charcoal {
+            background: linear-gradient(90deg, #110b17 0%, #291c3d 30%, #3e2b5b 50%, #1d132b 75%, #0d0714 100%);
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        .m-gold {
+            background: linear-gradient(90deg, #705517 0%, #d4af37 35%, #f9e285 50%, #c49d29 70%, #523d0d 100%);
+            border-left: 1px solid rgba(255,255,255,0.4);
+        }
+        .m-marble {
+            background: linear-gradient(90deg, #d8d4dd 0%, #f4f0f8 35%, #ffffff 50%, #e2dce7 70%, #c5bfcc 100%);
+            border-left: 1px solid rgba(255,255,255,0.8);
+        }
+        .m-walnut {
+            background: linear-gradient(90deg, #1d1109 0%, #3d2415 35%, #56331e 50%, #2b180d 70%, #150b05 100%);
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Overlay Feature Display */
+        .studio-center-overlay {
+            position: absolute;
+            z-index: 3;
+            width: 270px;
+            height: 140px;
+            background: rgba(12, 7, 18, 0.92);
+            backdrop-filter: blur(14px);
+            border-radius: 12px;
+            border: 1.5px solid var(--accent-brand);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            transform: translateZ(40px);
+            pointer-events: none;
+        }
+        .studio-center-overlay h4 {
+            font-family: var(--font-heading);
+            font-size: 1.45rem;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+        .studio-center-overlay p {
+            font-size: 0.8rem;
+            color: var(--accent-brand);
+            font-weight: 700;
+        }
+        .studio-badge-3d {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 4;
+            background: rgba(20, 13, 27, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent-brand);
+            color: var(--accent-brand);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Controls Grid */
+        .studio-controls-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: rgba(20, 13, 27, 0.6);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .control-group-title {
+            font-size: 0.8rem;
+            color: var(--text-dark-muted);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .studio-material-pills {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .m-pill {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.55rem 1.1rem;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.825rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .m-pill:hover, .m-pill.active {
+            background: var(--accent-brand);
+            color: #181024;
+            border-color: var(--accent-brand);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        }
+
+        .controls-sub-row {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .studio-slider {
+            width: 100%;
+            accent-color: var(--accent-brand);
+            cursor: pointer;
+            height: 6px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+        }
+
+        /* PRODUCTS WE OFFER CATALOG */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .catalog-sidebar {
+            background: var(--bg-light-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .catalog-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light-theme);
+        }
+        .catalog-list { list-style: none; }
+        .catalog-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+            color: var(--text-light-theme);
+            border: 1px solid transparent;
+        }
+        .catalog-item .count-badge {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-brand-dark);
+            padding: 0.15rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+        .catalog-item.active, .catalog-item:hover {
+            background: #ffffff;
+            border-color: var(--accent-brand);
+            color: var(--accent-brand-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .catalog-item.active .count-badge, .catalog-item:hover .count-badge {
+            background: var(--accent-brand-dark);
+            color: #ffffff;
+        }
+        .products-scroll-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.5rem;
+        }
+        .catalog-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .catalog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-brand);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .catalog-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-light-theme);
+        }
+        .catalog-card p {
+            font-size: 0.875rem;
+            color: var(--text-light-muted);
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+        .catalog-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 0.85rem;
+            margin-top: auto;
+        }
+        .catalog-price {
+            font-weight: 800;
+            color: var(--accent-brand-dark);
+            font-size: 1.15rem;
+        }
+        .btn-whatsapp-inquire {
+            background: var(--accent-green);
+            color: #ffffff;
+            padding: 0.45rem 0.95rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+        .btn-whatsapp-inquire:hover { background: #1eb855; }
+
+        /* STORE LOCATOR */
+        .connect-cta-box {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.5rem;
+        }
+        .connect-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.12;
+        }
+        .connect-desc {
+            color: var(--text-dark-muted);
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .connect-buttons-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+        .btn-connect-wa {
+            background: var(--accent-green);
+            color: #ffffff;
+            padding: 0.95rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+            transition: var(--transition);
+        }
+        .btn-connect-wa:hover {
+            transform: translateY(-3px);
+            background: #1eb855;
+        }
+        .btn-connect-ig {
+            background: #ffffff;
+            color: var(--text-light-theme);
+            padding: 0.95rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .btn-connect-ig:hover {
+            transform: translateY(-3px);
+            background: #f0f0f0;
+        }
+
+        .store-location-card {
+            background: #ffffff;
+            color: var(--text-light-theme);
+            border-radius: var(--radius-lg);
+            padding: 2.75rem 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .store-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .store-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--accent-brand);
+            color: var(--accent-brand-dark);
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+        .store-name {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-light-theme);
+        }
+        .store-address {
+            font-size: 0.95rem;
+            color: var(--text-light-muted);
+            max-width: 480px;
+            line-height: 1.5;
+        }
+        .store-hours {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #10b981;
+            font-weight: 700;
+        }
+        .store-hours-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+        .btn-maps {
+            background: var(--text-light-theme);
+            color: #ffffff;
+            padding: 0.95rem 1.85rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .btn-maps:hover { background: var(--accent-brand-dark); }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-dark-tertiary);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 4.5rem 1.5rem 2rem;
+            border-top: 1px solid var(--border-brand);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        .footer-content-grid {
+            max-width: 1280px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1.2fr 1.6fr;
+            gap: 3rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .footer-brand p {
+            color: var(--text-dark-muted);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 1.15rem;
+            font-weight: 600;
+        }
+        .footer-links-list { list-style: none; }
+        .footer-links-list li { margin-bottom: 0.75rem; }
+        .footer-links-list a {
+            color: var(--text-dark-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .footer-links-list a:hover {
+            color: var(--accent-brand);
+            padding-left: 4px;
+        }
+        .footer-bottom-flex {
+            max-width: 1280px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dark-muted);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .footer-mp-branding {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .made-by-text {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .mp-agency-title {
+            font-size: 0.825rem;
+            font-weight: 700;
+            color: var(--text-dark-muted);
+        }
+
+        /* Mobile Bottom App Navigation */
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            background: #140d1b;
+            border-top: 1px solid var(--border-brand);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.65rem 0;
+            z-index: 999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+        }
+        .bottom-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-dark-muted);
+            text-decoration: none;
+            font-size: 0.72rem;
+            font-weight: 700;
+            gap: 0.2rem;
+            transition: var(--transition);
+        }
+        .bottom-nav-item.active, .bottom-nav-item:hover {
+            color: var(--accent-brand);
+        }
+        .bottom-nav-item i { font-size: 1.2rem; }
+
+        /* Mobile Phone & Tablet Optimizations */
+        @media (max-width: 900px) {
+            .hero-container, .catalog-layout, .footer-content-grid, .store-location-card {
+                grid-template-columns: 1fr;
+            }
+            .nav-menu { display: none; }
+            .header-actions .btn-call, .header-actions .btn-whatsapp { display: none; }
+            .hamburger-menu-btn { display: flex; align-items: center; justify-content: center; }
+            .page-content { margin-top: 100px; }
+            .header { padding: 1rem 1.25rem; }
+            .header.scrolled { padding: 0.65rem 1.25rem; }
+            .header-full-logo { height: 50px; }
+            .header.scrolled .header-full-logo { height: 38px; }
+            .products-scroll-view { grid-template-columns: 1fr; gap: 1rem; }
+            .catalog-sidebar { padding: 0.75rem 0.25rem; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+            .catalog-title { display: none; }
+            .catalog-list { display: flex; gap: 0.5rem; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; width: 100%; box-sizing: border-box; }
+            .catalog-item { white-space: nowrap; border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.825rem; flex-shrink: 0; display: inline-flex; align-items: center; }
+            .footer-content-grid { gap: 2rem; }
+            .store-location-card { padding: 1.75rem 1.25rem; }
+        }
+
+        @media (max-width: 600px) {
+            .motion-studio-wrapper {
+                padding: 1.25rem 0.85rem;
+            }
+            .motion-studio-stage {
+                height: 270px;
+                margin-bottom: 1.25rem;
+            }
+            .studio-center-overlay {
+                width: 190px;
+                height: 110px;
+                padding: 0.65rem;
+            }
+            .studio-center-overlay h4 {
+                font-size: 1.15rem;
+            }
+            .studio-center-overlay p {
+                font-size: 0.72rem;
+            }
+            .controls-sub-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .m-pill {
+                padding: 0.45rem 0.85rem;
+                font-size: 0.78rem;
+            }
+            .studio-badge-3d {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.55rem;
+            }
+            .product-lines-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.1rem;
+                line-height: 1.2;
+            }
+            .hero-badge {
+                font-size: 0.75rem;
+            }
+            .section-header h2 {
+                font-size: 1.85rem;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .mobile-bottom-bar { display: none; }
+            body { padding-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fullscreen Intro Loader Screen -->
+    <div class="intro-loader" id="introLoader">
+        <img src="assets/images/logo-full.jpg" alt="RS Ply and Decor Logo" class="intro-logo">
+    </div>
+
+    <!-- Top Announcement Bar with GitHub Version Badge -->
+    <div class="top-announce">
+        <span>📍 Direct Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
+        <span class="version-tag-pill" id="appVersionHeader">v1.0.1 • Live GitHub Build</span>
+        <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
+    </div>
+
+    <!-- 👑 Pure White Expanding Header (3x Size Logo Initially, Smooth Animation on Scroll) -->
+    <header class="header" id="mainHeader">
+        <div class="header-container">
+            <a href="#" class="brand-logo">
+                <img src="assets/images/logo-full.jpg" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
+            </a>
+            
+            <!-- Restored Full Desktop Nav Menu Links -->
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#product-lines">Our Products</a></li>
+                <li><a href="#products">Products We Offer</a></li>
+                <li><a href="#motion-studio">Louver Visualizer</a></li>
+                <li><a href="#locator">Contact Us</a></li>
+            </ul>
+
+            <!-- Restored Desktop Action Buttons: Call Us & WhatsApp -->
+            <div class="header-actions">
+                <a href="tel:8667506984" class="btn-call"><i class="fa-solid fa-phone"></i> Call Us</a>
+                <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <!-- Mobile 3 Lines Hamburger Button -->
+                <button class="hamburger-menu-btn" onclick="toggleMobileNav()" title="Open Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide Drawer Navigation -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" onclick="toggleMobileNav()">Home</a></li>
+            <li><a href="#product-lines" onclick="toggleMobileNav()">Our Products</a></li>
+            <li><a href="#products" onclick="toggleMobileNav()">Products We Offer</a></li>
+            <li><a href="#motion-studio" onclick="toggleMobileNav()">Louver Visualizer</a></li>
+            <li><a href="#locator" onclick="toggleMobileNav()">Contact Us</a></li>
+        </ul>
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: auto;">
+            <a href="tel:8667506984" class="btn-call" style="justify-content: center;"><i class="fa-solid fa-phone"></i> Call Us</a>
+            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." class="btn-whatsapp" style="justify-content: center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- 1️⃣ HERO SECTION -->
+        <section class="sec-dark hero" id="home">
+            <div class="hero-container">
+                <div class="hero-left">
+                    <span class="hero-badge"><i class="fa-solid fa-gem"></i> Premium Wholesale Destination</span>
+                    <h1>Crafting Premium Spaces <span>With Quality Plywood & Louvers</span></h1>
+                    <p>Direct factory prices for BWP 710 Marine Plywood, PVC Louvered Panels, Charcoal Accent Slats, Designer High-Gloss Mica, and Architectural Decor Items across Chennai.</p>
+                    <div class="hero-btn-group">
+                        <a href="#products" class="btn-hero btn-hero-primary">
+                            Explore Products <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20I%20want%20to%20inquire%20about%20wholesale%20plywood%20and%20louvers." target="_blank" class="btn-hero btn-hero-outline">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp Inquiry
+                        </a>
+                    </div>
+                      <div class="hexagon-photo-container">
+                    <div class="hexagon-wrapper">
+                        <div class="hexagon-border">
+                            <img src="assets/images/hero_interior_plywood.png" alt="RS Ply & Decor Interior Showcase" class="hexagon-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔄 INFINITE SEAMLESS LOOPING NEWS TICKER -->
+        <div class="ticker-wrap">
+            <div class="ticker-track">
+                <div class="ticker-item">🪵 BWP 710 MARINE PLYWOOD</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🧱 PVC FLUTED LOUVER PANELS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">⬛ CHARCOAL ACCENT LOUVER SLATS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">✨ DESIGNER HIGH-GLOSS MICA SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🚪 WARP-PROOF FLUSH DOORS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🏠 EXTERIOR SOFFIT BOARDS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🛡️ FLOOR PROTECTION SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">📦 DIRECT WHOLESALE PRICES IN CHENNAI</div>
+                <div class="ticker-item">|</div>
+
+                <!-- Duplicated for 100% seamless 0-gap infinite loop -->
+                <div class="ticker-item">🪵 BWP 710 MARINE PLYWOOD</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🧱 PVC FLUTED LOUVER PANELS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">⬛ CHARCOAL ACCENT LOUVER SLATS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">✨ DESIGNER HIGH-GLOSS MICA SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🚪 WARP-PROOF FLUSH DOORS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🏠 EXTERIOR SOFFIT BOARDS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">🛡️ FLOOR PROTECTION SHEETS</div>
+                <div class="ticker-item">|</div>
+                <div class="ticker-item">📦 DIRECT WHOLESALE PRICES IN CHENNAI</div>
+                <div class="ticker-item">|</div>
+            </div>
+        </div>
+
+        <!-- 2️⃣ OUR PRODUCT LINES (6 RS Ply Categories) -->
+        <section class="sec-dark-alt reveal-on-scroll" id="product-lines">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">OUR PRODUCT LINES</span>
+                    <h2>Everything Your Space Needs</h2>
+                    <p>Explore our complete architectural surface and plywood solutions.</p>
+                </div>
+                <div class="product-lines-grid">
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/bwp_marine_plywood.png" alt="BWP 710 Marine Plywood" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-layer-group"></i></div>
+                            <h3>BWP 710 Marine Plywood</h3>
+                        </div>
+                        <p>100% boiling-water waterproof marine grade hardwood plywood engineered for kitchens and wardrobes.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20BWP%20710%20Marine%20Plywood" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/fluted_pvc_louvers.png" alt="PVC Fluted Louvers" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-border-all"></i></div>
+                            <h3>PVC Fluted Louvers</h3>
+                        </div>
+                        <p>Waterproof decorative louvered wall panels in realistic natural wood-grain and metallic textures.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20PVC%20Fluted%20Louvers" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/charcoal_louvers.png" alt="Charcoal Accent Louvers" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-cube"></i></div>
+                            <h3>Charcoal Accent Louvers</h3>
+                        </div>
+                        <p>Deep charcoal vertical accent louver slats designed for modern TV wall backdrops and foyer features.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Charcoal%20Accent%20Louvers" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/glossy_mica.png" alt="Designer High-Gloss Mica" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h3>Designer High-Gloss Mica</h3>
+                        </div>
+                        <p>High-gloss acrylic and marble-finish mica laminates to give interior furniture a luxury finish.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Designer%20High-Gloss%20Mica" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/flush_door.png" alt="Warp-Proof Flush Doors" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-door-open"></i></div>
+                            <h3>Warp-Proof Flush Doors</h3>
+                        </div>
+                        <p>Solid timber core flush doors and wooden door frames engineered for long term warp resistance.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Warp-Proof%20Flush%20Doors" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
+                            <img src="assets/images/hero_interior_plywood.png" alt="Exterior Soffit Panels" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-house"></i></div>
+                            <h3>Exterior Soffit Panels</h3>
+                        </div>
+                        <p>All-weather exterior soffit ceiling boards and protective floor sheets for heavy construction sites.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Exterior%20Soffit%20Panels" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3️⃣ INTERACTIVE 3D MOTION STUDIO & LOUVER VISUALIZER -->
+        <section class="sec-dark-alt reveal-on-scroll" id="motion-studio">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">INTERACTIVE REAL-TIME STUDIO</span>
+                    <h2>3D Louver & Backdrop Visualizer</h2>
+                    <p>Customize louver materials, ambient LED lighting, and slat density in real-time. Drag or move to rotate in 3D perspective.</p>
+                </div>
+
+                <div class="motion-studio-wrapper">
+                    <div class="motion-studio-stage" id="studioStage" onmousemove="handleStageParallax(event)" onmouseleave="resetStageParallax()" ontouchmove="handleStageTouch(event)">
+                        <div class="studio-badge-3d">
+                            <i class="fa-solid fa-cube"></i> Interactive 3D Parallax Viewport
+                        </div>
+                        
+                        <div class="studio-wall-scene" id="studioScene">
+                            <!-- Ambient Glow Layer -->
+                            <div class="ambient-light-glow ambient-warm" id="ambientGlow"></div>
+
+                            <!-- Louver Slats Dynamic Track -->
+                            <div class="slats-container-track" id="slatsTrack">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+
+                            <!-- Center Overlay Feature Display -->
+                            <div class="studio-center-overlay">
+                                <span style="font-size: 0.68rem; color: rgba(255,255,255,0.6); font-weight: 700; text-transform: uppercase;">Feature Wall Mockup</span>
+                                <h4 id="studioTitle">Teak Natural Oak</h4>
+                                <p id="studioDesc">Warm Architectural Timber Louvers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Studio Controls Panel -->
+                    <div class="studio-controls-grid">
+                        <div>
+                            <div class="control-group-title">
+                                <i class="fa-solid fa-palette" style="color: var(--accent-brand);"></i> 1. Select Material Finish
+                            </div>
+                            <div class="studio-material-pills">
+                                <button class="m-pill active" onclick="setStudioMaterial('teak', 'Teak Natural Oak', 'Warm Architectural Timber Louvers', 'm-teak')">🪵 Teak Oak</button>
+                                <button class="m-pill" onclick="setStudioMaterial('charcoal', 'Obsidian Charcoal', 'Modern Matte Accent Wall Slats', 'm-charcoal')">⬛ Obsidian Charcoal</button>
+                                <button class="m-pill" onclick="setStudioMaterial('gold', 'Polished Metallic Gold', 'Luxury Satin Gold Slat Highlights', 'm-gold')">✨ Polished Gold</button>
+                                <button class="m-pill" onclick="setStudioMaterial('marble', 'Carrara White Marble', 'High-Gloss Marble Mica Finish', 'm-marble')">🪨 Carrara Marble</button>
+                                <button class="m-pill" onclick="setStudioMaterial('walnut', 'Smoked Royal Walnut', 'Deep Rich Mahogany Timber Slats', 'm-walnut')">🌲 Royal Walnut</button>
+                            </div>
+                        </div>
+
+                        <div class="controls-sub-row">
+                            <div>
+                                <div class="control-group-title">
+                                    <i class="fa-solid fa-lightbulb" style="color: var(--accent-brand);"></i> 2. LED Ambient Backlight
+                                </div>
+                                <div class="studio-material-pills">
+                                    <button class="m-pill active" id="btnLightWarm" onclick="setStudioLight('warm')">☀️ Golden Glow</button>
+                                    <button class="m-pill" id="btnLightCool" onclick="setStudioLight('cool')">🔷 Ice Cyan</button>
+                                    <button class="m-pill" id="btnLightStealth" onclick="setStudioLight('stealth')">🌙 Stealth Dark</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="control-group-title" style="justify-content: space-between;">
+                                    <span><i class="fa-solid fa-bars" style="color: var(--accent-brand);"></i> 3. Slat Count / Density</span>
+                                    <span id="slatCountLabel" style="color: var(--accent-brand); font-weight: 800;">8 Slats</span>
+                                </div>
+                                <input type="range" min="4" max="16" value="8" class="studio-slider" id="slatDensitySlider" oninput="updateSlatDensity(this.value)">
+                            </div>
+                        </div>
+
+                        <!-- Direct WhatsApp Custom Order Action -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; margin-top: 0.5rem; flex-wrap: wrap; gap: 1rem;">
+                            <div style="font-size: 0.85rem; color: var(--text-dark-muted);">
+                                Configuration: <strong id="specSummaryText" style="color: #ffffff;">Teak Natural Oak • Golden Glow • 8 Slats</strong>
+                            </div>
+                            <a id="btnOrderCustomWA" href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20I%20customized%20a%20louver%20wall%20setup%20on%20your%20website%20Motion%20Studio:%20Teak%20Natural%20Oak%20%E2%80%A2%20Golden%20Glow%20%E2%80%A2%208%20Slats." target="_blank" class="btn-whatsapp" style="padding: 0.65rem 1.4rem;">
+                                <i class="fa-brands fa-whatsapp"></i> Order This Custom Setup
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4️⃣ PRODUCTS WE OFFER (LIGHT SECTION) -->
+        <section class="sec-light reveal-on-scroll" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">INVENTORY CATALOG</span>
+                    <h2>Products We Offer</h2>
+                    <p>Filter by category to view wholesale options and live pricing for your project.</p>
+                </div>
+
+                <div class="catalog-layout" id="catalog">
+                    <!-- Left Sidebar Categories -->
+                    <aside class="catalog-sidebar">
+                        <h3 class="catalog-title">Categories</h3>
+                        <ul class="catalog-list">
+                            <li class="catalog-item active" onclick="filterCatalogList('all')">
+                                <span>📁 All Products</span> <span class="count-badge" id="count-all">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('plywood')">
+                                <span>🪵 Plywood Boards</span> <span class="count-badge" id="count-plywood">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('louvers')">
+                                <span>🧱 Louvered Panels</span> <span class="count-badge" id="count-louvers">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('mica')">
+                                <span>✨ Designer Mica</span> <span class="count-badge" id="count-mica">0</span>
+                            </li>
+                            <li class="catalog-item" onclick="filterCatalogList('items')">
+                                <span>🏠 Interior Items</span> <span class="count-badge" id="count-items">0</span>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- Right Products Grid -->
+                    <div id="productsScrollGrid" class="products-scroll-view">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5️⃣ STORE LOCATOR / LET'S CONNECT -->
+        <section class="sec-dark reveal-on-scroll" id="locator">
+            <div class="container">
+                <div class="connect-cta-box">
+                    <span class="section-badge">LET'S CONNECT</span>
+                    <h2 class="connect-title">Have a Project?<br>Let's Talk Materials.</h2>
+                    <p class="connect-desc">Whether you're fitting out a single room or sourcing for a major commercial project, our team is ready to help with product selection, pricing, and fulfillment.</p>
+                    <div class="connect-buttons-row">
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="btn-connect-wa">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> WhatsApp +91 86675 06984
+                        </a>
+                        <a href="https://share.google/rZFBMKaKAfE7nxxQm" target="_blank" class="btn-connect-ig">
+                            <i class="fa-brands fa-instagram" style="font-size: 1.25rem;"></i> Follow @rsplydecor
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Store Location Card -->
+                <div class="store-location-card">
+                    <div class="store-info-left">
+                        <div class="store-badge"><i class="fa-solid fa-map-pin"></i> STORE LOCATION</div>
+                        <h3 class="store-name">RS Ply & Decor</h3>
+                        <p class="store-address">Avadhanam Papier Road, Near Choolai Park, Choolai, Chennai, Tamil Nadu 600007</p>
+                        <div class="store-hours">
+                            <div class="store-hours-dot"></div>
+                            <span>Open 10:00 AM – 8:30 PM (Mon–Sat)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://share.google/rZFBMKaKAfE7nxxQm" target="_blank" class="btn-maps">
+                            <i class="fa-solid fa-location-arrow"></i> Open in Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 6️⃣ FOOTER -->
+    <footer>
+        <div class="footer-content-grid">
+            <div class="footer-brand">
+                <a href="#" class="brand-logo" style="margin-bottom: 1rem;">
+                    <img src="assets/images/logo-full.jpg" alt="RS Ply & Decor Brand Logo" style="height: 44px; width: auto; object-fit: contain;">
+                </a>
+                <p>Direct wholesale distribution of BWP 710 marine plywood, PVC louvers, charcoal panels, and designer mica across Chennai.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product Lines</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#products">Plywood Boards</a></li>
+                    <li><a href="#products">Charcoal Louvers</a></li>
+                    <li><a href="#products">PVC Louvered Panels</a></li>
+                    <li><a href="#products">Designer Mica</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="footer-links-list">
+                    <li><i class="fa-solid fa-location-dot" style="color: var(--accent-brand);"></i> Avadhanam Papier Road, Choolai, Chennai - 600007</li>
+                    <li><a href="tel:8667506984"><i class="fa-solid fa-phone" style="color: var(--accent-brand);"></i> +91 86675 06984</a></li>
+                    <li><a href="mailto:rsplydecor@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--accent-brand);"></i> rsplydecor@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#product-lines">Our Products</a></li>
+                    <li><a href="#locator">Store Locator</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-flex">
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">v1.0.1 • Live GitHub Build</span></p>
+            <div class="footer-mp-branding">
+                <span class="made-by-text">Made by</span>
+                <span class="mp-agency-title">MP Digital Agency</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="mobile-bottom-bar">
+        <a href="#home" class="bottom-nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#products" class="bottom-nav-item"><i class="fa-solid fa-boxes-stacked"></i> Products</a>
+        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20visited%20your%20website.%20We%20saw%20your%20website%20was%20wonderful.%20We%20wanted%20to%20connect%20to%20you." target="_blank" class="bottom-nav-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="#locator" class="bottom-nav-item"><i class="fa-solid fa-location-dot"></i> Find Us</a>
+    </div>
+
+    <!-- JS Engine -->
+    <script>
+        let catalogProducts = [
+            { id: 1, name: "Premium BWP 710 Marine Plywood", category: "plywood", price: "₹85 / sq.ft", desc: "100% boiling waterproof marine grade hardwood plywood.", img: "assets/images/bwp_marine_plywood.png", tag: "FACTORY DIRECT", rating: "5.0 ★" },
+            { id: 2, name: "BWR Grade Commercial Plywood", category: "plywood", price: "₹65 / sq.ft", desc: "Moisture-resistant plywood engineered for bedroom wardrobes.", img: "assets/images/bwp_marine_plywood.png", tag: "IN STOCK", rating: "4.9 ★" },
+            { id: 3, name: "W18 PVC Fluted Louvered Panel", category: "louvers", price: "₹450 / piece", desc: "Fluted louvered panels in rich natural wood-grain finishes.", img: "assets/images/fluted_pvc_louvers.png", tag: "BEST SELLER", rating: "5.0 ★" },
+            { id: 4, name: "Charcoal Accent Louvered Panel", category: "louvers", price: "₹520 / piece", desc: "Deep charcoal modern vertical louvers for TV wall units.", img: "assets/images/charcoal_louvers.png", tag: "TRENDING", rating: "4.9 ★" },
+            { id: 5, name: "Designer Glossy Mica Sheet", category: "mica", price: "₹1,200 / sheet", desc: "High-gloss mica sheets in marble & stone textures.", img: "assets/images/glossy_mica.png", tag: "LUXURY", rating: "5.0 ★" },
+            { id: 6, name: "Warp-Resistant Flush Door", category: "items", price: "₹2,800 / piece", desc: "Solid timber core flush door for interior bedrooms.", img: "assets/images/flush_door.png", tag: "PREMIUM", rating: "4.8 ★" }
+        ];
+
+        // Header Scroll Animation (Expands at top, shrinks smoothly on scroll after threshold)
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle Mobile Nav Drawer
+        function toggleMobileNav() {
+            document.getElementById('mobileNavDrawer').classList.toggle('open');
+        }
+
+        // Hide Intro Loader Page after 2.2 seconds
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('introLoader');
+                if (loader) {
+                    loader.classList.add('fade-out');
+                }
+            }, 2200);
+        });
+
+        // Scroll Reveal Observer
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                }
+            });
+        };
+        const revealObserver = new IntersectionObserver(revealCallback, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Dynamic Category Counts
+        function updateCategoryCounts() {
+            document.getElementById('count-all').innerText = catalogProducts.length;
+            document.getElementById('count-plywood').innerText = catalogProducts.filter(p => p.category === 'plywood').length;
+            document.getElementById('count-louvers').innerText = catalogProducts.filter(p => p.category === 'louvers').length;
+            document.getElementById('count-mica').innerText = catalogProducts.filter(p => p.category === 'mica').length;
+            document.getElementById('count-items').innerText = catalogProducts.filter(p => p.category === 'items').length;
+        }
+
+        // Render Catalog Grid
+        function renderCatalogGrid(filter = 'all') {
+            const container = document.getElementById('productsScrollGrid');
+            container.innerHTML = '';
+
+            let list = catalogProducts;
+            if (filter !== 'all') {
+                list = list.filter(item => item.category === filter);
+            }
+
+            list.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'catalog-card';
+                card.innerHTML = `
+                    <div class="catalog-card-img-wrap">
+                        <img src="${p.img}" alt="${p.name}" class="catalog-card-img">
+                        <span class="catalog-card-tag">${p.tag}</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; flex-grow: 1;">
+                        <span class="catalog-rating"><i class="fa-solid fa-star"></i> ${p.rating}</span>
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                        <div class="catalog-price-row">
+                            <span class="catalog-price">${p.price}</span>
+                            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20Inquiry%20for%20${encodeURIComponent(p.name)}" target="_blank" class="btn-whatsapp-inquire">
+                                <i class="fa-brands fa-whatsapp"></i> Inquire
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterCatalogList(cat) {
+            document.querySelectorAll('.catalog-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderCatalogGrid(cat);
+        }
+
+        // 🎨 3D Motion Studio Interactive Logic
+        let currentMaterialClass = 'm-teak';
+        let currentMaterialName = 'Teak Natural Oak';
+        let currentLightName = 'Golden Glow';
+        let currentSlatCount = 8;
+
+        function updateSlatDensity(count) {
+            currentSlatCount = parseInt(count);
+            document.getElementById('slatCountLabel').innerText = `${currentSlatCount} Slats`;
+            renderStudioSlats();
+            updateSummaryText();
+        }
+
+        function renderStudioSlats() {
+            const track = document.getElementById('slatsTrack');
+            if (!track) return;
+            track.innerHTML = '';
+            for (let i = 0; i < currentSlatCount; i++) {
+                const slat = document.createElement('div');
+                slat.className = `studio-slat-item ${currentMaterialClass}`;
+                track.appendChild(slat);
+            }
+        }
+
+        function setStudioMaterial(key, title, desc, classname) {
+            currentMaterialClass = classname;
+            currentMaterialName = title;
+            document.getElementById('studioTitle').innerText = title;
+            document.getElementById('studioDesc').innerText = desc;
+            
+            document.querySelectorAll('.studio-material-pills .m-pill').forEach(btn => {
+                if (btn.innerText.includes(title.split(' ')[0])) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            renderStudioSlats();
+            updateSummaryText();
+        }
+
+        function setStudioLight(mode) {
+            const glow = document.getElementById('ambientGlow');
+            glow.className = `ambient-light-glow ambient-${mode}`;
+            
+            document.getElementById('btnLightWarm').classList.remove('active');
+            document.getElementById('btnLightCool').classList.remove('active');
+            document.getElementById('btnLightStealth').classList.remove('active');
+
+            if (mode === 'warm') {
+                document.getElementById('btnLightWarm').classList.add('active');
+                currentLightName = 'Golden Glow';
+            } else if (mode === 'cool') {
+                document.getElementById('btnLightCool').classList.add('active');
+                currentLightName = 'Ice Cyan';
+            } else {
+                document.getElementById('btnLightStealth').classList.add('active');
+                currentLightName = 'Stealth Dark';
+            }
+            updateSummaryText();
+        }
+
+        function updateSummaryText() {
+            const text = `${currentMaterialName} • ${currentLightName} • ${currentSlatCount} Slats`;
+            document.getElementById('specSummaryText').innerText = text;
+            const waMsg = `Hi RS Ply & Decor, I customized a louver wall setup on your website Motion Studio: ${encodeURIComponent(text)}. I would like to order samples and get a quote.`;
+            document.getElementById('btnOrderCustomWA').href = `https://wa.me/918667506984?text=${waMsg}`;
+        }
+
+        function handleStageParallax(e) {
+            const stage = document.getElementById('studioStage');
+            const scene = document.getElementById('studioScene');
+            const rect = stage.getBoundingClientRect();
+            const x = e.clientX - rect.left - (rect.width / 2);
+            const y = e.clientY - rect.top - (rect.height / 2);
+            
+            const rotateX = (-y / rect.height) * 20;
+            const rotateY = (x / rect.width) * 20;
+
+            scene.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        function resetStageParallax() {
+            const scene = document.getElementById('studioScene');
+            if (scene) scene.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        }
+
+        function handleStageTouch(e) {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                handleStageParallax({ clientX: touch.clientX, clientY: touch.clientY });
+            }
+        }
+
+        // Initialize App
+        updateCategoryCounts();
+        renderCatalogGrid('all');
+        renderStudioSlats();
+        updateSummaryText();
+    </script>
+</body>
+</html>
