@@ -19,25 +19,17 @@
 
     <style>
         :root {
-            /* Architectural Obsidian & Satin Bronze Palette */
-            --bg-dark-primary: #100a18;      /* Deep Architectural Obsidian */
-            --bg-dark-secondary: #171022;    /* Rich Charcoal Mahogany background */
-            --bg-dark-tertiary: #0c0712;     /* Deepest Onyx for footer */
-            --bg-light-primary: #ffffff;     /* Pure Pearl White */
-            --bg-light-secondary: #f9f7fc;   /* Soft alabaster */
+            /* Official RS Brand Colors (Crimson Red & Emerald Green from Logo) */
+            --brand-red: #d31f26;            /* Primary Crimson Red */
+            --brand-red-dark: #b5151c;       /* Deep Crimson Red */
+            --brand-green: #007a48;          /* Emerald Forest Green */
+            --brand-green-dark: #005a35;     /* Deep Emerald Green */
             
-            /* Text Colors */
-            --text-dark-theme: #ffffff;      /* High contrast white */
-            --text-dark-muted: #d0c7de;      /* Muted lavender gray */
-            --text-light-theme: #140d1b;     /* Deep charcoal text */
-            --text-light-muted: #5e5270;     /* Muted slate text */
-
-            /* Architectural Satin Bronze & Polished Metallic Gold */
-            --accent-brand: #d4af37;         /* Polished Metallic Gold */
+            --accent-brand: #d31f26;         /* Primary Brand Color (Crimson Red) */
             --accent-bronze: #c59b27;        /* Architectural Satin Bronze */
-            --accent-wood: #8c5225;          /* Warm Timber Accent */
+            --accent-gold: #d4af37;          /* Metallic Gold Accent */
             --accent-green: #25d366;         /* WhatsApp Green */
-            --border-brand: rgba(212, 175, 55, 0.25);
+            --border-brand: rgba(211, 31, 38, 0.25);
             
             --font-heading: 'Cormorant Garamond', serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -374,9 +366,9 @@
             margin: 0 auto 3.25rem;
         }
         .section-badge {
-            background: rgba(212, 175, 55, 0.12);
-            border: 1px solid var(--border-brand);
-            color: var(--accent-brand);
+            background: rgba(0, 122, 72, 0.12);
+            border: 1px solid rgba(0, 122, 72, 0.3);
+            color: var(--brand-green);
             padding: 0.35rem 1rem;
             border-radius: 50px;
             font-size: 0.72rem;
@@ -387,8 +379,9 @@
             margin-bottom: 0.85rem;
         }
         .sec-light .section-badge {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--accent-bronze);
+            background: rgba(211, 31, 38, 0.12);
+            color: var(--brand-red);
+            border-color: rgba(211, 31, 38, 0.3);
         }
         .section-header h2 {
             font-family: var(--font-heading);
@@ -438,9 +431,9 @@
             gap: 0.5rem;
             padding: 0.4rem 1.1rem;
             border-radius: 50px;
-            background: rgba(212, 175, 55, 0.12);
-            border: 1px solid var(--border-brand);
-            color: var(--accent-brand);
+            background: rgba(0, 122, 72, 0.12);
+            border: 1px solid rgba(0, 122, 72, 0.3);
+            color: var(--brand-green);
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.5px;
@@ -454,7 +447,7 @@
             color: #ffffff;
         }
         .hero h1 span {
-            color: var(--accent-brand);
+            color: var(--brand-red);
             display: block;
             font-style: italic;
         }
@@ -482,12 +475,12 @@
             gap: 0.6rem;
         }
         .btn-hero-primary {
-            background: var(--accent-brand);
-            color: #100a18;
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-red-dark) 100%);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(211, 31, 38, 0.35);
         }
         .btn-hero-primary:hover {
-            background: #e5bf42;
+            background: #b5151c;
             transform: translateY(-2px);
         }
         .btn-hero-outline {
@@ -1359,7 +1352,7 @@
 
     <!-- Fullscreen Intro Loader Screen -->
     <div class="intro-loader" id="introLoader">
-        <img src="assets/images/logo-full-transparent.png" alt="RS Ply and Decor Logo" class="intro-logo">
+        <img src="assets/images/official-logo.jpg" alt="RS Ply and Decor Logo" class="intro-logo">
     </div>
 
     <!-- 👑 Pure White Expanding Header with Top Announcement Bar -->
@@ -1371,7 +1364,7 @@
         </div>
         <div class="header-container">
             <a href="#" class="brand-logo">
-                <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
+                <img src="assets/images/official-logo.jpg" alt="RS Ply & Decor Full Brand Logo" class="header-full-logo">
             </a>
             
             <!-- Restored Full Desktop Nav Menu Links -->
@@ -1770,7 +1763,7 @@
         <div class="footer-content-grid">
             <div class="footer-brand">
                 <a href="#" class="brand-logo">
-                    <img src="assets/images/logo-full-transparent.png" alt="RS Ply & Decor Footer Logo" style="height: 48px; width: auto;">
+                    <img src="assets/images/official-logo.jpg" alt="RS Ply & Decor Footer Logo" style="height: 52px; width: auto; border-radius: 6px;">
                 </a>
                 <p>Premier architectural surface material wholesale supplier in Chennai. Specializing in IS 710 BWP Marine Plywood, Acoustic PVC & Charcoal Fluted Louvers, Designer High-Gloss Mica & Flush Doors for Architects and Interior Designers.</p>
             </div>
