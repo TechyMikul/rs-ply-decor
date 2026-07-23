@@ -511,8 +511,8 @@
             border: 1.5px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 25px 75px rgba(0, 0, 0, 0.85);
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            min-height: 560px;
+            grid-template-columns: 380px 1fr;
+            min-height: 540px;
             background: #0d0714;
             margin-top: 1rem;
         }
@@ -520,15 +520,16 @@
         /* Left Half: Vibrant RS Brand Red Panel */
         .hero-split-left {
             background: linear-gradient(145deg, #d31f26 0%, #9e0f14 100%);
-            padding: 3.5rem 2rem;
+            padding: 3rem 1.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 2;
         }
         .hero-left-inset-frame {
-            width: 80%;
-            max-width: 290px;
+            width: 100%;
+            max-width: 280px;
             height: 400px;
             border-radius: 20px;
             overflow: hidden;
@@ -549,31 +550,29 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-height: 400px;
+            padding: 3.5rem 3rem;
+            z-index: 1;
         }
         .hero-right-bg-img {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.65) contrast(1.15);
+            filter: brightness(0.55) contrast(1.15);
         }
         .hero-right-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(13, 7, 20, 0.6) 0%, transparent 70%);
+            background: linear-gradient(to right, rgba(13, 7, 20, 0.85) 0%, rgba(13, 7, 20, 0.4) 100%);
         }
 
-        /* Center Overlapping Editorial Typography */
+        /* Right Column Typography Content (No Overlap On Inset Frame!) */
         .hero-split-typography {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             z-index: 10;
-            width: 90%;
-            max-width: 720px;
-            text-align: center;
+            max-width: 600px;
+            text-align: left;
         }
         .hero-split-badge {
             background: rgba(16, 10, 24, 0.92);
@@ -591,35 +590,42 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.6);
         }
         .hero-split-title {
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+        .title-serif {
+            display: block;
             font-family: var(--font-heading);
-            font-size: clamp(2.4rem, 4.8vw, 4.2rem);
-            font-weight: 800;
-            line-height: 1.04;
+            font-size: clamp(2.5rem, 4vw, 3.6rem);
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 0 8px 30px rgba(0,0,0,0.9);
+        }
+        .title-sans {
+            display: block;
+            font-family: var(--font-body);
+            font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+            font-weight: 900;
             color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 10px 35px rgba(0, 0, 0, 0.95);
-            margin-bottom: 0.85rem;
-        }
-        .hero-split-title span {
-            display: block;
-            color: #ffffff;
-            font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
+            text-shadow: 0 8px 30px rgba(0,0,0,0.9);
+            line-height: 1.1;
         }
         .hero-split-desc {
-            font-size: 1.02rem;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.92);
-            max-width: 540px;
-            margin: 0 auto 1.65rem;
+            max-width: 520px;
+            margin-bottom: 1.65rem;
             text-shadow: 0 4px 18px rgba(0, 0, 0, 0.95);
             font-weight: 500;
-            line-height: 1.55;
+            line-height: 1.6;
         }
         .hero-split-actions {
             display: flex;
             gap: 1rem;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: wrap;
         }
 
@@ -629,23 +635,20 @@
                 min-height: auto;
             }
             .hero-split-left {
-                padding: 2.5rem 1.5rem 3.5rem;
+                padding: 2.5rem 1.5rem;
             }
             .hero-left-inset-frame {
-                height: 260px;
-                width: 200px;
+                height: 300px;
+                width: 220px;
             }
             .hero-split-right {
-                height: 300px;
+                padding: 2.5rem 1.5rem;
             }
             .hero-split-typography {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                width: 100%;
-                padding: 2rem 1.5rem;
-                background: #120b1c;
+                text-align: center;
+            }
+            .hero-split-actions {
+                justify-content: center;
             }
         }
 
@@ -1782,33 +1785,34 @@
         <section class="sec-dark hero" id="home">
             <div class="container">
                 <div class="hero-split-card">
-                    <!-- Left Half: RS Brand Red Panel with Inset Portrait Image -->
+                    <!-- Left Column: RS Brand Red Panel with Inset Portrait Image -->
                     <div class="hero-split-left">
                         <div class="hero-left-inset-frame">
                             <img src="assets/images/arch_interior_showcase.png" alt="Luxury Architectural Interior Wall Specimen" class="hero-left-inset-img">
                         </div>
                     </div>
 
-                    <!-- Right Half: Full Bleed Dark Architectural Showcase -->
+                    <!-- Right Column: Full Bleed Dark Architectural Showcase + Content -->
                     <div class="hero-split-right">
                         <img src="assets/images/hero_interior_plywood.png" alt="Grand Architectural Interior Showcase" class="hero-right-bg-img">
                         <div class="hero-right-overlay"></div>
-                    </div>
-
-                    <!-- Center Overlapping Editorial Typography -->
-                    <div class="hero-split-typography">
-                        <span class="hero-split-badge"><i class="fa-solid fa-gem"></i> CHENNAI WHOLESALE DEPOT</span>
-                        <h1 class="hero-split-title">
-                            GRAND <span>BEHIND THE SURFACES</span>
-                        </h1>
-                        <p class="hero-split-desc">Direct factory wholesale destination for IS 710 BWP Marine Plywood, Acoustic Fluted Louver Panels & Italian Acrylic Mica Sheets.</p>
-                        <div class="hero-split-actions">
-                            <a href="#products" class="btn-hero btn-hero-primary">
-                                Explore Swatches <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20We%20want%20to%20request%20a%20Designer%20Sample%20Box%20for%20our%20architecture%20office." target="_blank" class="btn-hero btn-hero-outline">
-                                <i class="fa-solid fa-box-open"></i> Request Sample Box
-                            </a>
+                        
+                        <!-- Right Side Editorial Typography (Zero Overlap On Left Inset Frame!) -->
+                        <div class="hero-split-typography">
+                            <span class="hero-split-badge"><i class="fa-solid fa-gem"></i> CHENNAI WHOLESALE DEPOT</span>
+                            <h1 class="hero-split-title">
+                                <span class="title-serif">GRAND</span>
+                                <span class="title-sans">BEHIND THE SURFACES</span>
+                            </h1>
+                            <p class="hero-split-desc">Direct factory wholesale destination for IS 710 BWP Marine Plywood, Acoustic Fluted Louver Panels & Italian Acrylic Mica Sheets.</p>
+                            <div class="hero-split-actions">
+                                <a href="#products" class="btn-hero btn-hero-primary">
+                                    Explore Swatches <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                <a href="tel:8667506984" class="btn-hero btn-hero-outline">
+                                    <i class="fa-solid fa-phone"></i> Call Direct Desk
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2036,9 +2040,9 @@
 
                     <div class="b2b-grid">
                         <div class="b2b-item">
-                            <div class="b2b-icon"><i class="fa-solid fa-box-open"></i></div>
-                            <h4>Physical Sample Boxes</h4>
-                            <p>Hand-picked sample boxes containing BWP 710 Plywood cross-sections, PVC fluted louvers, and mica swatches delivered directly to your studio office.</p>
+                            <div class="b2b-icon"><div class="b2b-icon"><i class="fa-solid fa-layer-group"></i></div></div>
+                            <h4>Wholesale Swatches & Catalog</h4>
+                            <p>Full digital & physical catalog access for BWP 710 Plywood cross-sections, PVC fluted louvers, and mica textures for your studio office.</p>
                         </div>
                         <div class="b2b-item">
                             <div class="b2b-icon"><i class="fa-solid fa-scissors"></i></div>
@@ -2226,8 +2230,8 @@
                         <a id="detailWhatsappBtn" href="#" target="_blank" class="btn-detail-wa">
                             <i class="fa-brands fa-whatsapp"></i> Inquire Specs on WhatsApp
                         </a>
-                        <a href="#b2b-program" onclick="closeProductDetailModal()" class="btn-detail-sample">
-                            <i class="fa-solid fa-box-open"></i> Request Physical Sample Box
+                        <a href="#locator" onclick="closeProductDetailModal()" class="btn-detail-sample">
+                            <i class="fa-solid fa-location-dot"></i> Visit Wholesale Depot
                         </a>
                     </div>
                 </div>
