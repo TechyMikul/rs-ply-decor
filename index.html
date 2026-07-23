@@ -60,13 +60,10 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
+        html {
             scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden;
-            background-color: #100a18 !important;
-            color: #ffffff;
         }
 
         body {
@@ -76,8 +73,7 @@
             line-height: 1.6;
             padding-bottom: 70px;
             width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         /* Fullscreen Intro Loader Screen */
@@ -115,15 +111,11 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* Scroll reveal animation */
+        /* Scroll reveal animation - non-blocking smooth GPU rendering */
         .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-on-scroll.reveal-active {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
+            will-change: opacity, transform;
         }
 
         /* Top Announcement Bar inside Header */
@@ -2067,7 +2059,7 @@
     </footer>
 
     <!-- PRODUCT DETAIL PAGE VIEW MODAL -->
-    <div class="product-modal-overlay" id="productDetailModal">
+    <div class="product-modal-overlay" id="productDetailModal" onclick="if(event.target === this) closeProductDetailModal()">
         <div class="product-modal-card">
             <button class="product-modal-close" onclick="closeProductDetailModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="product-modal-grid">
@@ -2280,9 +2272,15 @@
         }
 
         function closeProductDetailModal() {
-            document.getElementById('productDetailModal').classList.remove('active');
+            const modal = document.getElementById('productDetailModal');
+            if (modal) modal.classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        // Escape key closes modal & restores body scrolling
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeProductDetailModal();
+        });
 
         function filterCatalogList(cat) {
             document.querySelectorAll('.catalog-item').forEach(el => el.classList.remove('active'));
