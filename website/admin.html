@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RS Ply & Decor | Product Management Admin Portal</title>
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#100a18" />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-red: #d31f26;
+            --brand-red-dark: #b5151c;
+            --brand-green: #007a48;
+            --brand-green-dark: #005a35;
+            
+            --bg-dark-primary: #100a18;
+            --bg-dark-secondary: #171022;
+            --bg-dark-tertiary: #0c0712;
+            
+            --text-dark-theme: #ffffff;
+            --text-dark-muted: #d0c7de;
+            
+            --border-brand: rgba(211, 31, 38, 0.25);
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-dark-theme);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ADMIN HEADER */
+        .admin-header {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.85rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-flex {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+        .admin-logo {
+            height: 54px;
+            width: auto;
+            object-fit: contain;
+        }
+        .admin-portal-badge {
+            background: rgba(211, 31, 38, 0.1);
+            color: var(--brand-red);
+            border: 1px solid rgba(211, 31, 38, 0.3);
+            padding: 0.25rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .btn-action {
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
+        }
+        .btn-website {
+            background: rgba(24, 16, 36, 0.06);
+            color: #140d1b;
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+        .btn-website:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+        .btn-add-product {
+            background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-red-dark) 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(211, 31, 38, 0.35);
+        }
+        .btn-add-product:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(211, 31, 38, 0.45);
+        }
+
+        /* MAIN LAYOUT */
+        .admin-main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* STATS METRICS STRIP */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--bg-dark-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            border: 1px solid var(--border-brand);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(211, 31, 38, 0.12);
+            border: 1px solid var(--border-brand);
+            color: var(--brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dark-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* CONTROLS BAR */
+        .controls-bar {
+            background: var(--bg-dark-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--border-brand);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+        .search-box input {
+            width: 100%;
+            background: rgba(16, 10, 24, 0.8);
+            border: 1px solid var(--border-brand);
+            border-radius: 50px;
+            padding: 0.65rem 1.25rem 0.65rem 2.6rem;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-box input:focus {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 15px rgba(211, 31, 38, 0.25);
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dark-muted);
+        }
+        .category-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .cat-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            font-size: 0.825rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .cat-pill:hover, .cat-pill.active {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            color: #ffffff;
+        }
+
+        /* PRODUCTS TABLE / CARDS GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .admin-product-card {
+            background: var(--bg-dark-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-brand);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        .admin-product-card:hover {
+            border-color: var(--brand-red);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card-img-wrap {
+            width: 100%;
+            height: 180px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+            background: #0f0a17;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(16, 10, 24, 0.9);
+            color: var(--brand-green);
+            border: 1px solid var(--brand-green);
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+        }
+        .card-stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+        }
+        .stock-in {
+            background: rgba(0, 122, 72, 0.85);
+            color: #ffffff;
+            border: 1px solid #007a48;
+        }
+        .stock-out {
+            background: rgba(211, 31, 38, 0.85);
+            color: #ffffff;
+            border: 1px solid #d31f26;
+        }
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-dark-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: auto;
+        }
+        .card-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--brand-red);
+        }
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .btn-edit:hover {
+            background: var(--brand-green);
+            border-color: var(--brand-green);
+        }
+        .btn-delete:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        /* MODAL DIALOG FOR ADD / EDIT */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(12, 7, 18, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-card {
+            background: var(--bg-dark-secondary);
+            border: 1.5px solid var(--brand-red);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: #ffffff;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--brand-red);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dark-muted);
+            text-transform: uppercase;
+        }
+        .form-input, .form-select, .form-textarea {
+            background: rgba(16, 10, 24, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 0.65rem 1rem;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 12px rgba(211, 31, 38, 0.3);
+        }
+        .form-textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1c1326;
+            border: 1.5px solid var(--brand-green);
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 10001;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .admin-header { padding: 0.85rem 1rem; }
+            .admin-portal-badge { display: none; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <div class="header-container">
+            <div class="brand-flex">
+                <img src="assets/images/official-logo-transparent.png" alt="RS Ply and Decor Logo" class="admin-logo">
+                <span class="admin-portal-badge">ADMIN PRODUCT PORTAL</span>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" target="_blank" class="btn-action btn-website">
+                    <i class="fa-solid fa-globe"></i> View Website
+                </a>
+                <button class="btn-action btn-add-product" onclick="openAddModal()">
+                    <i class="fa-solid fa-plus"></i> Add Product
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="admin-main">
+        
+        <!-- STATS METRICS STRIP -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div>
+                    <div class="stat-number" id="statTotal">0</div>
+                    <div class="stat-label">Total Live Products</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div>
+                    <div class="stat-number" id="statPlywood">0</div>
+                    <div class="stat-label">Plywood Boards</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-border-all"></i></div>
+                <div>
+                    <div class="stat-number" id="statLouvers">0</div>
+                    <div class="stat-label">Louver Panels</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div>
+                    <div class="stat-number" id="statMica">0</div>
+                    <div class="stat-label">Designer Mica</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTROLS & FILTER BAR -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search products by title, spec or tag..." oninput="filterProducts()">
+            </div>
+            <div class="category-pills">
+                <button class="cat-pill active" onclick="setCategoryFilter('all', this)">All</button>
+                <button class="cat-pill" onclick="setCategoryFilter('plywood', this)">Plywood</button>
+                <button class="cat-pill" onclick="setCategoryFilter('louvers', this)">Louvers</button>
+                <button class="cat-pill" onclick="setCategoryFilter('mica', this)">Mica</button>
+                <button class="cat-pill" onclick="setCategoryFilter('items', this)">Doors & Items</button>
+            </div>
+            <button class="btn-action btn-website" onclick="resetToDefaults()" style="font-size: 0.78rem;">
+                <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+            </button>
+        </div>
+
+        <!-- PRODUCTS GRID -->
+        <div class="products-grid" id="adminProductsGrid">
+            <!-- Rendered dynamically by JS -->
+        </div>
+
+    </main>
+
+    <!-- ADD / EDIT PRODUCT MODAL -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalHeading">Add New Material Product</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="productForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="editProductId" value="">
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label">Product Title / Name *</label>
+                        <input type="text" id="pName" class="form-input" placeholder="e.g. Premium BWP 710 Gurjan Marine Plywood" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <select id="pCategory" class="form-select" required>
+                            <option value="plywood">Plywood Boards</option>
+                            <option value="louvers">Louvered Panels & Slats</option>
+                            <option value="mica">High-Gloss Mica</option>
+                            <option value="items">Flush Doors & Items</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Price / Rate *</label>
+                        <input type="text" id="pPrice" class="form-input" placeholder="e.g. ₹85 / sq.ft or ₹450 / piece" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Specification Tag Badge</label>
+                        <select id="pTag" class="form-select">
+                            <option value="IS 710 BWP CERTIFIED">IS 710 BWP CERTIFIED</option>
+                            <option value="CALIBRATED CORE">CALIBRATED CORE</option>
+                            <option value="FIRE RETARDANT">FIRE RETARDANT</option>
+                            <option value="ARCHITECT FAVORITE">ARCHITECT FAVORITE</option>
+                            <option value="LUXURY FINISH">LUXURY FINISH</option>
+                            <option value="SOLID TIMBER CORE">SOLID TIMBER CORE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Rating</label>
+                        <select id="pRating" class="form-select">
+                            <option value="5.0 ★">5.0 ★ (Highest)</option>
+                            <option value="4.9 ★">4.9 ★</option>
+                            <option value="4.8 ★">4.8 ★</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Select Specimen Image</label>
+                        <select id="pImgPreset" class="form-select" onchange="updateImageInput(this.value)">
+                            <option value="assets/images/plywood_specimen.png">🪵 Plywood Core Specimen Board</option>
+                            <option value="assets/images/louver_specimen.png">🧱 Acoustic Oak Louver Panel</option>
+                            <option value="assets/images/charcoal_louvers.png">⬛ Obsidian Charcoal Slat</option>
+                            <option value="assets/images/mica_specimen.png">✨ Italian High-Gloss Marble Mica</option>
+                            <option value="assets/images/flush_door.png">🚪 Solid Timber Flush Door</option>
+                            <option value="assets/images/hero_interior_plywood.png">🏠 Exterior Ceiling Soffit</option>
+                            <option value="custom">🌐 Custom Image Path / URL</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width" id="customImgGroup" style="display: none;">
+                        <label class="form-label">Custom Image URL or Path</label>
+                        <input type="text" id="pCustomImg" class="form-input" placeholder="assets/images/custom_sample.png">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Product Description *</label>
+                        <textarea id="pDesc" class="form-textarea" placeholder="Detailed architectural specifications and usage description..." required></textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <button type="button" class="btn-action btn-website" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-action btn-add-product">
+                        <i class="fa-solid fa-check"></i> Save & Publish
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toastNotification">
+        <i class="fa-solid fa-circle-check" style="color: var(--brand-green); font-size: 1.2rem;"></i>
+        <span id="toastMessage">Product saved successfully!</span>
+    </div>
+
+    <!-- JS ENGINE -->
+    <script>
+        const defaultCatalogProducts = [
+            { id: 1, name: "Premium BWP 710 Gurjan Marine Plywood", category: "plywood", price: "₹85 / sq.ft", desc: "100% boiling waterproof marine grade hardwood plies with IS 710 stamp.", img: "assets/images/plywood_specimen.png", tag: "IS 710 BWP CERTIFIED", rating: "5.0 ★", inStock: true },
+            { id: 2, name: "BWR Grade Commercial Hardwood Plywood", category: "plywood", price: "₹65 / sq.ft", desc: "Moisture-resistant calibrated plywood engineered for luxury bedroom wardrobes.", img: "assets/images/bwp_marine_plywood.png", tag: "CALIBRATED CORE", rating: "4.9 ★", inStock: true },
+            { id: 3, name: "W18 Acoustic PVC Fluted Louvered Panel", category: "louvers", price: "₹450 / piece", desc: "Interlocking waterproof fluted louvered panels in realistic natural oak finishes.", img: "assets/images/louver_specimen.png", tag: "FIRE RETARDANT", rating: "5.0 ★", inStock: true },
+            { id: 4, name: "Obsidian Charcoal Accent Louvered Panel", category: "louvers", price: "₹520 / piece", desc: "Deep charcoal matte vertical louvers for TV wall units and foyer accents.", img: "assets/images/charcoal_louvers.png", tag: "ARCHITECT FAVORITE", rating: "4.9 ★", inStock: true },
+            { id: 5, name: "Italian High-Gloss Acrylic Mica Sheet", category: "mica", price: "₹1,200 / sheet", desc: "1.0mm high-gloss mica sheets in Carrara marble & satin metallic textures.", img: "assets/images/mica_specimen.png", tag: "LUXURY FINISH", rating: "5.0 ★", inStock: true },
+            { id: 6, name: "Warp-Resistant Solid Core Flush Door", category: "items", price: "₹2,800 / piece", desc: "Kiln-dried timber core flush door for interior bedrooms and veneer lamination.", img: "assets/images/flush_door.png", tag: "SOLID TIMBER CORE", rating: "4.8 ★", inStock: true }
+        ];
+
+        let productsList = [];
+        let currentFilter = 'all';
+
+        function loadProducts() {
+            const saved = localStorage.getItem('rs_catalog_products');
+            if (saved) {
+                try { productsList = JSON.parse(saved); }
+                catch(e) { productsList = [...defaultCatalogProducts]; }
+            } else {
+                productsList = [...defaultCatalogProducts];
+                saveProductsToStorage();
+            }
+            updateStats();
+            renderProductsGrid();
+        }
+
+        function saveProductsToStorage() {
+            localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+        }
+
+        function updateStats() {
+            document.getElementById('statTotal').innerText = productsList.length;
+            document.getElementById('statPlywood').innerText = productsList.filter(p => p.category === 'plywood').length;
+            document.getElementById('statLouvers').innerText = productsList.filter(p => p.category === 'louvers').length;
+            document.getElementById('statMica').innerText = productsList.filter(p => p.category === 'mica').length;
+        }
+
+        function renderProductsGrid() {
+            const grid = document.getElementById('adminProductsGrid');
+            grid.innerHTML = '';
+
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            let filtered = productsList;
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+            if (search) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(search) || 
+                    p.desc.toLowerCase().includes(search) ||
+                    (p.tag && p.tag.toLowerCase().includes(search))
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-dark-muted);">No material products found matching your search.</div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'admin-product-card';
+                const isStock = p.inStock !== false;
+                card.innerHTML = `
+                    <div class="card-img-wrap">
+                        <img src="${p.img}" alt="${p.name}" class="card-img">
+                        <span class="card-tag">${p.tag || 'CERTIFIED'}</span>
+                        <span class="card-stock-badge ${isStock ? 'stock-in' : 'stock-out'}" onclick="toggleStock(${p.id})" style="cursor: pointer;">
+                            ${isStock ? 'IN STOCK' : 'OUT OF STOCK'}
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="card-title">${p.name}</h4>
+                        <p class="card-desc">${p.desc}</p>
+                    </div>
+                    <div class="card-price-row">
+                        <span class="card-price">${p.price}</span>
+                        <div class="card-actions">
+                            <button class="btn-icon btn-edit" title="Edit Product" onclick="openEditModal(${p.id})">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" title="Delete Product" onclick="deleteProduct(${p.id})">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setCategoryFilter(cat, btn) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            renderProductsGrid();
+        }
+
+        function filterProducts() {
+            renderProductsGrid();
+        }
+
+        function toggleStock(id) {
+            const index = productsList.findIndex(p => p.id === id);
+            if (index !== -1) {
+                productsList[index].inStock = !(productsList[index].inStock !== false);
+                saveProductsToStorage();
+                renderProductsGrid();
+                showToast(`Stock status updated for ${productsList[index].name}`);
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm("Are you sure you want to delete this material product from live website catalog?")) {
+                productsList = productsList.filter(p => p.id !== id);
+                saveProductsToStorage();
+                updateStats();
+                renderProductsGrid();
+                showToast("Product removed successfully");
+            }
+        }
+
+        function resetToDefaults() {
+            if (confirm("Reset catalog back to default factory products list?")) {
+                productsList = [...defaultCatalogProducts];
+                saveProductsToStorage();
+                updateStats();
+                renderProductsGrid();
+                showToast("Catalog reset to factory default products");
+            }
+        }
+
+        // Modal Handlers
+        function openAddModal() {
+            document.getElementById('editProductId').value = '';
+            document.getElementById('modalHeading').innerText = 'Add New Material Product';
+            document.getElementById('productForm').reset();
+            document.getElementById('customImgGroup').style.display = 'none';
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function openEditModal(id) {
+            const p = productsList.find(item => item.id === id);
+            if (!p) return;
+            document.getElementById('editProductId').value = p.id;
+            document.getElementById('modalHeading').innerText = 'Edit Material Product';
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pCategory').value = p.category;
+            document.getElementById('pPrice').value = p.price;
+            document.getElementById('pTag').value = p.tag || 'IS 710 BWP CERTIFIED';
+            document.getElementById('pRating').value = p.rating || '5.0 ★';
+            document.getElementById('pDesc').value = p.desc;
+            
+            const presetSelect = document.getElementById('pImgPreset');
+            if (presetSelect.querySelector(`option[value="${p.img}"]`)) {
+                presetSelect.value = p.img;
+                document.getElementById('customImgGroup').style.display = 'none';
+            } else {
+                presetSelect.value = 'custom';
+                document.getElementById('customImgGroup').style.display = 'block';
+                document.getElementById('pCustomImg').value = p.img;
+            }
+
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function updateImageInput(val) {
+            const customGroup = document.getElementById('customImgGroup');
+            if (val === 'custom') {
+                customGroup.style.display = 'block';
+            } else {
+                customGroup.style.display = 'none';
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editProductId').value;
+            const name = document.getElementById('pName').value.trim();
+            const category = document.getElementById('pCategory').value;
+            const price = document.getElementById('pPrice').value.trim();
+            const tag = document.getElementById('pTag').value;
+            const rating = document.getElementById('pRating').value;
+            const desc = document.getElementById('pDesc').value.trim();
+            
+            let img = document.getElementById('pImgPreset').value;
+            if (img === 'custom') {
+                img = document.getElementById('pCustomImg').value.trim() || 'assets/images/plywood_specimen.png';
+            }
+
+            if (editId) {
+                // Edit existing
+                const index = productsList.findIndex(p => p.id == editId);
+                if (index !== -1) {
+                    productsList[index] = { ...productsList[index], name, category, price, tag, rating, desc, img };
+                    showToast("Product updated successfully!");
+                }
+            } else {
+                // Add new
+                const newId = productsList.length > 0 ? Math.max(...productsList.map(p => p.id)) + 1 : 1;
+                productsList.push({ id: newId, name, category, price, tag, rating, desc, img, inStock: true });
+                showToast("New product added & published to live catalog!");
+            }
+
+            saveProductsToStorage();
+            updateStats();
+            renderProductsGrid();
+            closeModal();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize on load
+        loadProducts();
+    </script>
+</body>
+</html>
