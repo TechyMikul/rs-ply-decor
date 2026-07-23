@@ -499,6 +499,9 @@
                 <span class="admin-portal-badge">ADMIN PRODUCT PORTAL</span>
             </div>
             <div class="header-actions">
+                <button class="btn-action btn-website" onclick="downloadProductsJson()" title="Download permanent products.json file for GitHub">
+                    <i class="fa-solid fa-download"></i> Export GitHub DB
+                </button>
                 <a href="index.html" target="_blank" class="btn-action btn-website">
                     <i class="fa-solid fa-globe"></i> View Website
                 </a>
@@ -942,6 +945,17 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        function downloadProductsJson() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(productsList, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "products.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("Exported permanent products.json file!");
         }
 
         // Initialize on load

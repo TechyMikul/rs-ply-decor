@@ -1865,18 +1865,30 @@
         let savedProductsData = localStorage.getItem('rs_catalog_products');
         let catalogProducts = savedProductsData ? JSON.parse(savedProductsData) : defaultCatalogProducts;
 
-        // Fetch live cloud catalog (Zero Login)
-        fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } })
+        // Fetch Permanent GitHub Repository Database File (data/products.json)
+        fetch('data/products.json')
             .then(res => res.json())
-            .then(cloudData => {
-                if (cloudData && Array.isArray(cloudData.products)) {
-                    catalogProducts = cloudData.products;
+            .then(repoData => {
+                if (Array.isArray(repoData) && repoData.length > 0) {
+                    catalogProducts = repoData;
                     localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                     if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                     if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
                 }
             })
-            .catch(err => console.log('Zero-login local fallback active'));
+            .catch(() => {
+                // Secondary Zero-Login Live Internet Cloud Database Sync
+                fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } })
+                    .then(res => res.json())
+                    .then(cloudData => {
+                        if (cloudData && Array.isArray(cloudData.products)) {
+                            catalogProducts = cloudData.products;
+                            localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                            if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                            if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
+                        }
+                    }).catch(e => console.log('Local fallback active'));
+            });
 
         // Header Scroll Animation
         window.addEventListener('scroll', () => {

@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Premium BWP 710 Gurjan Marine Plywood",
+    "category": "plywood",
+    "price": "₹85 / sq.ft",
+    "desc": "100% boiling waterproof marine grade hardwood plies with IS 710 stamp.",
+    "img": "assets/images/plywood_specimen.png",
+    "tag": "IS 710 BWP CERTIFIED",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 2,
+    "name": "BWR Grade Commercial Hardwood Plywood",
+    "category": "plywood",
+    "price": "₹65 / sq.ft",
+    "desc": "Moisture-resistant calibrated plywood engineered for luxury bedroom wardrobes.",
+    "img": "assets/images/bwp_marine_plywood.png",
+    "tag": "CALIBRATED CORE",
+    "rating": "4.9 ★",
+    "inStock": true
+  },
+  {
+    "id": 3,
+    "name": "W18 Acoustic PVC Fluted Louvered Panel",
+    "category": "louvers",
+    "price": "₹450 / piece",
+    "desc": "Interlocking waterproof fluted louvered panels in realistic natural oak finishes.",
+    "img": "assets/images/louver_specimen.png",
+    "tag": "FIRE RETARDANT",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 4,
+    "name": "Obsidian Charcoal Accent Louvered Panel",
+    "category": "louvers",
+    "price": "₹520 / piece",
+    "desc": "Deep charcoal matte vertical louvers for TV wall units and foyer accents.",
+    "img": "assets/images/charcoal_louvers.png",
+    "tag": "ARCHITECT FAVORITE",
+    "rating": "4.9 ★",
+    "inStock": true
+  },
+  {
+    "id": 5,
+    "name": "Italian High-Gloss Acrylic Mica Sheet",
+    "category": "mica",
+    "price": "₹1,200 / sheet",
+    "desc": "1.0mm high-gloss mica sheets in Carrara marble & satin metallic textures.",
+    "img": "assets/images/mica_specimen.png",
+    "tag": "LUXURY FINISH",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 6,
+    "name": "Warp-Resistant Solid Core Flush Door",
+    "category": "items",
+    "price": "₹2,800 / piece",
+    "desc": "Kiln-dried timber core flush door for interior bedrooms and veneer lamination.",
+    "img": "assets/images/flush_door.png",
+    "tag": "SOLID TIMBER CORE",
+    "rating": "4.8 ★",
+    "inStock": true
+  }
+]
