@@ -622,7 +622,7 @@
                     </div>
 
                     <div class="form-group full-width">
-                        <label class="form-label">Select Specimen Image</label>
+                        <label class="form-label">Product Specimen Image *</label>
                         <select id="pImgPreset" class="form-select" onchange="updateImageInput(this.value)">
                             <option value="assets/images/plywood_specimen.png">🪵 Plywood Core Specimen Board</option>
                             <option value="assets/images/louver_specimen.png">🧱 Acoustic Oak Louver Panel</option>
@@ -630,13 +630,20 @@
                             <option value="assets/images/mica_specimen.png">✨ Italian High-Gloss Marble Mica</option>
                             <option value="assets/images/flush_door.png">🚪 Solid Timber Flush Door</option>
                             <option value="assets/images/hero_interior_plywood.png">🏠 Exterior Ceiling Soffit</option>
-                            <option value="custom">🌐 Custom Image Path / URL</option>
+                            <option value="upload">📁 Upload Image File from Phone / Device (Cloudinary)</option>
+                            <option value="custom">🌐 Custom Image URL / Path</option>
                         </select>
+                    </div>
+
+                    <div class="form-group full-width" id="fileUploadGroup" style="display: none;">
+                        <label class="form-label">Upload Photo from Device</label>
+                        <input type="file" id="pFilePicker" class="form-input" accept="image/*" onchange="processImageFile(event)">
+                        <div id="fileUploadPreview" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--brand-green);"></div>
                     </div>
 
                     <div class="form-group full-width" id="customImgGroup" style="display: none;">
                         <label class="form-label">Custom Image URL or Path</label>
-                        <input type="text" id="pCustomImg" class="form-input" placeholder="assets/images/custom_sample.png">
+                        <input type="text" id="pCustomImg" class="form-input" placeholder="https://res.cloudinary.com/... or assets/images/custom.png">
                     </div>
 
                     <div class="form-group full-width">
@@ -833,13 +840,33 @@
             document.getElementById('productModal').classList.remove('active');
         }
 
+        let uploadedImageDataUrl = '';
+
         function updateImageInput(val) {
             const customGroup = document.getElementById('customImgGroup');
+            const fileGroup = document.getElementById('fileUploadGroup');
+            
             if (val === 'custom') {
                 customGroup.style.display = 'block';
+                fileGroup.style.display = 'none';
+            } else if (val === 'upload') {
+                fileGroup.style.display = 'block';
+                customGroup.style.display = 'none';
             } else {
                 customGroup.style.display = 'none';
+                fileGroup.style.display = 'none';
             }
+        }
+
+        function processImageFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                uploadedImageDataUrl = evt.target.result;
+                document.getElementById('fileUploadPreview').innerText = `✓ Photo Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            };
+            reader.readAsDataURL(file);
         }
 
         function handleFormSubmit(e) {
@@ -855,6 +882,8 @@
             let img = document.getElementById('pImgPreset').value;
             if (img === 'custom') {
                 img = document.getElementById('pCustomImg').value.trim() || 'assets/images/plywood_specimen.png';
+            } else if (img === 'upload') {
+                img = uploadedImageDataUrl || 'assets/images/plywood_specimen.png';
             }
 
             if (editId) {
