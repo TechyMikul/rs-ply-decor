@@ -1378,6 +1378,211 @@
             }
         }
 
+        /* PRODUCT DETAIL PAGE VIEW MODAL */
+        .product-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(12, 7, 18, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+        .product-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .product-modal-card {
+            background: #171022;
+            border: 1.5px solid rgba(211, 31, 38, 0.4);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 920px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+        }
+        .product-modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .product-modal-close:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+        .product-modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .product-modal-media {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0d0814;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 380px;
+        }
+        .product-detail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .detail-badge-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(16, 10, 24, 0.9);
+            color: var(--brand-green);
+            border: 1px solid var(--brand-green);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.3rem 0.85rem;
+            border-radius: 50px;
+        }
+        .detail-category-badge {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .detail-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: #ffffff;
+            line-height: 1.2;
+            margin: 0.3rem 0 0.8rem 0;
+        }
+        .detail-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .detail-rating {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .detail-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--brand-red);
+        }
+        .detail-description {
+            color: var(--text-dark-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .detail-specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.85rem;
+            margin-bottom: 2rem;
+            background: rgba(12, 7, 18, 0.6);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .detail-spec-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .spec-label {
+            font-size: 0.72rem;
+            color: var(--text-dark-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .spec-val {
+            font-size: 0.88rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .detail-actions-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .btn-detail-wa {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-detail-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+        }
+        .btn-detail-sample {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .btn-detail-sample:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+        @media (max-width: 768px) {
+            .product-modal-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .product-modal-card { padding: 1.5rem; }
+            .product-modal-media { height: 260px; }
+            .detail-title { font-size: 1.7rem; }
+        }
+
         @media (min-width: 901px) {
             .mobile-bottom-bar { display: none; }
             body { padding-bottom: 0; }
@@ -1841,6 +2046,57 @@
         </div>
     </footer>
 
+    <!-- PRODUCT DETAIL PAGE VIEW MODAL -->
+    <div class="product-modal-overlay" id="productDetailModal">
+        <div class="product-modal-card">
+            <button class="product-modal-close" onclick="closeProductDetailModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="product-modal-grid">
+                <div class="product-modal-media">
+                    <img id="detailImg" src="" alt="Product Detail Specimen" class="product-detail-img">
+                    <span id="detailTag" class="detail-badge-tag">IS 710 CERTIFIED</span>
+                </div>
+                <div class="product-modal-info">
+                    <span id="detailCategory" class="detail-category-badge">Plywood Boards</span>
+                    <h2 id="detailTitle" class="detail-title">Product Title</h2>
+                    <div class="detail-rating-row">
+                        <span id="detailRating" class="detail-rating"><i class="fa-solid fa-star"></i> 5.0 ★</span>
+                        <span id="detailPrice" class="detail-price">₹85 / sq.ft</span>
+                    </div>
+                    <p id="detailDesc" class="detail-description">Detailed architectural description...</p>
+                    
+                    <!-- Architectural Specs Table -->
+                    <div class="detail-specs-grid">
+                        <div class="detail-spec-item">
+                            <span class="spec-label"><i class="fa-solid fa-ruler-combined"></i> Standard Size</span>
+                            <span class="spec-val" id="specSize">8ft x 4ft / 9.5ft Slat</span>
+                        </div>
+                        <div class="detail-spec-item">
+                            <span class="spec-label"><i class="fa-solid fa-shield-halved"></i> Grade & Quality</span>
+                            <span class="spec-val" id="specGrade">100% Termite & BWP Proof</span>
+                        </div>
+                        <div class="detail-spec-item">
+                            <span class="spec-label"><i class="fa-solid fa-cubes"></i> Core Material</span>
+                            <span class="spec-val" id="specCore">High Density Hardwood / PVC</span>
+                        </div>
+                        <div class="detail-spec-item">
+                            <span class="spec-label"><i class="fa-solid fa-award"></i> Guarantee</span>
+                            <span class="spec-val" id="specGuarantee">25-Year Manufacturer Warranty</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-actions-row">
+                        <a id="detailWhatsappBtn" href="#" target="_blank" class="btn-detail-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Specs on WhatsApp
+                        </a>
+                        <a href="#b2b-program" onclick="closeProductDetailModal()" class="btn-detail-sample">
+                            <i class="fa-solid fa-box-open"></i> Request Physical Sample Box
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Mobile Bottom Navigation Bar -->
     <div class="mobile-bottom-bar">
         <a href="#home" class="bottom-nav-item active"><i class="fa-solid fa-house"></i> Home</a>
@@ -1940,7 +2196,7 @@
             document.getElementById('count-items').innerText = catalogProducts.filter(p => p.category === 'items').length;
         }
 
-        // Render Catalog Grid
+        // Render Catalog Grid with Product Detail Click View
         function renderCatalogGrid(filter = 'all') {
             const container = document.getElementById('productsScrollGrid');
             container.innerHTML = '';
@@ -1958,26 +2214,53 @@
             list.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'catalog-card';
+                card.style.cursor = 'pointer';
                 const isOut = p.inStock === false;
                 card.innerHTML = `
-                    <div class="catalog-card-img-wrap">
+                    <div class="catalog-card-img-wrap" onclick="openProductDetailModal(${p.id})">
                         <img src="${p.img}" alt="${p.name}" class="catalog-card-img">
                         <span class="catalog-card-tag" style="${isOut ? 'color: #ef4444; border-color: #ef4444;' : ''}">${isOut ? 'OUT OF STOCK' : (p.tag || 'CERTIFIED')}</span>
                     </div>
-                    <div style="display: flex; flex-direction: column; flex-grow: 1;">
+                    <div style="display: flex; flex-direction: column; flex-grow: 1; padding-top: 0.5rem;" onclick="openProductDetailModal(${p.id})">
                         <span class="catalog-rating"><i class="fa-solid fa-star"></i> ${p.rating || '5.0 ★'}</span>
                         <h3>${p.name}</h3>
                         <p>${p.desc}</p>
-                        <div class="catalog-price-row">
-                            <span class="catalog-price" style="${isOut ? 'color: #ef4444; font-size: 0.9rem;' : ''}">${isOut ? 'Out of Stock' : p.price}</span>
-                            <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20Inquiry%20from%20Architect%20for%20${encodeURIComponent(p.name)}" target="_blank" class="btn-whatsapp-inquire">
-                                <i class="fa-brands fa-whatsapp"></i> Inquire Specs
-                            </a>
-                        </div>
+                    </div>
+                    <div class="catalog-price-row" style="margin-top: auto; padding-top: 0.75rem;">
+                        <span class="catalog-price" onclick="openProductDetailModal(${p.id})" style="${isOut ? 'color: #ef4444; font-size: 0.9rem;' : ''}">${isOut ? 'Out of Stock' : p.price}</span>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply%20%26%20Decor,%20Inquiry%20from%20Architect%20for%20${encodeURIComponent(p.name)}" target="_blank" class="btn-whatsapp-inquire" onclick="event.stopPropagation();">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Specs
+                        </a>
                     </div>
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function openProductDetailModal(id) {
+            const p = catalogProducts.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('detailImg').src = p.img;
+            document.getElementById('detailImg').alt = p.name;
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailCategory').innerText = (p.category || 'MATERIAL').toUpperCase() + ' SERIES';
+            document.getElementById('detailTag').innerText = p.tag || 'IS 710 BWP CERTIFIED';
+            document.getElementById('detailRating').innerHTML = `<i class="fa-solid fa-star"></i> ${p.rating || '5.0 ★'}`;
+            document.getElementById('detailPrice').innerText = p.price || '';
+            document.getElementById('detailDesc').innerText = p.desc || '';
+
+            // Prefill architectural whatsapp inquiry
+            const waMsg = `Hi RS Ply & Decor, I am an Architect / Interior Designer inquiring about technical specifications and wholesale pricing for: ${p.name} (${p.price}).`;
+            document.getElementById('detailWhatsappBtn').href = `https://wa.me/918667506984?text=${encodeURIComponent(waMsg)}`;
+
+            document.getElementById('productDetailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         function filterCatalogList(cat) {
