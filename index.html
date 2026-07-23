@@ -1005,34 +1005,40 @@
         .catalog-card-img-wrap {
             position: relative;
             width: 100%;
-            height: 190px;
+            height: 250px;
             border-radius: var(--radius-sm);
             overflow: hidden;
             margin-bottom: 1rem;
-            background: #0f0a17;
+            background: #08050d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .catalog-card-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: var(--transition);
         }
         .catalog-card:hover .catalog-card-img {
-            transform: scale(1.06);
+            transform: scale(1.04);
         }
         .catalog-card-tag {
             position: absolute;
             top: 10px;
-            left: 10px;
-            background: rgba(16, 10, 24, 0.88);
+            right: 10px;
+            background: rgba(16, 10, 24, 0.92);
             backdrop-filter: blur(6px);
             color: var(--brand-green);
             border: 1px solid var(--brand-green);
             font-size: 0.68rem;
             font-weight: 800;
-            padding: 0.2rem 0.6rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 50px;
             letter-spacing: 0.5px;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         .catalog-rating {
             font-size: 0.78rem;
@@ -1445,26 +1451,32 @@
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            background: #0d0814;
+            background: #07040b;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 380px;
+            height: 460px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .product-detail-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
         .detail-badge-tag {
             position: absolute;
             top: 15px;
-            left: 15px;
-            background: rgba(16, 10, 24, 0.9);
+            right: 15px;
+            background: rgba(16, 10, 24, 0.92);
+            backdrop-filter: blur(6px);
             color: var(--brand-green);
             border: 1px solid var(--brand-green);
             font-size: 0.72rem;
             font-weight: 800;
             padding: 0.3rem 0.85rem;
             border-radius: 50px;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         .detail-category-badge {
             font-size: 0.78rem;
