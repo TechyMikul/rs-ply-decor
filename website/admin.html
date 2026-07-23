@@ -679,24 +679,53 @@
             { id: 6, name: "Warp-Resistant Solid Core Flush Door", category: "items", price: "₹2,800 / piece", desc: "Kiln-dried timber core flush door for interior bedrooms and veneer lamination.", img: "assets/images/flush_door.png", tag: "SOLID TIMBER CORE", rating: "4.8 ★", inStock: true }
         ];
 
+        const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
+
         let productsList = [];
         let currentFilter = 'all';
 
-        function loadProducts() {
+        async function loadProducts() {
+            // Instant local render
             const saved = localStorage.getItem('rs_catalog_products');
             if (saved) {
                 try { productsList = JSON.parse(saved); }
                 catch(e) { productsList = [...defaultCatalogProducts]; }
             } else {
                 productsList = [...defaultCatalogProducts];
-                saveProductsToStorage();
             }
             updateStats();
             renderProductsGrid();
+
+            // Zero-Login Live Internet Cloud Database Sync
+            try {
+                const res = await fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } });
+                if (res.ok) {
+                    const cloudData = await res.json();
+                    if (cloudData && Array.isArray(cloudData.products)) {
+                        productsList = cloudData.products;
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                        updateStats();
+                        renderProductsGrid();
+                    }
+                }
+            } catch(err) {
+                console.log('Zero-login offline mode:', err);
+            }
         }
 
-        function saveProductsToStorage() {
+        async function saveProductsToStorage() {
             localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+            
+            // Sync with Zero-Login Live Internet Cloud Database
+            try {
+                await fetch(ZERO_LOGIN_API_BLOB, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ products: productsList })
+                });
+            } catch(e) {
+                console.log('Cloud sync info:', e);
+            }
         }
 
         function updateStats() {

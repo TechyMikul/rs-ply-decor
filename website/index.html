@@ -1860,11 +1860,23 @@
             { id: 6, name: "Warp-Resistant Solid Core Flush Door", category: "items", price: "₹2,800 / piece", desc: "Kiln-dried timber core flush door for interior bedrooms and veneer lamination.", img: "assets/images/flush_door.png", tag: "SOLID TIMBER CORE", rating: "4.8 ★", inStock: true }
         ];
 
+        const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
+
         let savedProductsData = localStorage.getItem('rs_catalog_products');
         let catalogProducts = savedProductsData ? JSON.parse(savedProductsData) : defaultCatalogProducts;
-        if (!savedProductsData) {
-            localStorage.setItem('rs_catalog_products', JSON.stringify(defaultCatalogProducts));
-        }
+
+        // Fetch live cloud catalog (Zero Login)
+        fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } })
+            .then(res => res.json())
+            .then(cloudData => {
+                if (cloudData && Array.isArray(cloudData.products)) {
+                    catalogProducts = cloudData.products;
+                    localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                    if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                    if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
+                }
+            })
+            .catch(err => console.log('Zero-login local fallback active'));
 
         // Header Scroll Animation
         window.addEventListener('scroll', () => {
