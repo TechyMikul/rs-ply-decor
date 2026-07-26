@@ -21,48 +21,53 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#100a18" />
     
-    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+    <!-- Google Fonts: Outfit, Plus Jakarta Sans & Cormorant Garamond -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* Official RS Brand Colors (Crimson Red & Emerald Green from Logo) */
+            /* Official RS Brand Colors */
             --brand-red: #d31f26;            /* Primary Crimson Red */
             --brand-red-dark: #b5151c;       /* Deep Crimson Red */
             --brand-green: #007a48;          /* Emerald Forest Green */
             --brand-green-dark: #005a35;     /* Deep Emerald Green */
+            --teak-wood: #8c5225;            /* Warm Teak Wood */
             
-            /* Background Obsidian Theme Colors */
-            --bg-dark-primary: #100a18;      /* Deep Architectural Obsidian */
-            --bg-dark-secondary: #171022;    /* Rich Charcoal Mahogany background */
-            --bg-dark-tertiary: #0c0712;     /* Deepest Onyx for footer */
+            /* White Cream & Ivory Alabaster Luxury Theme Colors */
+            --bg-dark-primary: #fbf8f1;      /* Primary White Cream Background */
+            --bg-dark-secondary: #f4eee2;    /* Warm Ivory Cream Secondary */
+            --bg-dark-tertiary: #1c140d;     /* Deep Mahogany Charcoal Footer */
             --bg-light-primary: #ffffff;     /* Pure Pearl White */
-            --bg-light-secondary: #f9f7fc;   /* Soft alabaster */
+            --bg-light-secondary: #f8f4ec;   /* Soft Ivory Alabaster */
             
-            /* Text Colors */
-            --text-dark-theme: #ffffff;      /* High contrast white */
-            --text-dark-muted: #d0c7de;      /* Muted lavender gray */
-            --text-light-theme: #140d1b;     /* Deep charcoal text */
-            --text-light-muted: #5e5270;     /* Muted slate text */
+            /* Text Colors for Cream Theme */
+            --text-dark-theme: #1c140d;      /* High contrast espresso charcoal text */
+            --text-dark-muted: #5e5043;      /* Muted teak slate text */
+            --text-light-theme: #1c140d;     /* Deep charcoal text */
+            --text-light-muted: #5e5043;     /* Muted slate text */
 
             /* Accent Colors */
             --accent-brand: #d31f26;         /* Primary Brand Color (Crimson Red) */
-            --accent-bronze: #c59b27;        /* Architectural Satin Bronze */
-            --accent-gold: #d4af37;          /* Metallic Gold Accent */
+            --accent-bronze: #8c5225;        /* Architectural Teak Bronze */
+            --accent-gold: #c69c28;          /* Metallic Gold Accent */
+            --accent-teak: #8c5225;          /* Warm Teak Accent */
             --accent-green: #25d366;         /* WhatsApp Green */
-            --border-brand: rgba(211, 31, 38, 0.25);
+            --border-brand: rgba(140, 82, 37, 0.16);
+            --border-glass: rgba(140, 82, 37, 0.12);
             
-            --font-heading: 'Cormorant Garamond', serif;
+            --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
-            --radius-lg: 20px;
-            --radius-md: 14px;
-            --radius-sm: 8px;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-subtle: 0 10px 30px rgba(140, 82, 37, 0.08);
+            --shadow-hover: 0 20px 45px rgba(140, 82, 37, 0.14);
         }
 
         * {
@@ -366,60 +371,65 @@
             box-sizing: border-box;
         }
         .sec-dark {
-            background: var(--bg-dark-primary);
-            padding: 4rem 0;
+            background: linear-gradient(180deg, #fbf8f1 0%, #f4eee2 100%);
+            padding: 5rem 0;
         }
         .sec-dark-alt {
-            background: var(--bg-dark-secondary);
-            padding: 4.5rem 0;
+            background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
+            padding: 5.5rem 0;
             border-top: 1px solid var(--border-brand);
             border-bottom: 1px solid var(--border-brand);
         }
         .sec-light {
-            background: var(--bg-light-primary);
-            color: var(--text-light-theme);
-            padding: 4.5rem 0;
+            background: linear-gradient(180deg, #f4eee2 0%, #fbf8f1 100%);
+            color: var(--text-dark-theme);
+            padding: 5.5rem 0;
+            border-top: 1px solid rgba(140, 82, 37, 0.15);
+            border-bottom: 1px solid rgba(140, 82, 37, 0.15);
         }
 
         .section-header {
             text-align: center;
-            max-width: 780px;
-            margin: 0 auto 3.25rem;
+            max-width: 820px;
+            margin: 0 auto 3.5rem;
         }
         .section-badge {
-            background: rgba(0, 122, 72, 0.12);
-            border: 1px solid rgba(0, 122, 72, 0.3);
-            color: var(--brand-green);
-            padding: 0.35rem 1rem;
+            background: rgba(211, 31, 38, 0.08);
+            border: 1px solid rgba(211, 31, 38, 0.25);
+            color: var(--brand-red);
+            padding: 0.4rem 1.25rem;
             border-radius: 50px;
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.8px;
             display: inline-block;
-            margin-bottom: 0.85rem;
+            margin-bottom: 1rem;
         }
         .sec-light .section-badge {
-            background: rgba(211, 31, 38, 0.12);
-            color: var(--brand-red);
-            border-color: rgba(211, 31, 38, 0.3);
+            background: rgba(140, 82, 37, 0.1);
+            color: var(--teak-wood);
+            border-color: rgba(140, 82, 37, 0.25);
         }
         .section-header h2 {
             font-family: var(--font-heading);
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
-            font-weight: 600;
+            font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+            font-weight: 700;
             line-height: 1.15;
-            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.85rem;
+            color: var(--text-dark-theme);
         }
         .sec-dark .section-header h2, .sec-dark-alt .section-header h2 {
-            color: #ffffff;
+            color: var(--text-dark-theme);
         }
         .sec-light .section-header h2 {
-            color: var(--text-light-theme);
+            color: var(--text-dark-theme);
         }
         .section-header p {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-dark-muted);
         }
         .sec-dark .section-header p, .sec-dark-alt .section-header p {
             color: var(--text-dark-muted);
@@ -1009,13 +1019,82 @@
             height: 44px;
         }
 
+        /* ARCHITECTURAL SPECIFICATION BAR */
+        .spec-bar {
+            background: #fbf8f1;
+            border-top: 1px solid rgba(140, 82, 37, 0.15);
+            border-bottom: 1px solid rgba(140, 82, 37, 0.15);
+            padding: 1.75rem 0;
+        }
+        .spec-bar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1.15rem;
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(140, 82, 37, 0.14);
+            box-shadow: 0 4px 15px rgba(140, 82, 37, 0.05);
+        }
+        .spec-icon {
+            font-size: 1.5rem;
+            color: var(--brand-red);
+        }
+        .spec-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #1c140d;
+            letter-spacing: 0.5px;
+        }
+        .spec-sub {
+            font-size: 0.78rem;
+            color: var(--text-dark-muted);
+        }
+
+        /* PRODUCT LINES */
+        .product-lines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .product-line-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(140, 82, 37, 0.16);
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(140, 82, 37, 0.08);
+        }
+        .product-line-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--brand-red);
+            box-shadow: 0 20px 45px rgba(140, 82, 37, 0.15);
+        }
+        .product-card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(140, 82, 37, 0.12);
+        }
+
         /* ARCHITECT B2B TRADE PROGRAM */
         .b2b-box {
-            background: #140d1b;
+            background: #ffffff;
             border-radius: var(--radius-lg);
             padding: 3.5rem 3rem;
             border: 1.5px solid var(--brand-red);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 40px rgba(140, 82, 37, 0.1);
         }
         .b2b-grid {
             display: grid;
@@ -1024,15 +1103,17 @@
             margin-top: 2.5rem;
         }
         .b2b-item {
-            background: #1c1326;
+            background: #fbf8f1;
             border-radius: var(--radius-md);
             padding: 1.75rem;
-            border: 1px solid rgba(211, 31, 38, 0.3);
+            border: 1px solid rgba(140, 82, 37, 0.16);
             transition: var(--transition);
         }
         .b2b-item:hover {
             transform: translateY(-5px);
             border-color: var(--brand-red);
+            background: #ffffff;
+            box-shadow: 0 10px 25px rgba(140, 82, 37, 0.1);
         }
         .b2b-icon {
             font-size: 2rem;
@@ -1042,13 +1123,13 @@
         .b2b-item h4 {
             font-family: var(--font-heading);
             font-size: 1.45rem;
-            color: #ffffff;
+            color: #1c140d;
             margin-bottom: 0.5rem;
         }
         .b2b-item p {
             font-size: 0.875rem;
             color: var(--text-dark-muted);
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         /* PRODUCTS CATALOG (SPECIFIER) */
@@ -1059,17 +1140,18 @@
             align-items: start;
         }
         .catalog-sidebar {
-            background: #140d1b;
+            background: #ffffff;
             border-radius: var(--radius-md);
             padding: 1.5rem;
-            border: 1px solid var(--border-brand);
+            border: 1px solid rgba(140, 82, 37, 0.16);
+            box-shadow: 0 10px 30px rgba(140, 82, 37, 0.08);
         }
         .catalog-title {
             font-family: var(--font-heading);
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: #1c140d;
         }
         .catalog-list { list-style: none; }
         .catalog-item {
@@ -1087,7 +1169,7 @@
             border: 1px solid transparent;
         }
         .catalog-item .count-badge {
-            background: rgba(211, 31, 38, 0.15);
+            background: rgba(211, 31, 38, 0.12);
             color: var(--brand-red);
             padding: 0.15rem 0.65rem;
             border-radius: 50px;
@@ -1112,19 +1194,19 @@
             gap: 1.5rem;
         }
         .catalog-card {
-            background: #140d1b;
+            background: #ffffff;
             border-radius: var(--radius-md);
-            border: 1px solid var(--border-brand);
+            border: 1px solid rgba(140, 82, 37, 0.16);
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(140, 82, 37, 0.08);
         }
         .catalog-card:hover {
             transform: translateY(-5px);
             border-color: var(--brand-red);
-            box-shadow: 0 15px 35px rgba(211, 31, 38, 0.25);
+            box-shadow: 0 18px 40px rgba(140, 82, 37, 0.15);
         }
         .catalog-card-img-wrap {
             position: relative;
@@ -1133,11 +1215,11 @@
             border-radius: var(--radius-sm);
             overflow: hidden;
             margin-bottom: 1rem;
-            background: #08050d;
+            background: #fcfbfa;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(140, 82, 37, 0.1);
         }
         .catalog-card-img {
             width: 100%;
@@ -1152,17 +1234,17 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(16, 10, 24, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(6px);
-            color: var(--brand-green);
-            border: 1px solid var(--brand-green);
+            color: var(--brand-red);
+            border: 1px solid var(--brand-red);
             font-size: 0.68rem;
             font-weight: 800;
             padding: 0.25rem 0.65rem;
             border-radius: 50px;
             letter-spacing: 0.5px;
             z-index: 5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .catalog-rating {
             font-size: 0.78rem;
@@ -1182,7 +1264,7 @@
             font-size: 1.45rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: #ffffff;
+            color: #1c140d;
         }
         .catalog-card p {
             font-size: 0.875rem;
@@ -1195,7 +1277,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(140, 82, 37, 0.12);
             padding-top: 0.85rem;
             margin-top: auto;
         }
@@ -1415,37 +1497,57 @@
             .hamburger-menu-btn { display: flex; align-items: center; justify-content: center; }
             .page-content { margin-top: 130px; }
             .header { padding: 0; }
-            .header-container { padding: 0.75rem 1.25rem; }
-            .header.scrolled .header-container { padding: 0.5rem 1.25rem; }
+            .header-container { padding: 0.85rem 1.25rem; }
             .header-full-logo { height: 46px; }
             .header.scrolled .header-full-logo { height: 36px; }
             .top-announce { padding: 0.4rem 0.75rem; font-size: 0.72rem; gap: 0.5rem; }
-            .products-scroll-view { grid-template-columns: 1fr; gap: 1rem; }
-            .catalog-sidebar { padding: 0.75rem 0.25rem; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+            .products-scroll-view { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.85rem; }
+            .catalog-card { padding: 1rem; border-radius: 14px; }
+            .catalog-card-img-wrap { height: 190px; }
+            .catalog-sidebar { padding: 0.75rem 0.25rem; width: 100%; box-sizing: border-box; overflow: hidden; background: transparent; border: none; box-shadow: none; }
             .catalog-title { display: none; }
-            .catalog-list { display: flex; gap: 0.5rem; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; width: 100%; box-sizing: border-box; }
-            .catalog-item { white-space: nowrap; border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.825rem; flex-shrink: 0; display: inline-flex; align-items: center; }
+            .catalog-list { 
+                display: flex; 
+                gap: 0.6rem; 
+                overflow-x: auto; 
+                -webkit-overflow-scrolling: touch; 
+                padding: 0.25rem 0.5rem 0.75rem; 
+                width: 100%; 
+                box-sizing: border-box; 
+                scrollbar-width: none;
+            }
+            .catalog-list::-webkit-scrollbar { display: none; }
+            .catalog-item { 
+                white-space: nowrap; 
+                border-radius: 50px; 
+                padding: 0.55rem 1.15rem; 
+                font-size: 0.85rem; 
+                flex-shrink: 0; 
+                display: inline-flex; 
+                align-items: center; 
+                min-height: 44px;
+            }
             .footer-content-grid { gap: 2rem; }
             .store-location-card { padding: 1.75rem 1.25rem; }
             .b2b-box { padding: 2rem 1.25rem; }
         }
 
         @media (max-width: 600px) {
-            .page-content { margin-top: 120px; }
+            .page-content { margin-top: 110px; }
             .hero {
-                padding: 2rem 1rem 3rem !important;
+                padding: 2.25rem 1rem 3rem !important;
                 text-align: left;
             }
             .hero-container {
-                gap: 2rem;
+                gap: 1.75rem;
             }
             .hero h1 {
-                font-size: 2.1rem !important;
-                line-height: 1.2 !important;
+                font-size: clamp(2rem, 6.5vw, 2.5rem) !important;
+                line-height: 1.18 !important;
             }
             .hero p {
                 font-size: 0.95rem !important;
-                line-height: 1.6 !important;
+                line-height: 1.55 !important;
                 max-width: 100% !important;
                 word-break: normal;
                 overflow-wrap: break-word;
@@ -1459,19 +1561,14 @@
                 width: 100%;
                 justify-content: center;
                 padding: 0.85rem 1.5rem;
-            }
-            .hexagon-photo-container {
-                margin-top: 0.5rem;
-            }
-            .hexagon-wrapper {
-                width: 270px !important;
-                height: 300px !important;
+                min-height: 46px;
             }
             .motion-studio-wrapper {
                 padding: 1.25rem 0.85rem;
+                border-radius: 16px;
             }
             .motion-studio-stage {
-                height: 270px;
+                height: 260px;
                 margin-bottom: 1.25rem;
             }
             .studio-center-overlay {
@@ -1490,8 +1587,9 @@
                 gap: 1rem;
             }
             .m-pill {
-                padding: 0.45rem 0.85rem;
+                padding: 0.5rem 0.9rem;
                 font-size: 0.78rem;
+                min-height: 42px;
             }
             .studio-badge-3d {
                 font-size: 0.65rem;
@@ -1504,7 +1602,7 @@
                 font-size: 0.75rem;
             }
             .section-header h2 {
-                font-size: 1.85rem;
+                font-size: clamp(1.75rem, 5.5vw, 2.2rem);
             }
         }
 
@@ -1744,7 +1842,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.0.7</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.0.8</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2198,7 +2296,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.0.7</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.0.8</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
