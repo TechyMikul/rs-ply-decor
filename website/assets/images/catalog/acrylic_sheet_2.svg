@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f5efe6"/>
+    </radialGradient>
+    
+    <linearGradient id="glossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="75%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25"/>
+    </linearGradient>
+
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
+    </linearGradient>
+
+    <filter id="swatchShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#8c5225" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="600" height="600" fill="url(#bgGrad)" rx="24"/>
+
+  <!-- Swatch Sample Slab -->
+  <g filter="url(#swatchShadow)">
+    <rect x="75" y="45" width="450" height="440" rx="38" fill="#EAE6E1" stroke="url(#borderGrad)" stroke-width="2.5"/>
+    <rect x="75" y="45" width="450" height="440" rx="38" fill="url(#glossGrad)"/>
+    
+    <!-- Top-Left Gloss Highlight Sheen -->
+    <path d="M 95 65 Q 300 130 505 65 L 505 160 Q 300 220 95 160 Z" fill="#ffffff" opacity="0.18"/>
+  </g>
+
+  <!-- Tag Pill in Top Right of Swatch -->
+  <rect x="350" y="65" width="155" height="30" rx="8" fill="#d31f26"/>
+  <text x="427" y="85" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">ACRYLIC SHEET</text>
+
+  <!-- Bottom Spec Label Strip -->
+  <rect x="60" y="505" width="480" height="72" rx="16" fill="#ffffff" stroke="rgba(140,82,37,0.18)" stroke-width="1.5"/>
+  <text x="80" y="537" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="800" fill="#1c140d">Sea Pearl</text>
+  <text x="80" y="561" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#5e5043">Luminous Pearl Ivory</text>
+  <text x="520" y="548" text-anchor="end" font-family="'Outfit', system-ui, sans-serif" font-size="16" font-weight="700" fill="#8c5225">RL 1109 SL136</text>
+</svg>

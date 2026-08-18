@@ -116,9 +116,11 @@
             pointer-events: none !important;
         }
         .intro-logo {
-            max-width: 340px;
-            width: 80%;
+            max-width: 280px;
+            width: 75%;
             height: auto;
+            border-radius: 20px;
+            box-shadow: 0 16px 45px rgba(140, 82, 37, 0.25);
             transform: scale(0.85);
             opacity: 0;
             animation: logoFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -213,13 +215,15 @@
             text-decoration: none;
         }
         .header-full-logo {
-            height: 52px;
+            height: 56px;
             width: auto;
+            border-radius: 8px;
             object-fit: contain;
+            box-shadow: 0 4px 14px rgba(140, 82, 37, 0.12);
             transition: var(--transition);
         }
         .header.scrolled .header-full-logo {
-            height: 38px;
+            height: 44px;
         }
 
         /* Desktop Navigation Menu Links */
@@ -2029,6 +2033,19 @@
                     </div>
                     <div class="product-line-card">
                         <div class="product-card-img-wrapper">
+                            <img src="assets/images/catalog/acrylic_sheet_1.svg" alt="Ultra High-Gloss Acrylic Sheets" class="product-card-img">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="product-line-icon"><i class="fa-solid fa-gem"></i></div>
+                            <h3>Acrylic Sheets</h3>
+                        </div>
+                        <p>Ultra-high gloss mirror-sheen anti-scratch acrylic sheets in contemporary designer shades for luxury kitchen shutters & wardrobe accents.</p>
+                        <a href="https://wa.me/918667506984?text=Hi%20RS%20Ply,%20Inquiring%20about%20Acrylic%20Sheet%20collection" target="_blank" class="btn-line-wa">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Specs on WhatsApp
+                        </a>
+                    </div>
+                    <div class="product-line-card">
+                        <div class="product-card-img-wrapper">
                             <img src="assets/images/flush_door.png" alt="Solid Timber Flush Doors" class="product-card-img">
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -2213,6 +2230,9 @@
                             <li class="catalog-item" onclick="filterCatalogList('mica')">
                                 <span>✨ High-Gloss Mica</span> <span class="count-badge" id="count-mica">0</span>
                             </li>
+                            <li class="catalog-item" onclick="filterCatalogList('acrylic_sheet')">
+                                <span>💎 Acrylic Sheet</span> <span class="count-badge" id="count-acrylic_sheet">0</span>
+                            </li>
                             <li class="catalog-item" onclick="filterCatalogList('items')">
                                 <span>🚪 Flush Doors & Items</span> <span class="count-badge" id="count-items">0</span>
                             </li>
@@ -2263,7 +2283,7 @@
         <div class="footer-content-grid">
             <div class="footer-brand">
                 <a href="#" class="brand-logo">
-                    <img src="assets/images/official-logo-transparent.png" alt="RS Ply & Decor Footer Logo" style="height: 52px; width: auto; border-radius: 6px;">
+                    <img src="assets/images/official-logo-transparent.png" alt="RS Ply & Decor Footer Logo" style="height: 64px; width: auto; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
                 </a>
                 <p>Premier architectural surface material wholesale supplier in Chennai. Specializing in IS 710 BWP Marine Plywood, Acoustic PVC & Charcoal Fluted Louvers, Designer High-Gloss Mica & Flush Doors for Architects and Interior Designers.</p>
             </div>
@@ -2382,8 +2402,36 @@
         let savedProductsData = localStorage.getItem('rs_catalog_products');
         let catalogProducts = savedProductsData ? JSON.parse(savedProductsData) : defaultCatalogProducts;
 
-        // Fetch Permanent GitHub Repository Database File (data/products.json)
-        fetch('data/products.json')
+        // ⚡ Real-Time Instant Tab Synchronization via BroadcastChannel
+        if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('rs_ply_channel');
+            bc.onmessage = (event) => {
+                if (event.data && event.data.type === 'PRODUCTS_UPDATED' && Array.isArray(event.data.products)) {
+                    catalogProducts = event.data.products;
+                    localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                    if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                    if (typeof renderCatalogGrid === 'function') {
+                        const activeItem = document.querySelector('.catalog-item.active');
+                        const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                        renderCatalogGrid(cat);
+                    }
+                }
+            };
+        }
+
+        // Storage Event Listener for Cross-Tab Sync
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'rs_catalog_products' && e.newValue) {
+                try {
+                    catalogProducts = JSON.parse(e.newValue);
+                    if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                    if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
+                } catch(err){}
+            }
+        });
+
+        // Fetch Permanent Database File with cache-busting (data/products.json)
+        fetch('data/products.json?t=' + Date.now())
             .then(res => res.json())
             .then(repoData => {
                 if (Array.isArray(repoData) && repoData.length > 0) {
@@ -2457,6 +2505,7 @@
             if(document.getElementById('count-pvc')) document.getElementById('count-pvc').innerText = catalogProducts.filter(p => p.category === 'pvc').length;
             if(document.getElementById('count-plywood')) document.getElementById('count-plywood').innerText = catalogProducts.filter(p => p.category === 'plywood').length;
             if(document.getElementById('count-mica')) document.getElementById('count-mica').innerText = catalogProducts.filter(p => p.category === 'mica').length;
+            if(document.getElementById('count-acrylic_sheet')) document.getElementById('count-acrylic_sheet').innerText = catalogProducts.filter(p => p.category === 'acrylic_sheet').length;
             if(document.getElementById('count-items')) document.getElementById('count-items').innerText = catalogProducts.filter(p => p.category === 'items').length;
         }
 
@@ -2533,9 +2582,12 @@
             if (e.key === 'Escape') closeProductDetailModal();
         });
 
-        function filterCatalogList(cat) {
-            document.querySelectorAll('.catalog-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+        function filterCatalogList(cat, el) {
+            document.querySelectorAll('.catalog-item').forEach(item => item.classList.remove('active'));
+            const target = el || (typeof event !== 'undefined' && event && event.currentTarget ? event.currentTarget : null);
+            if (target) {
+                target.classList.add('active');
+            }
             renderCatalogGrid(cat);
         }
 

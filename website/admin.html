@@ -80,7 +80,9 @@
         .admin-logo {
             height: 54px;
             width: auto;
+            border-radius: 8px;
             object-fit: contain;
+            box-shadow: 0 4px 12px rgba(140, 82, 37, 0.12);
         }
         .admin-portal-badge {
             background: rgba(211, 31, 38, 0.1);
@@ -545,6 +547,13 @@
                     <div class="stat-label">Designer Mica</div>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-gem"></i></div>
+                <div>
+                    <div class="stat-number" id="statAcrylic">0</div>
+                    <div class="stat-label">Acrylic Sheets</div>
+                </div>
+            </div>
         </div>
 
         <!-- CONTROLS & FILTER BAR -->
@@ -555,6 +564,7 @@
             </div>
             <div class="category-pills">
                 <button class="cat-pill active" onclick="setCategoryFilter('all', this)">All</button>
+                <button class="cat-pill" onclick="setCategoryFilter('acrylic_sheet', this)">Acrylic Sheet</button>
                 <button class="cat-pill" onclick="setCategoryFilter('plywood', this)">Plywood</button>
                 <button class="cat-pill" onclick="setCategoryFilter('louvers', this)">Louvers</button>
                 <button class="cat-pill" onclick="setCategoryFilter('mica', this)">Mica</button>
@@ -591,6 +601,7 @@
                     <div class="form-group">
                         <label class="form-label">Category *</label>
                         <select id="pCategory" class="form-select" required>
+                            <option value="acrylic_sheet">Acrylic Sheet</option>
                             <option value="plywood">Plywood Boards</option>
                             <option value="louvers">Louvered Panels & Slats</option>
                             <option value="mica">High-Gloss Mica</option>
@@ -688,6 +699,21 @@
         let currentFilter = 'all';
 
         async function loadProducts() {
+            // First attempt loading from data/products.json
+            try {
+                const jsonRes = await fetch('data/products.json');
+                if (jsonRes.ok) {
+                    const repoData = await jsonRes.json();
+                    if (Array.isArray(repoData) && repoData.length > 0) {
+                        productsList = repoData;
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                        updateStats();
+                        renderProductsGrid();
+                        return;
+                    }
+                }
+            } catch(e) {}
+
             // Instant local render
             const saved = localStorage.getItem('rs_catalog_products');
             if (saved) {
@@ -719,7 +745,26 @@
         async function saveProductsToStorage() {
             localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
             
-            // Sync with Zero-Login Live Internet Cloud Database
+            // 1. ⚡ Instant Real-Time Sync across all open tabs via BroadcastChannel
+            if ('BroadcastChannel' in window) {
+                try {
+                    const bc = new BroadcastChannel('rs_ply_channel');
+                    bc.postMessage({ type: 'PRODUCTS_UPDATED', products: productsList });
+                } catch(e) {}
+            }
+
+            // 2. 💾 Permanently write directly into website/data/products.json on disk
+            try {
+                await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ products: productsList })
+                });
+            } catch(e) {
+                console.log('Local API save info:', e);
+            }
+            
+            // 3. ☁️ Sync with Zero-Login Live Internet Cloud Database
             try {
                 await fetch(ZERO_LOGIN_API_BLOB, {
                     method: 'PUT',
@@ -736,6 +781,9 @@
             document.getElementById('statPlywood').innerText = productsList.filter(p => p.category === 'plywood').length;
             document.getElementById('statLouvers').innerText = productsList.filter(p => p.category === 'louvers').length;
             document.getElementById('statMica').innerText = productsList.filter(p => p.category === 'mica').length;
+            if (document.getElementById('statAcrylic')) {
+                document.getElementById('statAcrylic').innerText = productsList.filter(p => p.category === 'acrylic_sheet').length;
+            }
         }
 
         function renderProductsGrid() {

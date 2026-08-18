@@ -1,0 +1,13 @@
+{
+  "name": "rs-ply-decor",
+  "version": "1.0.0",
+  "description": "RS Ply & Decor Local Server & Project Suite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["plywood", "decor", "architectural", "interior"],
+  "author": "TechyMikul",
+  "license": "ISC"
+}
