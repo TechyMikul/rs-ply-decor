@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/website/index.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/website/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/website/admin.html"
+    },
+    {
+      "source": "/admin.html",
+      "destination": "/website/admin.html"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "/website/assets/$1"
+    },
+    {
+      "source": "/data/(.*)",
+      "destination": "/website/data/$1"
+    },
+    {
+      "source": "/js/(.*)",
+      "destination": "/website/js/$1"
+    },
+    {
+      "source": "/rs_ply_decor.vcf",
+      "destination": "/website/rs_ply_decor.vcf"
+    },
+    {
+      "source": "/googlee825cd39561ae87e.html",
+      "destination": "/website/googlee825cd39561ae87e.html"
+    },
+    {
+      "source": "/Branding-Tool",
+      "destination": "/Branding-Tool/index.html"
+    },
+    {
+      "source": "/Branding-Tool/(.*)",
+      "destination": "/Branding-Tool/$1"
+    },
+    {
+      "source": "/Photo-Enhancer",
+      "destination": "/Photo-Enhancer/index.html"
+    },
+    {
+      "source": "/Photo-Enhancer/(.*)",
+      "destination": "/Photo-Enhancer/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(self)"
+        }
+      ]
+    }
+  ]
+}
