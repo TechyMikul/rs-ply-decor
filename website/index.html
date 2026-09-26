@@ -1793,7 +1793,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.5</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.6</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2268,7 +2268,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.5</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.6</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
@@ -2365,6 +2365,24 @@
             } catch(e) {}
         }
 
+        function untrackDeletedProductId(id) {
+            try {
+                let deleted = JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]');
+                const num = Number(id);
+                deleted = deleted.filter(d => Number(d) !== num);
+                localStorage.setItem('rs_deleted_product_ids', JSON.stringify(deleted));
+            } catch(e) {}
+        }
+
+        let currentOpenModalProductId = null;
+
+        function updateOpenModalIfMatching(id) {
+            const modal = document.getElementById('productDetailModal');
+            if (modal && modal.classList.contains('active') && Number(currentOpenModalProductId) === Number(id)) {
+                openProductDetailModal(Number(id));
+            }
+        }
+
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
         const initialDeleted = getDeletedProductIds();
@@ -2382,6 +2400,9 @@
                         trackDeletedProductId(delId);
                         catalogProducts = catalogProducts.filter(p => p.id !== delId);
                         localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                        if (Number(currentOpenModalProductId) === delId) {
+                            closeProductDetailModal();
+                        }
                         if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                         if (typeof renderCatalogGrid === 'function') {
                             const activeItem = document.querySelector('.catalog-item.active');
@@ -2397,6 +2418,9 @@
                             const activeItem = document.querySelector('.catalog-item.active');
                             const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
                             renderCatalogGrid(cat);
+                        }
+                        if (event.data.product && typeof updateOpenModalIfMatching === 'function') {
+                            updateOpenModalIfMatching(event.data.product.id);
                         }
                     }
                 }
@@ -2423,6 +2447,9 @@
                         const activeItem = document.querySelector('.catalog-item.active');
                         const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
                         renderCatalogGrid(cat);
+                    }
+                    if (currentOpenModalProductId && typeof updateOpenModalIfMatching === 'function') {
+                        updateOpenModalIfMatching(currentOpenModalProductId);
                     }
                 } catch(err){}
             }
@@ -2458,6 +2485,9 @@
                                 const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
                                 renderCatalogGrid(cat);
                             }
+                            if (currentOpenModalProductId && typeof updateOpenModalIfMatching === 'function') {
+                                updateOpenModalIfMatching(currentOpenModalProductId);
+                            }
                         }
                     });
 
@@ -2481,6 +2511,7 @@
                                     rating: n.rating || '5.0 ★',
                                     inStock: n.in_stock !== false
                                 };
+                                untrackDeletedProductId(p.id);
                                 catalogProducts = catalogProducts.filter(item => item.id !== p.id);
                                 catalogProducts.unshift(p);
                             } else if (evt === 'UPDATE' && n) {
@@ -2496,16 +2527,23 @@
                                     rating: n.rating || '5.0 ★',
                                     inStock: n.in_stock !== false
                                 };
+                                untrackDeletedProductId(p.id);
                                 if (idx !== -1) {
                                     catalogProducts[idx] = p;
                                 } else {
                                     catalogProducts.unshift(p);
+                                }
+                                if (typeof updateOpenModalIfMatching === 'function') {
+                                    updateOpenModalIfMatching(p.id);
                                 }
                             } else if (evt === 'DELETE') {
                                 const delId = Number(o?.id || payload.old?.id);
                                 if (delId) {
                                     trackDeletedProductId(delId);
                                     catalogProducts = catalogProducts.filter(item => item.id !== delId);
+                                    if (Number(currentOpenModalProductId) === delId) {
+                                        closeProductDetailModal();
+                                    }
                                 }
                             }
 
@@ -2531,6 +2569,42 @@
 
         // Initialize Supabase Live sync
         const supabaseLiveActive = initSupabaseLiveVisitor();
+
+        // 🔄 Real-time heartbeat re-sync: captures updates across distributed visitors
+        setInterval(async () => {
+            const config = window.RS_CLOUD_CONFIG?.supabase;
+            if (config && config.url && config.anonKey && window.supabase && supabaseLiveActive) {
+                try {
+                    const sb = window.supabase.createClient(config.url, config.anonKey);
+                    const tableName = config.tableName || 'products';
+                    const { data, error } = await sb.from(tableName).select('*').order('id', { ascending: false });
+                    if (!error && Array.isArray(data) && data.length > 0) {
+                        const delIds = getDeletedProductIds();
+                        catalogProducts = data.map(item => ({
+                            id: Number(item.id),
+                            name: item.name,
+                            category: item.category,
+                            price: item.price,
+                            desc: item.desc || item.description || '',
+                            img: item.img || 'assets/images/plywood_specimen.png',
+                            tag: item.tag || '',
+                            rating: item.rating || '5.0 ★',
+                            inStock: item.in_stock !== false
+                        })).filter(p => !delIds.has(p.id));
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                        if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                        if (typeof renderCatalogGrid === 'function') {
+                            const activeItem = document.querySelector('.catalog-item.active');
+                            const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                            renderCatalogGrid(cat);
+                        }
+                        if (currentOpenModalProductId && typeof updateOpenModalIfMatching === 'function') {
+                            updateOpenModalIfMatching(currentOpenModalProductId);
+                        }
+                    }
+                } catch(e) {}
+            }
+        }, 12000);
 
         // Fetch Permanent Database File with cache-busting (data/products.json) as fallback/backup
         fetch('data/products.json?t=' + Date.now())
@@ -2658,6 +2732,7 @@
         }
 
         function openProductDetailModal(id) {
+            currentOpenModalProductId = id;
             const p = catalogProducts.find(item => item.id === id);
             if (!p) return;
 
@@ -2679,6 +2754,7 @@
         }
 
         function closeProductDetailModal() {
+            currentOpenModalProductId = null;
             const modal = document.getElementById('productDetailModal');
             if (modal) modal.classList.remove('active');
             document.body.style.overflow = '';

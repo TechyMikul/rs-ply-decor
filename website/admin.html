@@ -1107,6 +1107,15 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
             } catch(e) {}
         }
 
+        function untrackDeletedProductId(id) {
+            try {
+                let deleted = JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]');
+                const num = Number(id);
+                deleted = deleted.filter(d => Number(d) !== num);
+                localStorage.setItem('rs_deleted_product_ids', JSON.stringify(deleted));
+            } catch(e) {}
+        }
+
         // Helper: Convert between App product and Supabase DB row format
         function toSupabaseRow(p) {
             return {
@@ -1426,9 +1435,19 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
             const index = productsList.findIndex(p => p.id === id);
             if (index !== -1) {
                 productsList[index].inStock = !(productsList[index].inStock !== false);
-                await saveProductsToStorage(productsList[index], 'upsert');
+                const updatedItem = productsList[index];
+
+                // ⚡ Instant tab broadcast
+                if ('BroadcastChannel' in window) {
+                    try {
+                        const bc = new BroadcastChannel('rs_ply_channel');
+                        bc.postMessage({ type: 'PRODUCTS_UPDATED', product: updatedItem, products: productsList });
+                    } catch(e) {}
+                }
+
                 renderProductsGrid();
                 showToast(`Stock status updated: ${productsList[index].name}`);
+                await saveProductsToStorage(updatedItem, 'upsert');
             }
         }
 
@@ -1643,20 +1662,33 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                 if (index !== -1) {
                     productsList[index] = { ...productsList[index], name, category, price, tag, rating, desc, img };
                     savedItem = productsList[index];
+                    untrackDeletedProductId(savedItem.id);
                     showToast("Product updated & synced live!");
                 }
             } else {
                 // Add new
                 const newId = productsList.length > 0 ? Math.max(...productsList.map(p => p.id)) + 1 : 1;
                 savedItem = { id: newId, name, category, price, tag, rating, desc, img, inStock: true };
+                untrackDeletedProductId(newId);
                 productsList.unshift(savedItem);
                 showToast("New product added & published live to catalog!");
             }
 
-            await saveProductsToStorage(savedItem, 'upsert');
+            // ⚡ 1. Instantly broadcast update across all open visitor and client tabs
+            if ('BroadcastChannel' in window) {
+                try {
+                    const bc = new BroadcastChannel('rs_ply_channel');
+                    bc.postMessage({ type: 'PRODUCTS_UPDATED', product: savedItem, products: productsList });
+                } catch(e) {}
+            }
+
+            // ⚡ 2. Instant local UI refresh & close modal
             updateStats();
             renderProductsGrid();
             closeModal();
+
+            // ⚡ 3. Asynchronously persist to Supabase & cloud
+            await saveProductsToStorage(savedItem, 'upsert');
         }
 
         // ==========================================
