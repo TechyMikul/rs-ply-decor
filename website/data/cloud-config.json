@@ -1,0 +1,12 @@
+{
+  "supabase": {
+    "url": "",
+    "anonKey": "",
+    "tableName": "products"
+  },
+  "cloudinary": {
+    "cloudName": "",
+    "uploadPreset": "",
+    "folder": "rs-ply-decor"
+  }
+}

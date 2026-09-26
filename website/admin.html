@@ -16,6 +16,10 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Supabase JS Client v2 & Cloud Sync Config -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/cloud-config.js"></script>
+
     <style>
         :root {
             --brand-red: #d31f26;
@@ -130,6 +134,210 @@
         .btn-add-product:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(211, 31, 38, 0.45);
+        }
+        .btn-cloud-settings {
+            background: rgba(212, 175, 55, 0.12);
+            color: #8c5225;
+            border-color: rgba(212, 175, 55, 0.45);
+        }
+        .btn-cloud-settings:hover {
+            background: #d4af37;
+            color: #100a18;
+            border-color: #d4af37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        }
+        .cloud-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(20, 14, 28, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            color: #140d1b;
+        }
+        .cloud-status-badge:hover {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.08);
+        }
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #999999;
+            display: inline-block;
+            transition: var(--transition);
+        }
+        .status-dot.active {
+            background: #007a48;
+            box-shadow: 0 0 8px rgba(0, 122, 72, 0.8);
+            animation: pulseGreenDot 2s infinite;
+        }
+        .status-dot.standby {
+            background: #d4af37;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+        }
+        .status-dot.error {
+            background: #d31f26;
+            box-shadow: 0 0 8px rgba(211, 31, 38, 0.8);
+        }
+        @keyframes pulseGreenDot {
+            0% { box-shadow: 0 0 0 0 rgba(0, 122, 72, 0.7); }
+            70% { box-shadow: 0 0 0 7px rgba(0, 122, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 122, 72, 0); }
+        }
+
+        .modal-card.modal-card-lg {
+            max-width: 820px;
+        }
+        .settings-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-dark-muted);
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+        }
+        .tab-btn:hover {
+            color: #ffffff;
+            border-color: #d4af37;
+        }
+        .tab-btn.active {
+            background: rgba(212, 175, 55, 0.18);
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .cloud-info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .code-snippet-box {
+            background: #09050d;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+            margin-top: 0.5rem;
+        }
+        .code-snippet-box pre {
+            color: #e2d9f3;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 220px;
+            overflow-y: auto;
+            margin: 0;
+        }
+        .btn-copy-code {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-copy-code:hover {
+            background: #d4af37;
+            color: #100a18;
+        }
+        .btn-sync-action {
+            background: rgba(0, 122, 72, 0.15);
+            border: 1px solid var(--brand-green);
+            color: #34d399;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+        }
+        .btn-sync-action:hover {
+            background: var(--brand-green);
+            color: #ffffff;
+        }
+        .progress-bar-wrap {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+            display: none;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #d4af37, #007a48);
+            transition: width 0.2s ease;
+        }
+        .cloudinary-dropzone {
+            background: rgba(16, 10, 24, 0.6);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .cloudinary-dropzone:hover {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .tag-cloudinary-cdn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(212, 175, 55, 0.15);
+            color: #d4af37;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
         }
 
         /* MAIN LAYOUT */
@@ -501,8 +709,15 @@
                 <span class="admin-portal-badge">ADMIN PRODUCT PORTAL</span>
             </div>
             <div class="header-actions">
+                <div class="cloud-status-badge" id="cloudStatusBadge" onclick="openCloudSettingsModal()" title="Click to configure Supabase & Cloudinary Realtime Sync">
+                    <span class="status-dot standby" id="cloudStatusDot"></span>
+                    <span id="cloudStatusText">Connecting Cloud...</span>
+                </div>
+                <button class="btn-action btn-cloud-settings" onclick="openCloudSettingsModal()" title="Configure Supabase Database & Cloudinary Media CDN">
+                    <i class="fa-solid fa-cloud-bolt"></i> Cloud Realtime & CDN
+                </button>
                 <button class="btn-action btn-website" onclick="downloadProductsJson()" title="Download permanent products.json file for GitHub">
-                    <i class="fa-solid fa-download"></i> Export GitHub DB
+                    <i class="fa-solid fa-download"></i> Export DB
                 </button>
                 <a href="index.html" target="_blank" class="btn-action btn-website">
                     <i class="fa-solid fa-globe"></i> View Website
@@ -582,6 +797,169 @@
 
     </main>
 
+    <!-- CLOUD REALTIME & CDN SETTINGS MODAL -->
+    <div class="modal-overlay" id="cloudSettingsModal">
+        <div class="modal-card modal-card-lg">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-cloud-bolt" style="color: #d4af37; font-size: 1.5rem;"></i>
+                    <div>
+                        <h3 class="modal-title" style="margin-bottom: 0.15rem;">Cloud Sync & CDN Settings</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-dark-muted);">Supabase Real-Time Database & Cloudinary Media CDN Integration</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeCloudSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="settings-tabs">
+                <button class="tab-btn active" onclick="switchSettingsTab('tabSupabase', this)">
+                    <i class="fa-solid fa-database"></i> Supabase Real-Time
+                </button>
+                <button class="tab-btn" onclick="switchSettingsTab('tabCloudinary', this)">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Cloudinary Media CDN
+                </button>
+                <button class="tab-btn" onclick="switchSettingsTab('tabSqlGuide', this)">
+                    <i class="fa-solid fa-code"></i> SQL Schema & Setup Guide
+                </button>
+            </div>
+
+            <!-- TAB 1: SUPABASE -->
+            <div class="tab-content active" id="tabSupabase">
+                <div class="cloud-info-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span class="status-dot standby" id="modalSupabaseDot"></span>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.9rem;" id="modalSupabaseStatusTitle">Supabase Status: Checking...</div>
+                            <div style="font-size: 0.75rem; color: var(--text-dark-muted);" id="modalSupabaseStatusDesc">Realtime synchronization updates all client devices instantly upon edit.</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-action btn-website" onclick="testSupabaseConnection()" style="font-size: 0.78rem; padding: 0.4rem 0.9rem;">
+                        <i class="fa-solid fa-plug"></i> Test Connection
+                    </button>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label">Supabase Project URL *</label>
+                        <input type="text" id="cfgSupabaseUrl" class="form-input" placeholder="https://xxxxxxxxxxxxxxxxxxxx.supabase.co">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Supabase Anon / Public API Key *</label>
+                        <input type="password" id="cfgSupabaseKey" class="form-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Database Table Name</label>
+                        <input type="text" id="cfgSupabaseTable" class="form-input" value="products" placeholder="products">
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <label class="form-label">One-Click Catalog Seeder</label>
+                        <button type="button" class="btn-sync-action" onclick="seedAllProductsToSupabase()" id="btnSeedSupabase" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i> Push All Local Products to Supabase
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-bar-wrap" id="seedProgressBarWrap" style="margin-top: 1rem;">
+                    <div class="progress-bar-fill" id="seedProgressBarFill"></div>
+                </div>
+                <div id="seedStatusMsg" style="font-size: 0.8rem; margin-top: 0.5rem; color: #d4af37; display: none;"></div>
+            </div>
+
+            <!-- TAB 2: CLOUDINARY -->
+            <div class="tab-content" id="tabCloudinary">
+                <div class="cloud-info-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fa-solid fa-images" style="color: #d4af37; font-size: 1.25rem;"></i>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.9rem;">Cloudinary Media Asset Delivery</div>
+                            <div style="font-size: 0.75rem; color: var(--text-dark-muted);">High-performance edge CDN for all product photos, catalogs, and specimen images.</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-action btn-website" onclick="testCloudinaryConfig()" style="font-size: 0.78rem; padding: 0.4rem 0.9rem;">
+                        <i class="fa-solid fa-circle-check"></i> Validate
+                    </button>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Cloud Name *</label>
+                        <input type="text" id="cfgCloudinaryName" class="form-input" placeholder="e.g. rs-ply-decor or dxy...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Unsigned Upload Preset *</label>
+                        <input type="text" id="cfgCloudinaryPreset" class="form-input" placeholder="e.g. rs_ply_uploads">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cloudinary Media Folder</label>
+                        <input type="text" id="cfgCloudinaryFolder" class="form-input" value="rs-ply-decor" placeholder="rs-ply-decor">
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <label class="form-label">Bulk Cloudinary Asset Migration</label>
+                        <button type="button" class="btn-sync-action" onclick="migrateLocalImagesToCloudinary()" id="btnMigrateImages" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Bulk Migrate Local Images to Cloudinary
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-bar-wrap" id="migrateProgressBarWrap" style="margin-top: 1rem;">
+                    <div class="progress-bar-fill" id="migrateProgressBarFill"></div>
+                </div>
+                <div id="migrateStatusMsg" style="font-size: 0.8rem; margin-top: 0.5rem; color: #d4af37; display: none;"></div>
+            </div>
+
+            <!-- TAB 3: SQL SCHEMA & SETUP GUIDE -->
+            <div class="tab-content" id="tabSqlGuide">
+                <div style="font-size: 0.85rem; line-height: 1.6; color: var(--text-dark-muted); margin-bottom: 1rem;">
+                    <strong style="color: #ffffff;">Quick 3-Minute Setup:</strong>
+                    <ol style="margin-left: 1.25rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <li>Open your <a href="https://supabase.com/dashboard" target="_blank" style="color: #d4af37;">Supabase Project Dashboard</a> &rarr; Navigate to <strong>SQL Editor</strong>.</li>
+                        <li>Click <strong>New Query</strong>, copy the SQL below, paste it, and click <strong>Run</strong>.</li>
+                        <li>Go to <strong>Project Settings &rarr; API</strong>, copy your <em>Project URL</em> and <em>anon public key</em> into the Supabase tab here!</li>
+                    </ol>
+                </div>
+
+                <div class="code-snippet-box">
+                    <button class="btn-copy-code" onclick="copySqlSchema()"><i class="fa-solid fa-copy"></i> Copy SQL</button>
+                    <pre><code id="sqlSchemaCode">-- RS PLY DECOR - Supabase Products Table & Realtime Schema
+CREATE TABLE IF NOT EXISTS public.products (
+    id BIGINT PRIMARY KEY,
+    name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    price TEXT,
+    "desc" TEXT,
+    img TEXT,
+    tag TEXT,
+    rating TEXT DEFAULT '5.0 ★',
+    in_stock BOOLEAN DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read access
+CREATE POLICY "Allow public read access" ON public.products
+    FOR SELECT USING (true);
+
+-- Allow public/anon insert, update, delete for instant admin sync
+CREATE POLICY "Allow anon insert, update, delete" ON public.products
+    FOR ALL USING (true) WITH CHECK (true);
+
+-- Enable Realtime Replication for instant live cross-device sync
+ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <button type="button" class="btn-action btn-website" onclick="closeCloudSettingsModal()">Close</button>
+                <button type="button" class="btn-action btn-add-product" onclick="saveCloudSettingsFromModal()" style="background: linear-gradient(135deg, #d4af37 0%, #8c5225 100%); border-color: #d4af37;">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Cloud Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- ADD / EDIT PRODUCT MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-card">
@@ -644,15 +1022,23 @@
                             <option value="assets/images/mica_specimen.png">✨ Italian High-Gloss Marble Mica</option>
                             <option value="assets/images/flush_door.png">🚪 Solid Timber Flush Door</option>
                             <option value="assets/images/hero_interior_plywood.png">🏠 Exterior Ceiling Soffit</option>
-                            <option value="upload">📁 Upload Image File from Phone / Device (Cloudinary)</option>
+                            <option value="upload">📁 Upload Image File from Phone / Device (Cloudinary CDN)</option>
                             <option value="custom">🌐 Custom Image URL / Path</option>
                         </select>
                     </div>
 
                     <div class="form-group full-width" id="fileUploadGroup" style="display: none;">
-                        <label class="form-label">Upload Photo from Device</label>
-                        <input type="file" id="pFilePicker" class="form-input" accept="image/*" onchange="processImageFile(event)">
-                        <div id="fileUploadPreview" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--brand-green);"></div>
+                        <label class="form-label">Upload Photo from Device (Cloudinary CDN)</label>
+                        <div class="cloudinary-dropzone" id="cloudinaryDropzone" onclick="document.getElementById('pFilePicker').click()">
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 1.8rem; color: #d4af37; margin-bottom: 0.4rem;"></i>
+                            <div style="font-weight: 700; font-size: 0.9rem;">Click or Drag & Drop Photo Here</div>
+                            <div style="font-size: 0.75rem; color: var(--text-dark-muted);">Directly converts to optimized Cloudinary CDN media</div>
+                        </div>
+                        <input type="file" id="pFilePicker" style="display: none;" accept="image/*" onchange="processImageFile(event)">
+                        <div class="progress-bar-wrap" id="uploadProgressBarWrap">
+                            <div class="progress-bar-fill" id="uploadProgressBarFill"></div>
+                        </div>
+                        <div id="fileUploadPreview" style="margin-top: 0.6rem; font-size: 0.825rem; color: var(--brand-green);"></div>
                     </div>
 
                     <div class="form-group full-width" id="customImgGroup" style="display: none;">
@@ -697,11 +1083,151 @@
 
         let productsList = [];
         let currentFilter = 'all';
+        let supabaseClient = null;
+        let realtimeSubscription = null;
+        let uploadedImageDataUrl = '';
+
+        // Helper: Convert between App product and Supabase DB row format
+        function toSupabaseRow(p) {
+            return {
+                id: Number(p.id),
+                name: p.name || '',
+                category: p.category || 'plywood',
+                price: p.price || '',
+                desc: p.desc || '',
+                img: p.img || '',
+                tag: p.tag || '',
+                rating: p.rating || '5.0 ★',
+                in_stock: p.inStock !== false,
+                updated_at: new Date().toISOString()
+            };
+        }
+
+        function fromSupabaseRow(r) {
+            return {
+                id: Number(r.id),
+                name: r.name,
+                category: r.category,
+                price: r.price,
+                desc: r.desc || r.description || '',
+                img: r.img || 'assets/images/plywood_specimen.png',
+                tag: r.tag || '',
+                rating: r.rating || '5.0 ★',
+                inStock: r.in_stock !== undefined ? r.in_stock : (r.inStock !== undefined ? r.inStock : true)
+            };
+        }
+
+        // Initialize Supabase Client & Real-Time Sync Channel
+        function initSupabaseClient() {
+            const config = window.RS_CLOUD_CONFIG || {};
+            const sb = config.supabase || {};
+
+            if (sb.url && sb.anonKey && window.supabase) {
+                try {
+                    supabaseClient = window.supabase.createClient(sb.url, sb.anonKey);
+                    setupSupabaseRealtime(sb.tableName || 'products');
+                    updateCloudStatusUI('active', 'Supabase Real-Time Live');
+                    return true;
+                } catch(err) {
+                    console.error('[Supabase Init Error]', err);
+                    updateCloudStatusUI('error', 'Supabase Config Error');
+                    return false;
+                }
+            } else {
+                updateCloudStatusUI('standby', 'Local Database Mode');
+                return false;
+            }
+        }
+
+        // Setup Real-Time Subscriptions so all modifications sync live across tabs & clients
+        function setupSupabaseRealtime(tableName) {
+            if (!supabaseClient) return;
+            try {
+                if (realtimeSubscription) {
+                    supabaseClient.removeChannel(realtimeSubscription);
+                }
+
+                realtimeSubscription = supabaseClient.channel('admin-products-realtime')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: tableName }, (payload) => {
+                        console.log('[Supabase Realtime Event Received]', payload);
+                        const event = payload.eventType;
+                        const newRow = payload.new;
+                        const oldRow = payload.old;
+
+                        if (event === 'INSERT' && newRow) {
+                            const newProduct = fromSupabaseRow(newRow);
+                            if (!productsList.some(p => p.id === newProduct.id)) {
+                                productsList.unshift(newProduct);
+                            }
+                        } else if (event === 'UPDATE' && newRow) {
+                            const updated = fromSupabaseRow(newRow);
+                            const idx = productsList.findIndex(p => p.id === updated.id);
+                            if (idx !== -1) {
+                                productsList[idx] = updated;
+                            } else {
+                                productsList.unshift(updated);
+                            }
+                        } else if (event === 'DELETE' && oldRow) {
+                            productsList = productsList.filter(p => p.id !== Number(oldRow.id));
+                        }
+
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                        updateStats();
+                        renderProductsGrid();
+                    })
+                    .subscribe((status) => {
+                        if (status === 'SUBSCRIBED') {
+                            updateCloudStatusUI('active', 'Supabase Real-Time Live');
+                        }
+                    });
+            } catch(e) {
+                console.error('[Realtime setup error]', e);
+            }
+        }
+
+        function updateCloudStatusUI(status, text) {
+            const dot = document.getElementById('cloudStatusDot');
+            const txt = document.getElementById('cloudStatusText');
+            const mDot = document.getElementById('modalSupabaseDot');
+            const mTitle = document.getElementById('modalSupabaseStatusTitle');
+
+            if (dot) {
+                dot.className = `status-dot ${status}`;
+            }
+            if (txt) {
+                txt.innerText = text;
+            }
+            if (mDot) {
+                mDot.className = `status-dot ${status}`;
+            }
+            if (mTitle) {
+                mTitle.innerText = `Supabase: ${text}`;
+            }
+        }
 
         async function loadProducts() {
-            // First attempt loading from data/products.json
+            initSupabaseClient();
+
+            // 1. Try loading directly from Supabase first if connected
+            if (supabaseClient) {
+                try {
+                    const tableName = window.RS_CLOUD_CONFIG?.supabase?.tableName || 'products';
+                    const { data, error } = await supabaseClient.from(tableName).select('*').order('id', { ascending: false });
+                    if (!error && Array.isArray(data) && data.length > 0) {
+                        productsList = data.map(fromSupabaseRow);
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                        updateStats();
+                        renderProductsGrid();
+                        return;
+                    }
+                } catch(e) {
+                    console.log('Supabase fetch fallback:', e);
+                }
+            }
+
+            // 2. Attempt loading from data/products.json
             try {
-                const jsonRes = await fetch('data/products.json');
+                const jsonRes = await fetch('data/products.json?t=' + Date.now());
                 if (jsonRes.ok) {
                     const repoData = await jsonRes.json();
                     if (Array.isArray(repoData) && repoData.length > 0) {
@@ -714,7 +1240,7 @@
                 }
             } catch(e) {}
 
-            // Instant local render
+            // 3. Instant local render from localStorage
             const saved = localStorage.getItem('rs_catalog_products');
             if (saved) {
                 try { productsList = JSON.parse(saved); }
@@ -725,7 +1251,7 @@
             updateStats();
             renderProductsGrid();
 
-            // Zero-Login Live Internet Cloud Database Sync
+            // 4. Secondary Zero-Login Live Internet Cloud Database Sync
             try {
                 const res = await fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } });
                 if (res.ok) {
@@ -742,10 +1268,10 @@
             }
         }
 
-        async function saveProductsToStorage() {
+        async function saveProductsToStorage(specificItem = null, action = 'upsert') {
             localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
             
-            // 1. ⚡ Instant Real-Time Sync across all open tabs via BroadcastChannel
+            // 1. ⚡ Instant Real-Time Sync across all open browser tabs via BroadcastChannel
             if ('BroadcastChannel' in window) {
                 try {
                     const bc = new BroadcastChannel('rs_ply_channel');
@@ -753,27 +1279,44 @@
                 } catch(e) {}
             }
 
-            // 2. 💾 Permanently write directly into website/data/products.json on disk
+            // 2. ⚡ Live Supabase Database Sync (Instant synchronization for all visitors worldwide)
+            if (supabaseClient) {
+                try {
+                    const tableName = window.RS_CLOUD_CONFIG?.supabase?.tableName || 'products';
+                    if (action === 'delete' && specificItem) {
+                        const { error } = await supabaseClient.from(tableName).delete().eq('id', Number(specificItem.id));
+                        if (error) console.error('[Supabase Delete Error]', error);
+                    } else if (specificItem) {
+                        const row = toSupabaseRow(specificItem);
+                        const { error } = await supabaseClient.from(tableName).upsert(row);
+                        if (error) console.error('[Supabase Upsert Error]', error);
+                    } else {
+                        const rows = productsList.map(toSupabaseRow);
+                        const { error } = await supabaseClient.from(tableName).upsert(rows);
+                        if (error) console.error('[Supabase Batch Error]', error);
+                    }
+                } catch(sbErr) {
+                    console.error('[Supabase Live Sync Error]', sbErr);
+                }
+            }
+
+            // 3. 💾 Permanently write directly into website/data/products.json on disk (if local server running)
             try {
                 await fetch('/api/products', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ products: productsList })
                 });
-            } catch(e) {
-                console.log('Local API save info:', e);
-            }
+            } catch(e) {}
             
-            // 3. ☁️ Sync with Zero-Login Live Internet Cloud Database
+            // 4. ☁️ Sync with Secondary Zero-Login Live Internet Cloud Database
             try {
                 await fetch(ZERO_LOGIN_API_BLOB, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({ products: productsList })
                 });
-            } catch(e) {
-                console.log('Cloud sync info:', e);
-            }
+            } catch(e) {}
         }
 
         function updateStats() {
@@ -852,23 +1395,24 @@
             renderProductsGrid();
         }
 
-        function toggleStock(id) {
+        async function toggleStock(id) {
             const index = productsList.findIndex(p => p.id === id);
             if (index !== -1) {
                 productsList[index].inStock = !(productsList[index].inStock !== false);
-                saveProductsToStorage();
+                await saveProductsToStorage(productsList[index], 'upsert');
                 renderProductsGrid();
-                showToast(`Stock status updated for ${productsList[index].name}`);
+                showToast(`Stock status updated: ${productsList[index].name}`);
             }
         }
 
-        function deleteProduct(id) {
-            if (confirm("Are you sure you want to delete this material product from live website catalog?")) {
+        async function deleteProduct(id) {
+            if (confirm("Are you sure you want to delete this material product from live catalog?")) {
+                const deletedItem = productsList.find(p => p.id === id);
                 productsList = productsList.filter(p => p.id !== id);
-                saveProductsToStorage();
+                await saveProductsToStorage(deletedItem || { id }, 'delete');
                 updateStats();
                 renderProductsGrid();
-                showToast("Product removed successfully");
+                showToast("Product deleted & synced live!");
             }
         }
 
@@ -888,6 +1432,10 @@
             document.getElementById('modalHeading').innerText = 'Add New Material Product';
             document.getElementById('productForm').reset();
             document.getElementById('customImgGroup').style.display = 'none';
+            document.getElementById('fileUploadGroup').style.display = 'none';
+            document.getElementById('fileUploadPreview').innerHTML = '';
+            document.getElementById('uploadProgressBarWrap').style.display = 'none';
+            uploadedImageDataUrl = '';
             document.getElementById('productModal').classList.add('active');
         }
 
@@ -904,23 +1452,37 @@
             document.getElementById('pDesc').value = p.desc;
             
             const presetSelect = document.getElementById('pImgPreset');
-            if (presetSelect.querySelector(`option[value="${p.img}"]`)) {
-                presetSelect.value = p.img;
-                document.getElementById('customImgGroup').style.display = 'none';
-            } else {
-                presetSelect.value = 'custom';
-                document.getElementById('customImgGroup').style.display = 'block';
-                document.getElementById('pCustomImg').value = p.img;
+            const customGroup = document.getElementById('customImgGroup');
+            const fileGroup = document.getElementById('fileUploadGroup');
+            document.getElementById('fileUploadPreview').innerHTML = '';
+            document.getElementById('uploadProgressBarWrap').style.display = 'none';
+
+            let isPreset = false;
+            for (let i = 0; i < presetSelect.options.length; i++) {
+                if (presetSelect.options[i].value === p.img) {
+                    presetSelect.selectedIndex = i;
+                    isPreset = true;
+                    break;
+                }
             }
 
+            if (!isPreset) {
+                presetSelect.value = 'custom';
+                customGroup.style.display = 'block';
+                fileGroup.style.display = 'none';
+                document.getElementById('pCustomImg').value = p.img;
+            } else {
+                customGroup.style.display = 'none';
+                fileGroup.style.display = 'none';
+            }
+
+            uploadedImageDataUrl = p.img;
             document.getElementById('productModal').classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('productModal').classList.remove('active');
         }
-
-        let uploadedImageDataUrl = '';
 
         function updateImageInput(val) {
             const customGroup = document.getElementById('customImgGroup');
@@ -938,18 +1500,85 @@
             }
         }
 
-        function processImageFile(e) {
+        // Direct Cloudinary Upload via Unsigned Preset
+        async function processImageFile(e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                uploadedImageDataUrl = evt.target.result;
-                document.getElementById('fileUploadPreview').innerText = `✓ Photo Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-            };
-            reader.readAsDataURL(file);
+
+            const preview = document.getElementById('fileUploadPreview');
+            const progressWrap = document.getElementById('uploadProgressBarWrap');
+            const progressFill = document.getElementById('uploadProgressBarFill');
+
+            const config = window.RS_CLOUD_CONFIG?.cloudinary || {};
+            const { cloudName, uploadPreset, folder } = config;
+
+            // If Cloudinary credentials are provided, upload directly to Cloudinary CDN
+            if (cloudName && uploadPreset) {
+                progressWrap.style.display = 'block';
+                progressFill.style.width = '15%';
+                preview.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="color: #d4af37;"></i> Uploading photo to Cloudinary CDN...`;
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', uploadPreset);
+                if (folder) formData.append('folder', folder);
+
+                try {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`);
+
+                    xhr.upload.onprogress = (evt) => {
+                        if (evt.lengthComputable) {
+                            const pct = Math.round((evt.loaded / evt.total) * 100);
+                            progressFill.style.width = `${pct}%`;
+                            preview.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="color: #d4af37;"></i> Uploading: ${pct}%...`;
+                        }
+                    };
+
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            const data = JSON.parse(xhr.responseText);
+                            uploadedImageDataUrl = data.secure_url;
+                            progressFill.style.width = '100%';
+                            setTimeout(() => { progressWrap.style.display = 'none'; }, 600);
+                            preview.innerHTML = `
+                                <span class="tag-cloudinary-cdn"><i class="fa-solid fa-cloud-arrow-up"></i> Cloudinary CDN Hosted</span>
+                                <a href="${data.secure_url}" target="_blank" style="color: #d4af37; text-decoration: underline; margin-left: 0.5rem; font-weight: 700;">View Live Media</a>
+                            `;
+                            showToast("Image uploaded to Cloudinary CDN successfully!");
+                        } else {
+                            throw new Error(`Upload returned status ${xhr.status}`);
+                        }
+                    };
+
+                    xhr.onerror = function() {
+                        fallbackLocalRead(file);
+                    };
+
+                    xhr.send(formData);
+                    return;
+                } catch(uploadErr) {
+                    console.error('Cloudinary direct upload error:', uploadErr);
+                    fallbackLocalRead(file);
+                }
+            } else {
+                fallbackLocalRead(file);
+            }
+
+            function fallbackLocalRead(f) {
+                progressWrap.style.display = 'none';
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    uploadedImageDataUrl = evt.target.result;
+                    preview.innerHTML = `
+                        <span style="color: #d4af37;"><i class="fa-solid fa-circle-info"></i> Loaded locally (${(f.size / 1024).toFixed(1)} KB). Configure Cloudinary in Cloud Sync settings for global CDN delivery.</span>
+                    `;
+                };
+                reader.readAsDataURL(f);
+            }
         }
 
-        function handleFormSubmit(e) {
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const editId = document.getElementById('editProductId').value;
             const name = document.getElementById('pName').value.trim();
@@ -966,24 +1595,244 @@
                 img = uploadedImageDataUrl || 'assets/images/plywood_specimen.png';
             }
 
+            let savedItem = null;
+
             if (editId) {
                 // Edit existing
                 const index = productsList.findIndex(p => p.id == editId);
                 if (index !== -1) {
                     productsList[index] = { ...productsList[index], name, category, price, tag, rating, desc, img };
-                    showToast("Product updated successfully!");
+                    savedItem = productsList[index];
+                    showToast("Product updated & synced live!");
                 }
             } else {
                 // Add new
                 const newId = productsList.length > 0 ? Math.max(...productsList.map(p => p.id)) + 1 : 1;
-                productsList.push({ id: newId, name, category, price, tag, rating, desc, img, inStock: true });
-                showToast("New product added & published to live catalog!");
+                savedItem = { id: newId, name, category, price, tag, rating, desc, img, inStock: true };
+                productsList.unshift(savedItem);
+                showToast("New product added & published live to catalog!");
             }
 
-            saveProductsToStorage();
+            await saveProductsToStorage(savedItem, 'upsert');
             updateStats();
             renderProductsGrid();
             closeModal();
+        }
+
+        // ==========================================
+        // CLOUD SETTINGS & SYNC MODAL CONTROLLERS
+        // ==========================================
+        function openCloudSettingsModal() {
+            const config = window.RS_CLOUD_CONFIG || {};
+            const sb = config.supabase || {};
+            const cld = config.cloudinary || {};
+
+            document.getElementById('cfgSupabaseUrl').value = sb.url || '';
+            document.getElementById('cfgSupabaseKey').value = sb.anonKey || '';
+            document.getElementById('cfgSupabaseTable').value = sb.tableName || 'products';
+
+            document.getElementById('cfgCloudinaryName').value = cld.cloudName || '';
+            document.getElementById('cfgCloudinaryPreset').value = cld.uploadPreset || '';
+            document.getElementById('cfgCloudinaryFolder').value = cld.folder || 'rs-ply-decor';
+
+            if (supabaseClient) {
+                updateCloudStatusUI('active', 'Connected & Listening');
+            } else {
+                updateCloudStatusUI('standby', 'Not Connected / Local Mode');
+            }
+
+            document.getElementById('cloudSettingsModal').classList.add('active');
+        }
+
+        function closeCloudSettingsModal() {
+            document.getElementById('cloudSettingsModal').classList.remove('active');
+        }
+
+        function switchSettingsTab(tabId, btn) {
+            document.querySelectorAll('#cloudSettingsModal .tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#cloudSettingsModal .tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function copySqlSchema() {
+            const code = document.getElementById('sqlSchemaCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast("SQL Schema copied to clipboard!");
+            }).catch(() => {
+                showToast("Please copy the SQL text manually.");
+            });
+        }
+
+        async function saveCloudSettingsFromModal() {
+            const newConfig = {
+                supabase: {
+                    url: document.getElementById('cfgSupabaseUrl').value.trim(),
+                    anonKey: document.getElementById('cfgSupabaseKey').value.trim(),
+                    tableName: document.getElementById('cfgSupabaseTable').value.trim() || 'products'
+                },
+                cloudinary: {
+                    cloudName: document.getElementById('cfgCloudinaryName').value.trim(),
+                    uploadPreset: document.getElementById('cfgCloudinaryPreset').value.trim(),
+                    folder: document.getElementById('cfgCloudinaryFolder').value.trim() || 'rs-ply-decor'
+                }
+            };
+
+            await window.saveRSCloudConfig(newConfig);
+            initSupabaseClient();
+            showToast("Cloud configuration saved successfully!");
+            setTimeout(() => { closeCloudSettingsModal(); }, 500);
+        }
+
+        async function testSupabaseConnection() {
+            const url = document.getElementById('cfgSupabaseUrl').value.trim();
+            const anonKey = document.getElementById('cfgSupabaseKey').value.trim();
+            const tableName = document.getElementById('cfgSupabaseTable').value.trim() || 'products';
+
+            if (!url || !anonKey) {
+                alert("Please enter both Supabase Project URL and Anon Public Key.");
+                return;
+            }
+
+            try {
+                const testClient = window.supabase.createClient(url, anonKey);
+                const { data, error } = await testClient.from(tableName).select('id').limit(1);
+                if (error) {
+                    alert(`Connection test error: ${error.message}\nMake sure you have created the table in SQL Editor.`);
+                    updateCloudStatusUI('error', 'Table Not Found');
+                } else {
+                    alert(`✓ Supabase connection successful! Connected to table "${tableName}".`);
+                    updateCloudStatusUI('active', 'Verified & Connected');
+                }
+            } catch(e) {
+                alert(`Connection failed: ${e.message}`);
+                updateCloudStatusUI('error', 'Connection Error');
+            }
+        }
+
+        function testCloudinaryConfig() {
+            const cName = document.getElementById('cfgCloudinaryName').value.trim();
+            const preset = document.getElementById('cfgCloudinaryPreset').value.trim();
+            if (!cName || !preset) {
+                alert("Please provide both Cloud Name and an Unsigned Upload Preset name.");
+            } else {
+                alert(`✓ Cloudinary settings configured for cloud "${cName}". Unsigned upload preset: "${preset}".`);
+            }
+        }
+
+        // Push all local products directly into Supabase (Seed Initial Catalog)
+        async function seedAllProductsToSupabase() {
+            if (!supabaseClient) {
+                alert("Please save your Supabase URL & Anon Key and test connection first.");
+                return;
+            }
+            if (productsList.length === 0) {
+                alert("No products found to seed.");
+                return;
+            }
+
+            if (!confirm(`Push all ${productsList.length} products to Supabase table? Existing IDs will be updated.`)) {
+                return;
+            }
+
+            const btn = document.getElementById('btnSeedSupabase');
+            const wrap = document.getElementById('seedProgressBarWrap');
+            const fill = document.getElementById('seedProgressBarFill');
+            const msg = document.getElementById('seedStatusMsg');
+
+            btn.disabled = true;
+            wrap.style.display = 'block';
+            msg.style.display = 'block';
+
+            const tableName = window.RS_CLOUD_CONFIG?.supabase?.tableName || 'products';
+            const total = productsList.length;
+            let successCount = 0;
+
+            // Push in batches of 10
+            for (let i = 0; i < total; i += 10) {
+                const batch = productsList.slice(i, i + 10).map(toSupabaseRow);
+                try {
+                    const { error } = await supabaseClient.from(tableName).upsert(batch);
+                    if (error) throw error;
+                    successCount += batch.length;
+                } catch(e) {
+                    console.error('Batch upload error:', e);
+                }
+                const pct = Math.round((Math.min(i + 10, total) / total) * 100);
+                fill.style.width = `${pct}%`;
+                msg.innerText = `Syncing: ${Math.min(i + 10, total)} / ${total} products...`;
+            }
+
+            btn.disabled = false;
+            msg.innerHTML = `<strong style="color: #007a48;">✓ Successfully synced ${successCount} products to Supabase!</strong>`;
+            showToast(`Synced ${successCount} products to Supabase!`);
+        }
+
+        // Migrate local image references to Cloudinary CDN
+        async function migrateLocalImagesToCloudinary() {
+            const config = window.RS_CLOUD_CONFIG?.cloudinary || {};
+            const { cloudName, uploadPreset, folder } = config;
+
+            if (!cloudName || !uploadPreset) {
+                alert("Please configure and save your Cloudinary Cloud Name & Upload Preset first.");
+                return;
+            }
+
+            const localItems = productsList.filter(p => p.img && !p.img.startsWith('http'));
+            if (localItems.length === 0) {
+                alert("All products are already hosted on Cloudinary or external CDN URLs!");
+                return;
+            }
+
+            if (!confirm(`Found ${localItems.length} products with local image paths. Upload them to Cloudinary CDN?`)) {
+                return;
+            }
+
+            const btn = document.getElementById('btnMigrateImages');
+            const wrap = document.getElementById('migrateProgressBarWrap');
+            const fill = document.getElementById('migrateProgressBarFill');
+            const msg = document.getElementById('migrateStatusMsg');
+
+            btn.disabled = true;
+            wrap.style.display = 'block';
+            msg.style.display = 'block';
+
+            let count = 0;
+            for (const item of localItems) {
+                try {
+                    msg.innerText = `Uploading image for: ${item.name} (${count + 1}/${localItems.length})...`;
+                    const res = await fetch(item.img);
+                    if (res.ok) {
+                        const blob = await res.blob();
+                        const formData = new FormData();
+                        formData.append('file', blob);
+                        formData.append('upload_preset', uploadPreset);
+                        if (folder) formData.append('folder', folder);
+
+                        const upRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        if (upRes.ok) {
+                            const cldData = await upRes.json();
+                            if (cldData.secure_url) {
+                                item.img = cldData.secure_url;
+                                count++;
+                            }
+                        }
+                    }
+                } catch(err) {
+                    console.error('Error migrating image for', item.name, err);
+                }
+                const pct = Math.round(((count + 1) / localItems.length) * 100);
+                fill.style.width = `${pct}%`;
+            }
+
+            await saveProductsToStorage();
+            renderProductsGrid();
+            btn.disabled = false;
+            msg.innerHTML = `<strong style="color: #007a48;">✓ Migrated ${count} images to Cloudinary CDN!</strong>`;
+            showToast(`Migrated ${count} images to Cloudinary CDN!`);
         }
 
         function showToast(msg) {

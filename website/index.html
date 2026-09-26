@@ -30,6 +30,10 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Supabase JS Client v2 & Cloud Sync Config -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/cloud-config.js"></script>
+
     <style>
         :root {
             /* Official RS Brand Colors */
@@ -1789,7 +1793,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.2</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.3</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2264,7 +2268,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.2</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.3</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
@@ -2377,11 +2381,108 @@
             }
         });
 
-        // Fetch Permanent Database File with cache-busting (data/products.json)
+        // ☁️ Live Supabase Real-Time Client Synchronization for all website visitors
+        function initSupabaseLiveVisitor() {
+            const config = window.RS_CLOUD_CONFIG?.supabase;
+            if (config && config.url && config.anonKey && window.supabase) {
+                try {
+                    const sb = window.supabase.createClient(config.url, config.anonKey);
+                    const tableName = config.tableName || 'products';
+
+                    // Initial fetch from live Supabase DB
+                    sb.from(tableName).select('*').order('id', { ascending: false }).then(({ data, error }) => {
+                        if (!error && Array.isArray(data) && data.length > 0) {
+                            catalogProducts = data.map(item => ({
+                                id: Number(item.id),
+                                name: item.name,
+                                category: item.category,
+                                price: item.price,
+                                desc: item.desc || item.description || '',
+                                img: item.img || 'assets/images/plywood_specimen.png',
+                                tag: item.tag || '',
+                                rating: item.rating || '5.0 ★',
+                                inStock: item.in_stock !== false
+                            }));
+                            localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                            if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                            if (typeof renderCatalogGrid === 'function') {
+                                const activeItem = document.querySelector('.catalog-item.active');
+                                const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                                renderCatalogGrid(cat);
+                            }
+                        }
+                    });
+
+                    // Real-Time Postgres Replication Channel (updates browser instantly when admin edits!)
+                    sb.channel('visitor-catalog-live')
+                        .on('postgres_changes', { event: '*', schema: 'public', table: tableName }, (payload) => {
+                            console.log('[Supabase Realtime Live Update]', payload);
+                            const evt = payload.eventType;
+                            const n = payload.new;
+                            const o = payload.old;
+
+                            if (evt === 'INSERT' && n) {
+                                const p = {
+                                    id: Number(n.id),
+                                    name: n.name,
+                                    category: n.category,
+                                    price: n.price,
+                                    desc: n.desc || n.description || '',
+                                    img: n.img || 'assets/images/plywood_specimen.png',
+                                    tag: n.tag || '',
+                                    rating: n.rating || '5.0 ★',
+                                    inStock: n.in_stock !== false
+                                };
+                                catalogProducts = catalogProducts.filter(item => item.id !== p.id);
+                                catalogProducts.unshift(p);
+                            } else if (evt === 'UPDATE' && n) {
+                                const idx = catalogProducts.findIndex(item => item.id === Number(n.id));
+                                const p = {
+                                    id: Number(n.id),
+                                    name: n.name,
+                                    category: n.category,
+                                    price: n.price,
+                                    desc: n.desc || n.description || '',
+                                    img: n.img || 'assets/images/plywood_specimen.png',
+                                    tag: n.tag || '',
+                                    rating: n.rating || '5.0 ★',
+                                    inStock: n.in_stock !== false
+                                };
+                                if (idx !== -1) {
+                                    catalogProducts[idx] = p;
+                                } else {
+                                    catalogProducts.unshift(p);
+                                }
+                            } else if (evt === 'DELETE' && o) {
+                                catalogProducts = catalogProducts.filter(item => item.id !== Number(o.id));
+                            }
+
+                            localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                            if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                            if (typeof renderCatalogGrid === 'function') {
+                                const activeItem = document.querySelector('.catalog-item.active');
+                                const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                                renderCatalogGrid(cat);
+                            }
+                        })
+                        .subscribe();
+                    return true;
+                } catch(sbErr) {
+                    console.log('[Supabase visitor fallback]', sbErr);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // Initialize Supabase Live sync
+        const supabaseLiveActive = initSupabaseLiveVisitor();
+
+        // Fetch Permanent Database File with cache-busting (data/products.json) as fallback/backup
         fetch('data/products.json?t=' + Date.now())
             .then(res => res.json())
             .then(repoData => {
-                if (Array.isArray(repoData) && repoData.length > 0) {
+                if (Array.isArray(repoData) && repoData.length > 0 && !supabaseLiveActive) {
                     catalogProducts = repoData;
                     localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                     if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
@@ -2393,7 +2494,7 @@
                 fetch(ZERO_LOGIN_API_BLOB, { headers: { 'Accept': 'application/json' } })
                     .then(res => res.json())
                     .then(cloudData => {
-                        if (cloudData && Array.isArray(cloudData.products)) {
+                        if (cloudData && Array.isArray(cloudData.products) && !supabaseLiveActive) {
                             catalogProducts = cloudData.products;
                             localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                             if (typeof updateCategoryCounts === 'function') updateCategoryCounts();

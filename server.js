@@ -4,6 +4,8 @@ const path = require('path');
 
 const ROOT = __dirname;
 const PRODUCTS_JSON_PATH = path.join(ROOT, 'website', 'data', 'products.json');
+const CONFIG_JSON_PATH = path.join(ROOT, 'website', 'data', 'cloud-config.json');
+const CONFIG_JS_PATH = path.join(ROOT, 'website', 'js', 'cloud-config.js');
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=UTF-8',
@@ -82,6 +84,87 @@ function createServer() {
                 res.writeHead(404, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ error: 'products.json not found' }));
             }
+            return;
+        }
+
+        // GET /api/config
+        if (pathname === '/api/config' && req.method === 'GET') {
+            if (fs.existsSync(CONFIG_JSON_PATH)) {
+                const content = fs.readFileSync(CONFIG_JSON_PATH, 'utf8');
+                res.writeHead(200, {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Cache-Control': 'no-cache, no-store, must-revalidate'
+                });
+                res.end(content);
+            } else {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({
+                    supabase: { url: "", anonKey: "", tableName: "products" },
+                    cloudinary: { cloudName: "", uploadPreset: "", folder: "rs-ply-decor" }
+                }));
+            }
+            return;
+        }
+
+        // POST /api/config
+        if (pathname === '/api/config' && (req.method === 'POST' || req.method === 'PUT')) {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    let configData = JSON.parse(body);
+                    fs.writeFileSync(CONFIG_JSON_PATH, JSON.stringify(configData, null, 2), 'utf8');
+
+                    // Also regenerate website/js/cloud-config.js for static sync
+                    const jsContent = `/**
+ * RS Ply & Decor - Cloud Sync Configuration (Supabase & Cloudinary)
+ * Auto-generated and synced with Admin Portal settings and website/data/cloud-config.json.
+ */
+(function() {
+    const serverConfig = ${JSON.stringify(configData, null, 2)};
+    let stored = null;
+    try {
+        const raw = localStorage.getItem('rs_cloud_config');
+        if (raw) stored = JSON.parse(raw);
+    } catch(e) {}
+
+    window.RS_CLOUD_CONFIG = {
+        supabase: Object.assign({}, serverConfig.supabase || {}, (stored && stored.supabase) || {}),
+        cloudinary: Object.assign({}, serverConfig.cloudinary || {}, (stored && stored.cloudinary) || {})
+    };
+
+    window.saveRSCloudConfig = async function(newConfig) {
+        window.RS_CLOUD_CONFIG = {
+            supabase: Object.assign({}, window.RS_CLOUD_CONFIG.supabase, newConfig.supabase || {}),
+            cloudinary: Object.assign({}, window.RS_CLOUD_CONFIG.cloudinary, newConfig.cloudinary || {})
+        };
+        try {
+            localStorage.setItem('rs_cloud_config', JSON.stringify(window.RS_CLOUD_CONFIG));
+        } catch(e) {}
+        try {
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(window.RS_CLOUD_CONFIG)
+            });
+        } catch(e) {}
+        return window.RS_CLOUD_CONFIG;
+    };
+})();
+`;
+                    const jsDir = path.dirname(CONFIG_JS_PATH);
+                    if (!fs.existsSync(jsDir)) fs.mkdirSync(jsDir, { recursive: true });
+                    fs.writeFileSync(CONFIG_JS_PATH, jsContent, 'utf8');
+
+                    console.log(`[API] Saved cloud config to ${CONFIG_JSON_PATH} and ${CONFIG_JS_PATH}`);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: true, timestamp: Date.now() }));
+                } catch(err) {
+                    console.error('[Config API Error]', err);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: err.message }));
+                }
+            });
             return;
         }
 
