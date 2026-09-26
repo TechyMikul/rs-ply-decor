@@ -947,7 +947,10 @@ CREATE POLICY "Allow anon insert, update, delete" ON public.products
     FOR ALL USING (true) WITH CHECK (true);
 
 -- Enable Realtime Replication for instant live cross-device sync
-ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
+ALTER PUBLICATION supabase_realtime ADD TABLE public.products;
+
+-- Ensure deleted records broadcast their full primary key data
+ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                 </div>
             </div>
 
@@ -1087,6 +1090,23 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
         let realtimeSubscription = null;
         let uploadedImageDataUrl = '';
 
+        function getDeletedProductIds() {
+            try {
+                return new Set(JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]'));
+            } catch(e) { return new Set(); }
+        }
+
+        function trackDeletedProductId(id) {
+            try {
+                let deleted = JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]');
+                const num = Number(id);
+                if (!deleted.includes(num)) {
+                    deleted.push(num);
+                    localStorage.setItem('rs_deleted_product_ids', JSON.stringify(deleted));
+                }
+            } catch(e) {}
+        }
+
         // Helper: Convert between App product and Supabase DB row format
         function toSupabaseRow(p) {
             return {
@@ -1167,10 +1187,16 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
                             } else {
                                 productsList.unshift(updated);
                             }
-                        } else if (event === 'DELETE' && oldRow) {
-                            productsList = productsList.filter(p => p.id !== Number(oldRow.id));
+                        } else if (event === 'DELETE') {
+                            const delId = Number(oldRow?.id || payload.old?.id);
+                            if (delId) {
+                                productsList = productsList.filter(p => p.id !== delId);
+                                trackDeletedProductId(delId);
+                            }
                         }
 
+                        const delIds = getDeletedProductIds();
+                        productsList = productsList.filter(p => !delIds.has(p.id));
                         localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
                         updateStats();
                         renderProductsGrid();
@@ -1207,6 +1233,7 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
 
         async function loadProducts() {
             initSupabaseClient();
+            const delIds = getDeletedProductIds();
 
             // 1. Try loading directly from Supabase first if connected
             if (supabaseClient) {
@@ -1214,7 +1241,7 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
                     const tableName = window.RS_CLOUD_CONFIG?.supabase?.tableName || 'products';
                     const { data, error } = await supabaseClient.from(tableName).select('*').order('id', { ascending: false });
                     if (!error && Array.isArray(data) && data.length > 0) {
-                        productsList = data.map(fromSupabaseRow);
+                        productsList = data.map(fromSupabaseRow).filter(p => !delIds.has(p.id));
                         localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
                         updateStats();
                         renderProductsGrid();
@@ -1231,7 +1258,7 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
                 if (jsonRes.ok) {
                     const repoData = await jsonRes.json();
                     if (Array.isArray(repoData) && repoData.length > 0) {
-                        productsList = repoData;
+                        productsList = repoData.filter(p => !delIds.has(p.id));
                         localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
                         updateStats();
                         renderProductsGrid();
@@ -1243,10 +1270,10 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
             // 3. Instant local render from localStorage
             const saved = localStorage.getItem('rs_catalog_products');
             if (saved) {
-                try { productsList = JSON.parse(saved); }
-                catch(e) { productsList = [...defaultCatalogProducts]; }
+                try { productsList = JSON.parse(saved).filter(p => !delIds.has(p.id)); }
+                catch(e) { productsList = defaultCatalogProducts.filter(p => !delIds.has(p.id)); }
             } else {
-                productsList = [...defaultCatalogProducts];
+                productsList = defaultCatalogProducts.filter(p => !delIds.has(p.id));
             }
             updateStats();
             renderProductsGrid();
@@ -1409,10 +1436,23 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.products;</code></pre>
             if (confirm("Are you sure you want to delete this material product from live catalog?")) {
                 const deletedItem = productsList.find(p => p.id === id);
                 productsList = productsList.filter(p => p.id !== id);
-                await saveProductsToStorage(deletedItem || { id }, 'delete');
+                trackDeletedProductId(id);
+
+                // ⚡ 1. Instantly broadcast deletion across all open browser tabs & windows
+                if ('BroadcastChannel' in window) {
+                    try {
+                        const bc = new BroadcastChannel('rs_ply_channel');
+                        bc.postMessage({ type: 'PRODUCT_DELETED', id: id, products: productsList });
+                    } catch(e) {}
+                }
+
+                // ⚡ 2. Instantly update UI on admin portal
                 updateStats();
                 renderProductsGrid();
-                showToast("Product deleted & synced live!");
+                showToast("Product deleted & removed instantly from live website!");
+
+                // ⚡ 3. Delete from Supabase & Storage permanently
+                await saveProductsToStorage(deletedItem || { id }, 'delete');
             }
         }
 

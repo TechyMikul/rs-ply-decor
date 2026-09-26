@@ -1793,7 +1793,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.4</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.5</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2268,7 +2268,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.4</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.5</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
@@ -2348,23 +2348,56 @@
             { id: 6, name: "Warp-Resistant Solid Core Flush Door", category: "items", price: "₹2,800 / piece", desc: "Kiln-dried timber core flush door for interior bedrooms and veneer lamination.", img: "assets/images/flush_door.png", tag: "SOLID TIMBER CORE", rating: "4.8 ★", inStock: true }
         ];
 
+        function getDeletedProductIds() {
+            try {
+                return new Set(JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]'));
+            } catch(e) { return new Set(); }
+        }
+
+        function trackDeletedProductId(id) {
+            try {
+                let deleted = JSON.parse(localStorage.getItem('rs_deleted_product_ids') || '[]');
+                const num = Number(id);
+                if (!deleted.includes(num)) {
+                    deleted.push(num);
+                    localStorage.setItem('rs_deleted_product_ids', JSON.stringify(deleted));
+                }
+            } catch(e) {}
+        }
+
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
+        const initialDeleted = getDeletedProductIds();
         let savedProductsData = localStorage.getItem('rs_catalog_products');
         let catalogProducts = savedProductsData ? JSON.parse(savedProductsData) : defaultCatalogProducts;
+        catalogProducts = catalogProducts.filter(p => !initialDeleted.has(p.id));
 
         // ⚡ Real-Time Instant Tab Synchronization via BroadcastChannel
         if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('rs_ply_channel');
             bc.onmessage = (event) => {
-                if (event.data && event.data.type === 'PRODUCTS_UPDATED' && Array.isArray(event.data.products)) {
-                    catalogProducts = event.data.products;
-                    localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
-                    if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
-                    if (typeof renderCatalogGrid === 'function') {
-                        const activeItem = document.querySelector('.catalog-item.active');
-                        const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
-                        renderCatalogGrid(cat);
+                if (event.data) {
+                    if (event.data.type === 'PRODUCT_DELETED' && event.data.id) {
+                        const delId = Number(event.data.id);
+                        trackDeletedProductId(delId);
+                        catalogProducts = catalogProducts.filter(p => p.id !== delId);
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                        if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                        if (typeof renderCatalogGrid === 'function') {
+                            const activeItem = document.querySelector('.catalog-item.active');
+                            const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                            renderCatalogGrid(cat);
+                        }
+                    } else if (event.data.type === 'PRODUCTS_UPDATED' && Array.isArray(event.data.products)) {
+                        const delIds = getDeletedProductIds();
+                        catalogProducts = event.data.products.filter(p => !delIds.has(p.id));
+                        localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
+                        if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                        if (typeof renderCatalogGrid === 'function') {
+                            const activeItem = document.querySelector('.catalog-item.active');
+                            const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                            renderCatalogGrid(cat);
+                        }
                     }
                 }
             };
@@ -2372,11 +2405,25 @@
 
         // Storage Event Listener for Cross-Tab Sync
         window.addEventListener('storage', (e) => {
-            if (e.key === 'rs_catalog_products' && e.newValue) {
+            if (e.key === 'rs_deleted_product_ids') {
+                const delIds = getDeletedProductIds();
+                catalogProducts = catalogProducts.filter(p => !delIds.has(p.id));
+                if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
+                if (typeof renderCatalogGrid === 'function') {
+                    const activeItem = document.querySelector('.catalog-item.active');
+                    const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                    renderCatalogGrid(cat);
+                }
+            } else if (e.key === 'rs_catalog_products' && e.newValue) {
                 try {
-                    catalogProducts = JSON.parse(e.newValue);
+                    const delIds = getDeletedProductIds();
+                    catalogProducts = JSON.parse(e.newValue).filter(p => !delIds.has(p.id));
                     if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
-                    if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
+                    if (typeof renderCatalogGrid === 'function') {
+                        const activeItem = document.querySelector('.catalog-item.active');
+                        const cat = activeItem ? (activeItem.getAttribute('onclick') || '').match(/'([^']+)'/)?.[1] || 'all' : 'all';
+                        renderCatalogGrid(cat);
+                    }
                 } catch(err){}
             }
         });
@@ -2392,6 +2439,7 @@
                     // Initial fetch from live Supabase DB
                     sb.from(tableName).select('*').order('id', { ascending: false }).then(({ data, error }) => {
                         if (!error && Array.isArray(data) && data.length > 0) {
+                            const delIds = getDeletedProductIds();
                             catalogProducts = data.map(item => ({
                                 id: Number(item.id),
                                 name: item.name,
@@ -2402,7 +2450,7 @@
                                 tag: item.tag || '',
                                 rating: item.rating || '5.0 ★',
                                 inStock: item.in_stock !== false
-                            }));
+                            })).filter(p => !delIds.has(p.id));
                             localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                             if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                             if (typeof renderCatalogGrid === 'function') {
@@ -2413,7 +2461,7 @@
                         }
                     });
 
-                    // Real-Time Postgres Replication Channel (updates browser instantly when admin edits!)
+                    // Real-Time Postgres Replication Channel (updates browser instantly when admin edits or deletes!)
                     sb.channel('visitor-catalog-live')
                         .on('postgres_changes', { event: '*', schema: 'public', table: tableName }, (payload) => {
                             console.log('[Supabase Realtime Live Update]', payload);
@@ -2453,10 +2501,16 @@
                                 } else {
                                     catalogProducts.unshift(p);
                                 }
-                            } else if (evt === 'DELETE' && o) {
-                                catalogProducts = catalogProducts.filter(item => item.id !== Number(o.id));
+                            } else if (evt === 'DELETE') {
+                                const delId = Number(o?.id || payload.old?.id);
+                                if (delId) {
+                                    trackDeletedProductId(delId);
+                                    catalogProducts = catalogProducts.filter(item => item.id !== delId);
+                                }
                             }
 
+                            const delIds = getDeletedProductIds();
+                            catalogProducts = catalogProducts.filter(p => !delIds.has(p.id));
                             localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                             if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                             if (typeof renderCatalogGrid === 'function') {
@@ -2483,7 +2537,8 @@
             .then(res => res.json())
             .then(repoData => {
                 if (Array.isArray(repoData) && repoData.length > 0 && !supabaseLiveActive) {
-                    catalogProducts = repoData;
+                    const delIds = getDeletedProductIds();
+                    catalogProducts = repoData.filter(p => !delIds.has(p.id));
                     localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                     if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                     if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
@@ -2495,7 +2550,8 @@
                     .then(res => res.json())
                     .then(cloudData => {
                         if (cloudData && Array.isArray(cloudData.products) && !supabaseLiveActive) {
-                            catalogProducts = cloudData.products;
+                            const delIds = getDeletedProductIds();
+                            catalogProducts = cloudData.products.filter(p => !delIds.has(p.id));
                             localStorage.setItem('rs_catalog_products', JSON.stringify(catalogProducts));
                             if (typeof updateCategoryCounts === 'function') updateCategoryCounts();
                             if (typeof renderCatalogGrid === 'function') renderCatalogGrid('all');
@@ -2562,9 +2618,12 @@
             const container = document.getElementById('productsScrollGrid');
             container.innerHTML = '';
 
+            const delIds = getDeletedProductIds();
             let savedData = localStorage.getItem('rs_catalog_products');
             if (savedData) {
-                try { catalogProducts = JSON.parse(savedData); } catch(e){}
+                try { catalogProducts = JSON.parse(savedData).filter(p => !delIds.has(p.id)); } catch(e){}
+            } else {
+                catalogProducts = catalogProducts.filter(p => !delIds.has(p.id));
             }
 
             let list = catalogProducts;
