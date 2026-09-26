@@ -716,6 +716,9 @@
                 <button class="btn-action btn-cloud-settings" onclick="openCloudSettingsModal()" title="Configure Supabase Database & Cloudinary Media CDN">
                     <i class="fa-solid fa-cloud-bolt"></i> Cloud Realtime & CDN
                 </button>
+                <button class="btn-action" onclick="syncRepoPricesToSupabase()" title="Sync and publish updated catalog prices (e.g. ₹3,500 Acrylic Sheets) directly into Supabase and live site" style="background: rgba(212, 175, 55, 0.15); color: #8c5225; border: 1px solid rgba(212, 175, 55, 0.45); cursor: pointer;">
+                    <i class="fa-solid fa-arrows-rotate"></i> Sync Prices to Cloud
+                </button>
                 <button class="btn-action btn-website" onclick="downloadProductsJson()" title="Download permanent products.json file for GitHub">
                     <i class="fa-solid fa-download"></i> Export DB
                 </button>
@@ -1084,6 +1087,12 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
 
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
+        const CATALOG_BUILD_VERSION = 'v1.1.8';
+        if (localStorage.getItem('rs_catalog_build_version') !== CATALOG_BUILD_VERSION) {
+            localStorage.removeItem('rs_catalog_products');
+            localStorage.setItem('rs_catalog_build_version', CATALOG_BUILD_VERSION);
+        }
+
         let productsList = [];
         let currentFilter = 'all';
         let supabaseClient = null;
@@ -1244,6 +1253,15 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
             initSupabaseClient();
             const delIds = getDeletedProductIds();
 
+            // Fetch latest catalog repo data first
+            let repoData = [];
+            try {
+                const jsonRes = await fetch('data/products.json?t=' + Date.now());
+                if (jsonRes.ok) {
+                    repoData = await jsonRes.json();
+                }
+            } catch(e) {}
+
             // 1. Try loading directly from Supabase first if connected
             if (supabaseClient) {
                 try {
@@ -1251,6 +1269,27 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                     const { data, error } = await supabaseClient.from(tableName).select('*').order('id', { ascending: false });
                     if (!error && Array.isArray(data) && data.length > 0) {
                         productsList = data.map(fromSupabaseRow).filter(p => !delIds.has(p.id));
+
+                        // ⚡ Auto-sync: push any updated prices from data/products.json directly into Supabase
+                        if (Array.isArray(repoData) && repoData.length > 0) {
+                            let hasPriceDiff = false;
+                            for (const rp of repoData) {
+                                const exist = productsList.find(p => p.id === rp.id);
+                                if (exist && exist.price !== rp.price) {
+                                    console.log(`[Auto-Sync] Updating product ${rp.id} price in Supabase: ${exist.price} -> ${rp.price}`);
+                                    exist.price = rp.price;
+                                    hasPriceDiff = true;
+                                    supabaseClient.from(tableName).update({ price: rp.price }).eq('id', rp.id).then();
+                                }
+                            }
+                            if (hasPriceDiff && 'BroadcastChannel' in window) {
+                                try {
+                                    const bc = new BroadcastChannel('rs_ply_channel');
+                                    bc.postMessage({ type: 'PRODUCTS_UPDATED', products: productsList });
+                                } catch(e) {}
+                            }
+                        }
+
                         localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
                         updateStats();
                         renderProductsGrid();
@@ -1261,20 +1300,14 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                 }
             }
 
-            // 2. Attempt loading from data/products.json
-            try {
-                const jsonRes = await fetch('data/products.json?t=' + Date.now());
-                if (jsonRes.ok) {
-                    const repoData = await jsonRes.json();
-                    if (Array.isArray(repoData) && repoData.length > 0) {
-                        productsList = repoData.filter(p => !delIds.has(p.id));
-                        localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
-                        updateStats();
-                        renderProductsGrid();
-                        return;
-                    }
-                }
-            } catch(e) {}
+            // 2. Attempt loading from repoData (data/products.json)
+            if (Array.isArray(repoData) && repoData.length > 0) {
+                productsList = repoData.filter(p => !delIds.has(p.id));
+                localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                updateStats();
+                renderProductsGrid();
+                return;
+            }
 
             // 3. Instant local render from localStorage
             const saved = localStorage.getItem('rs_catalog_products');
@@ -1789,6 +1822,53 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                 alert("Please provide both Cloud Name and an Unsigned Upload Preset name.");
             } else {
                 alert(`✓ Cloudinary settings configured for cloud "${cName}". Unsigned upload preset: "${preset}".`);
+            }
+        }
+
+        // One-Click Sync Prices to Cloud
+        async function syncRepoPricesToSupabase() {
+            try {
+                showToast("Fetching latest prices and publishing to cloud...");
+                const res = await fetch('data/products.json?t=' + Date.now());
+                if (!res.ok) throw new Error("Could not fetch data/products.json");
+                const repoData = await res.json();
+                let updatedCount = 0;
+                const tableName = window.RS_CLOUD_CONFIG?.supabase?.tableName || 'products';
+
+                for (const rp of repoData) {
+                    const exist = productsList.find(p => p.id === rp.id);
+                    if (exist) {
+                        if (exist.price !== rp.price) {
+                            exist.price = rp.price;
+                            updatedCount++;
+                            if (supabaseClient) {
+                                await supabaseClient.from(tableName).update({ price: rp.price }).eq('id', rp.id);
+                            }
+                        }
+                    } else {
+                        productsList.push(rp);
+                        if (supabaseClient) {
+                            await supabaseClient.from(tableName).upsert(toSupabaseRow(rp));
+                        }
+                        updatedCount++;
+                    }
+                }
+
+                localStorage.setItem('rs_catalog_products', JSON.stringify(productsList));
+                updateStats();
+                renderProductsGrid();
+
+                if ('BroadcastChannel' in window) {
+                    try {
+                        const bc = new BroadcastChannel('rs_ply_channel');
+                        bc.postMessage({ type: 'PRODUCTS_UPDATED', products: productsList });
+                    } catch(e) {}
+                }
+
+                alert(`✓ Successfully synced! ${updatedCount} products updated to latest prices in Supabase.`);
+                showToast("All prices synced live to website!");
+            } catch(e) {
+                alert("Sync error: " + e.message);
             }
         }
 
