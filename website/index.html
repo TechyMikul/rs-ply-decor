@@ -1793,7 +1793,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.9</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.2.0</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2271,7 +2271,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.9</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.2.0</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
@@ -2398,7 +2398,7 @@
 
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
-        const CATALOG_BUILD_VERSION = 'v1.1.9';
+        const CATALOG_BUILD_VERSION = 'v1.2.0';
         if (localStorage.getItem('rs_catalog_build_version') !== CATALOG_BUILD_VERSION) {
             localStorage.removeItem('rs_catalog_products');
             localStorage.setItem('rs_catalog_build_version', CATALOG_BUILD_VERSION);
@@ -2794,12 +2794,14 @@
             const imgEl = document.getElementById('detailImg');
             const btnSpec = document.getElementById('btnViewSpec');
             const btnRender = document.getElementById('btnViewRender');
-            if (type === 'render' && activeDetailProduct.renderImg) {
-                imgEl.src = activeDetailProduct.renderImg;
+            const specSrc = activeDetailProduct.specImg || activeDetailProduct.img;
+            const renderSrc = activeDetailProduct.renderImg || activeDetailProduct.img;
+            if (type === 'render') {
+                imgEl.src = renderSrc;
                 if (btnRender) btnRender.classList.add('active');
                 if (btnSpec) btnSpec.classList.remove('active');
             } else {
-                imgEl.src = activeDetailProduct.img;
+                imgEl.src = specSrc;
                 if (btnSpec) btnSpec.classList.add('active');
                 if (btnRender) btnRender.classList.remove('active');
             }
@@ -2823,15 +2825,20 @@
             const p = catalogProducts.find(item => item.id === id);
             if (!p) return;
 
-            // Ensure Ovela panels have their dual options and renders attached
-            if (p.category === 'ovela' && (!p.options || p.options.length === 0)) {
-                p.options = [
-                    { size: "1' × 10'", price: "₹650" },
-                    { size: "1' × 13'", price: "₹840" }
-                ];
-            }
-            if (p.category === 'ovela' && !p.renderImg && p.img) {
-                p.renderImg = p.img.replace('spec_', 'render_').replace('.jpg', '.png');
+            // Ensure Ovela panels have their dual options and both views attached
+            if (p.category === 'ovela') {
+                if (!p.options || p.options.length === 0) {
+                    p.options = [
+                        { size: "1' × 10'", price: "₹650" },
+                        { size: "1' × 13'", price: "₹840" }
+                    ];
+                }
+                if (!p.specImg && p.img) {
+                    p.specImg = p.img.includes('render_') ? p.img.replace('render_', 'spec_').replace('.png', '.jpg') : p.img;
+                }
+                if (!p.renderImg && p.img) {
+                    p.renderImg = p.img.includes('spec_') ? p.img.replace('spec_', 'render_').replace('.jpg', '.png') : p.img;
+                }
             }
 
             activeDetailProduct = p;
@@ -2848,12 +2855,17 @@
 
             // Media toggle button setup
             const mediaToggle = document.getElementById('detailMediaToggle');
-            if (p.renderImg && mediaToggle) {
+            if (p.category === 'ovela' && mediaToggle) {
                 mediaToggle.style.display = 'inline-flex';
                 const btnSpec = document.getElementById('btnViewSpec');
                 const btnRender = document.getElementById('btnViewRender');
-                if (btnSpec) btnSpec.classList.add('active');
-                if (btnRender) btnRender.classList.remove('active');
+                if (p.img.includes('render_')) {
+                    if (btnRender) btnRender.classList.add('active');
+                    if (btnSpec) btnSpec.classList.remove('active');
+                } else {
+                    if (btnSpec) btnSpec.classList.add('active');
+                    if (btnRender) btnRender.classList.remove('active');
+                }
             } else if (mediaToggle) {
                 mediaToggle.style.display = 'none';
             }
