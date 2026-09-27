@@ -1,12 +1,12 @@
 {
   "supabase": {
-    "url": "",
-    "anonKey": "",
+    "url": "https://ngvzcgkavebsrcxqkgsc.supabase.co",
+    "anonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndnpjZ2thdmVic3JjeHFrZ3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzOTI4MzUsImV4cCI6MjEwNTk2ODgzNX0.jh4HOGSxQz3NKHjiHc2MDt4TYDifYcK1j5omRSirc7Y",
     "tableName": "products"
   },
   "cloudinary": {
-    "cloudName": "",
-    "uploadPreset": "",
+    "cloudName": "citxomfv",
+    "uploadPreset": "RSPLYPHOTO",
     "folder": "rs-ply-decor"
   }
 }

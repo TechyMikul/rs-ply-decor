@@ -772,6 +772,13 @@
                     <div class="stat-label">Acrylic Sheets</div>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-shapes"></i></div>
+                <div>
+                    <div class="stat-number" id="statOvela">0</div>
+                    <div class="stat-label">Ovela Panels</div>
+                </div>
+            </div>
         </div>
 
         <!-- CONTROLS & FILTER BAR -->
@@ -782,6 +789,7 @@
             </div>
             <div class="category-pills">
                 <button class="cat-pill active" onclick="setCategoryFilter('all', this)">All</button>
+                <button class="cat-pill" onclick="setCategoryFilter('ovela', this)">Ovela Panels</button>
                 <button class="cat-pill" onclick="setCategoryFilter('acrylic_sheet', this)">Acrylic Sheet</button>
                 <button class="cat-pill" onclick="setCategoryFilter('plywood', this)">Plywood</button>
                 <button class="cat-pill" onclick="setCategoryFilter('louvers', this)">Louvers</button>
@@ -985,6 +993,7 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
                     <div class="form-group">
                         <label class="form-label">Category *</label>
                         <select id="pCategory" class="form-select" required>
+                            <option value="ovela">Ovela Architectural Panels</option>
                             <option value="acrylic_sheet">Acrylic Sheet</option>
                             <option value="plywood">Plywood Boards</option>
                             <option value="louvers">Louvered Panels & Slats</option>
@@ -1087,7 +1096,7 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
 
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
-        const CATALOG_BUILD_VERSION = 'v1.1.8';
+        const CATALOG_BUILD_VERSION = 'v1.1.9';
         if (localStorage.getItem('rs_catalog_build_version') !== CATALOG_BUILD_VERSION) {
             localStorage.removeItem('rs_catalog_products');
             localStorage.setItem('rs_catalog_build_version', CATALOG_BUILD_VERSION);
@@ -1395,6 +1404,9 @@ ALTER TABLE public.products REPLICA IDENTITY FULL;</code></pre>
             document.getElementById('statMica').innerText = productsList.filter(p => p.category === 'mica').length;
             if (document.getElementById('statAcrylic')) {
                 document.getElementById('statAcrylic').innerText = productsList.filter(p => p.category === 'acrylic_sheet').length;
+            }
+            if (document.getElementById('statOvela')) {
+                document.getElementById('statOvela').innerText = productsList.filter(p => p.category === 'ovela').length;
             }
         }
 

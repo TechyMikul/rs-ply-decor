@@ -726,17 +726,6 @@
     "inStock": true
   },
   {
-    "id": 67,
-    "name": "Ovela Exterior Architectural Soffit Panel",
-    "category": "items",
-    "price": "₹649 / piece",
-    "desc": "High-durability exterior ceiling soffit board with natural timber wood finish, 100% waterproof and termite proof.",
-    "img": "assets/images/hero_interior_plywood.png",
-    "tag": "OVELA SOFFIT",
-    "rating": "5.0 ★",
-    "inStock": true
-  },
-  {
     "id": 101,
     "name": "RL 1126 Foreshore (SL136) Acrylic Sheet",
     "category": "acrylic_sheet",
@@ -865,6 +854,248 @@
     "desc": "Refined Pewter metallic-hue gloss acrylic sheet for high-end commercial showrooms and luxury residential wardrobes.",
     "img": "assets/images/catalog/acrylic_sheet_12.svg",
     "tag": "RL 186 SL139",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 113,
+    "name": "Ovela Architectural Soffit Panel - Walnut (C-08)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Walnut finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_walnut.jpg",
+    "renderImg": "assets/images/ovela/render_walnut.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 114,
+    "name": "Ovela Architectural Soffit Panel - Almond Oak (C-09)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Almond Oak finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_almond_oak.jpg",
+    "renderImg": "assets/images/ovela/render_almond_oak.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 115,
+    "name": "Ovela Architectural Soffit Panel - Antique Cherry (C-05)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Antique Cherry finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_antique_cherry.jpg",
+    "renderImg": "assets/images/ovela/render_antique_cherry.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 116,
+    "name": "Ovela Architectural Soffit Panel - Ash Wood (C-11)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Ash Wood finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_ash_wood.jpg",
+    "renderImg": "assets/images/ovela/render_ash_wood.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 117,
+    "name": "Ovela Architectural Soffit Panel - Candlelight (C-06)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Candlelight warm tone finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_candlelight.jpg",
+    "renderImg": "assets/images/ovela/render_candlelight.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 118,
+    "name": "Ovela Architectural Soffit Panel - Light Oak (C-04)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Light Oak Scandinavian finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_light_oak.jpg",
+    "renderImg": "assets/images/ovela/render_light_oak.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 119,
+    "name": "Ovela Architectural Soffit Panel - Natural Birch (C-02)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Natural Birch modern finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_natural_birch.jpg",
+    "renderImg": "assets/images/ovela/render_natural_birch.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 120,
+    "name": "Ovela Architectural Soffit Panel - Pecan (C-07)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Pecan warm wood finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_pecan.jpg",
+    "renderImg": "assets/images/ovela/render_pecan.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 121,
+    "name": "Ovela Architectural Soffit Panel - Slate Grey (C-03)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Slate Grey architectural finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_slate_grey.jpg",
+    "renderImg": "assets/images/ovela/render_slate_grey.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 122,
+    "name": "Ovela Architectural Soffit Panel - Teak Wood (C-10)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in Teak Wood luxury finish. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_teak_wood.jpg",
+    "renderImg": "assets/images/ovela/render_teak_wood.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
+    "rating": "5.0 ★",
+    "inStock": true
+  },
+  {
+    "id": 123,
+    "name": "Ovela Architectural Soffit Panel - White Mist (C-01)",
+    "category": "ovela",
+    "price": "1' × 10' - ₹650 | 1' × 13' - ₹840",
+    "desc": "Premium exterior architectural soffit & interior fluted panel in White Mist Nordic tone. 100% waterproof, fire-retardant, interlocking tongue-and-groove profile with matching trims (T-trim, J-trim, Inside & Outside corner profiles).",
+    "img": "assets/images/ovela/spec_white_mist.jpg",
+    "renderImg": "assets/images/ovela/render_white_mist.png",
+    "options": [
+      {
+        "size": "1' × 10'",
+        "price": "₹650"
+      },
+      {
+        "size": "1' × 13'",
+        "price": "₹840"
+      }
+    ],
+    "tag": "100% WATERPROOF",
     "rating": "5.0 ★",
     "inStock": true
   }

@@ -4,26 +4,29 @@
  */
 (function() {
     const serverConfig = {
-  "supabase": {
-    "url": "",
-    "anonKey": "",
-    "tableName": "products"
-  },
-  "cloudinary": {
-    "cloudName": "",
-    "uploadPreset": "",
-    "folder": "rs-ply-decor"
-  }
-};
+      "supabase": {
+        "url": "https://ngvzcgkavebsrcxqkgsc.supabase.co",
+        "anonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndnpjZ2thdmVic3JjeHFrZ3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzOTI4MzUsImV4cCI6MjEwNTk2ODgzNX0.jh4HOGSxQz3NKHjiHc2MDt4TYDifYcK1j5omRSirc7Y",
+        "tableName": "products"
+      },
+      "cloudinary": {
+        "cloudName": "citxomfv",
+        "uploadPreset": "RSPLYPHOTO",
+        "folder": "rs-ply-decor"
+      }
+    };
     let stored = null;
     try {
         const raw = localStorage.getItem('rs_cloud_config');
         if (raw) stored = JSON.parse(raw);
     } catch(e) {}
 
+    const cleanStoredSupabase = (stored && stored.supabase && stored.supabase.url) ? stored.supabase : {};
+    const cleanStoredCloudinary = (stored && stored.cloudinary && stored.cloudinary.cloudName) ? stored.cloudinary : {};
+
     window.RS_CLOUD_CONFIG = {
-        supabase: Object.assign({}, serverConfig.supabase || {}, (stored && stored.supabase) || {}),
-        cloudinary: Object.assign({}, serverConfig.cloudinary || {}, (stored && stored.cloudinary) || {})
+        supabase: Object.assign({}, serverConfig.supabase, cleanStoredSupabase),
+        cloudinary: Object.assign({}, serverConfig.cloudinary, cleanStoredCloudinary)
     };
 
     window.saveRSCloudConfig = async function(newConfig) {

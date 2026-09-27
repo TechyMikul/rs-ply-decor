@@ -1793,7 +1793,7 @@
     <header class="header" id="mainHeader">
         <div class="top-announce">
             <span>🏛️ Preferred Architectural Wholesale Destination for Plywood, Louvers & Mica in Chennai</span>
-            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.8</span>
+            <span class="version-tag-pill" id="appVersionHeader">ARCHITECT TRADE PARTNER v1.1.9</span>
             <a href="tel:8667506984"><i class="fa-solid fa-phone"></i> 866 750 6984</a>
         </div>
         <div class="header-container">
@@ -2166,6 +2166,9 @@
                             <li class="catalog-item active" onclick="filterCatalogList('all', this)">
                                 <span>📁 All Materials</span> <span class="count-badge" id="count-all">0</span>
                             </li>
+                            <li class="catalog-item" onclick="filterCatalogList('ovela', this)">
+                                <span>🌟 Ovela Panels</span> <span class="count-badge" id="count-ovela">0</span>
+                            </li>
                             <li class="catalog-item" onclick="filterCatalogList('fluted_panels', this)">
                                 <span>🧱 Fluted Panels</span> <span class="count-badge" id="count-fluted_panels">0</span>
                             </li>
@@ -2268,7 +2271,7 @@
             </div>
         </div>
         <div class="footer-bottom-flex">
-            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.8</span></p>
+            <p>&copy; 2026 RS PLY & DECOR. All rights reserved. <span class="version-tag-pill" style="margin-left: 0.5rem;" id="appVersionFooter">ARCHITECT TRADE BUILD v1.1.9</span></p>
             <div class="footer-mp-branding">
                 <span class="made-by-text">Designed for Architects by</span>
                 <span class="mp-agency-title">MP Digital Agency</span>
@@ -2284,6 +2287,10 @@
                 <div class="product-modal-media">
                     <img id="detailImg" src="" alt="Product Detail Specimen" class="product-detail-img">
                     <span id="detailTag" class="detail-badge-tag">IS 710 CERTIFIED</span>
+                    <div id="detailMediaToggle" style="display: none; margin-top: 0.75rem; justify-content: center; gap: 0.5rem;">
+                        <button type="button" class="m-pill active" id="btnViewSpec" onclick="toggleDetailMedia('spec')"><i class="fa-solid fa-ruler-combined"></i> Technical Poster</button>
+                        <button type="button" class="m-pill" id="btnViewRender" onclick="toggleDetailMedia('render')"><i class="fa-solid fa-couch"></i> 3D Room Render</button>
+                    </div>
                 </div>
                 <div class="product-modal-info">
                     <span id="detailCategory" class="detail-category-badge">Plywood Boards</span>
@@ -2291,6 +2298,12 @@
                     <div class="detail-rating-row">
                         <span id="detailRating" class="detail-rating"><i class="fa-solid fa-star"></i> 5.0 ★</span>
                         <span id="detailPrice" class="detail-price">₹85 / sq.ft</span>
+                    </div>
+
+                    <!-- Dual Option / Size Selector -->
+                    <div id="detailOptionsWrap" style="margin: 0.85rem 0 1rem 0; display: none;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 0.4rem;"><i class="fa-solid fa-tag"></i> Select Size & Length Option:</span>
+                        <div id="detailOptionsList" style="display: flex; gap: 0.6rem; flex-wrap: wrap;"></div>
                     </div>
                     <p id="detailDesc" class="detail-description">Detailed architectural description...</p>
                     
@@ -2385,7 +2398,7 @@
 
         const ZERO_LOGIN_API_BLOB = 'https://jsonblob.com/api/jsonBlob/019f8f14-1197-72d2-9ed8-6cd94c1321e3';
 
-        const CATALOG_BUILD_VERSION = 'v1.1.8';
+        const CATALOG_BUILD_VERSION = 'v1.1.9';
         if (localStorage.getItem('rs_catalog_build_version') !== CATALOG_BUILD_VERSION) {
             localStorage.removeItem('rs_catalog_products');
             localStorage.setItem('rs_catalog_build_version', CATALOG_BUILD_VERSION);
@@ -2719,6 +2732,7 @@
         // Dynamic Category Counts
         function updateCategoryCounts() {
             if(document.getElementById('count-all')) document.getElementById('count-all').innerText = catalogProducts.length;
+            if(document.getElementById('count-ovela')) document.getElementById('count-ovela').innerText = catalogProducts.filter(p => p.category === 'ovela').length;
             if(document.getElementById('count-fluted_panels')) document.getElementById('count-fluted_panels').innerText = catalogProducts.filter(p => p.category === 'fluted_panels').length;
             if(document.getElementById('count-louvers')) document.getElementById('count-louvers').innerText = catalogProducts.filter(p => p.category === 'louvers').length;
             if(document.getElementById('count-pvc')) document.getElementById('count-pvc').innerText = catalogProducts.filter(p => p.category === 'pvc').length;
@@ -2772,23 +2786,112 @@
             });
         }
 
+        let activeDetailProduct = null;
+        let selectedOption = null;
+
+        function toggleDetailMedia(type) {
+            if (!activeDetailProduct) return;
+            const imgEl = document.getElementById('detailImg');
+            const btnSpec = document.getElementById('btnViewSpec');
+            const btnRender = document.getElementById('btnViewRender');
+            if (type === 'render' && activeDetailProduct.renderImg) {
+                imgEl.src = activeDetailProduct.renderImg;
+                if (btnRender) btnRender.classList.add('active');
+                if (btnSpec) btnSpec.classList.remove('active');
+            } else {
+                imgEl.src = activeDetailProduct.img;
+                if (btnSpec) btnSpec.classList.add('active');
+                if (btnRender) btnRender.classList.remove('active');
+            }
+        }
+
+        function selectDetailOption(opt) {
+            selectedOption = opt;
+            document.querySelectorAll('#detailOptionsList .m-pill').forEach(pill => {
+                if (pill.dataset.size === opt.size) pill.classList.add('active');
+                else pill.classList.remove('active');
+            });
+            document.getElementById('detailPrice').innerText = opt.price + ' / piece';
+            if (activeDetailProduct) {
+                const waMsg = `Hi RS Ply & Decor, I am an Architect / Interior Designer inquiring about technical specifications and wholesale pricing for: ${activeDetailProduct.name}, Size Option: ${opt.size} (${opt.price}).`;
+                document.getElementById('detailWhatsappBtn').href = `https://wa.me/918667506984?text=${encodeURIComponent(waMsg)}`;
+            }
+        }
+
         function openProductDetailModal(id) {
             currentOpenModalProductId = id;
             const p = catalogProducts.find(item => item.id === id);
             if (!p) return;
 
+            // Ensure Ovela panels have their dual options and renders attached
+            if (p.category === 'ovela' && (!p.options || p.options.length === 0)) {
+                p.options = [
+                    { size: "1' × 10'", price: "₹650" },
+                    { size: "1' × 13'", price: "₹840" }
+                ];
+            }
+            if (p.category === 'ovela' && !p.renderImg && p.img) {
+                p.renderImg = p.img.replace('spec_', 'render_').replace('.jpg', '.png');
+            }
+
+            activeDetailProduct = p;
+            selectedOption = null;
+
             document.getElementById('detailImg').src = p.img;
             document.getElementById('detailImg').alt = p.name;
             document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailCategory').innerText = (p.category || 'MATERIAL').toUpperCase() + ' SERIES';
+            document.getElementById('detailCategory').innerText = (p.category === 'ovela' ? 'OVELA SOFFIT PANEL' : (p.category || 'MATERIAL').toUpperCase()) + ' SERIES';
             document.getElementById('detailTag').innerText = p.tag || 'IS 710 BWP CERTIFIED';
             document.getElementById('detailRating').innerHTML = `<i class="fa-solid fa-star"></i> ${p.rating || '5.0 ★'}`;
             document.getElementById('detailPrice').innerText = p.price || '';
             document.getElementById('detailDesc').innerText = p.desc || '';
 
-            // Prefill architectural whatsapp inquiry
-            const waMsg = `Hi RS Ply & Decor, I am an Architect / Interior Designer inquiring about technical specifications and wholesale pricing for: ${p.name} (${p.price}).`;
-            document.getElementById('detailWhatsappBtn').href = `https://wa.me/918667506984?text=${encodeURIComponent(waMsg)}`;
+            // Media toggle button setup
+            const mediaToggle = document.getElementById('detailMediaToggle');
+            if (p.renderImg && mediaToggle) {
+                mediaToggle.style.display = 'inline-flex';
+                const btnSpec = document.getElementById('btnViewSpec');
+                const btnRender = document.getElementById('btnViewRender');
+                if (btnSpec) btnSpec.classList.add('active');
+                if (btnRender) btnRender.classList.remove('active');
+            } else if (mediaToggle) {
+                mediaToggle.style.display = 'none';
+            }
+
+            // Dual Option / Length Pill Setup
+            const optionsWrap = document.getElementById('detailOptionsWrap');
+            const optionsList = document.getElementById('detailOptionsList');
+            if (Array.isArray(p.options) && p.options.length > 0 && optionsWrap && optionsList) {
+                optionsWrap.style.display = 'block';
+                optionsList.innerHTML = '';
+                p.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `m-pill ${idx === 0 ? 'active' : ''}`;
+                    btn.dataset.size = opt.size;
+                    btn.innerHTML = `<i class="fa-solid fa-layer-group"></i> ${opt.size} — ${opt.price}`;
+                    btn.onclick = () => selectDetailOption(opt);
+                    optionsList.appendChild(btn);
+                });
+                selectDetailOption(p.options[0]);
+            } else if (optionsWrap) {
+                optionsWrap.style.display = 'none';
+                const waMsg = `Hi RS Ply & Decor, I am an Architect / Interior Designer inquiring about technical specifications and wholesale pricing for: ${p.name} (${p.price}).`;
+                document.getElementById('detailWhatsappBtn').href = `https://wa.me/918667506984?text=${encodeURIComponent(waMsg)}`;
+            }
+
+            // Specs grid customisation
+            if (p.category === 'ovela') {
+                document.getElementById('specSize').innerText = "1' × 10' or 1' × 13' (340mm W × 12mm T)";
+                document.getElementById('specGrade').innerText = "100% Waterproof & Fire-Retardant";
+                document.getElementById('specCore').innerText = "Architectural Polymer & Tongue-Groove";
+                document.getElementById('specGuarantee').innerText = "All Matching Trims & Corner Profiles";
+            } else {
+                document.getElementById('specSize').innerText = "8ft x 4ft / 9.5ft Slat";
+                document.getElementById('specGrade').innerText = "100% Termite & BWP Proof";
+                document.getElementById('specCore').innerText = "High Density Hardwood / PVC";
+                document.getElementById('specGuarantee').innerText = "25-Year Manufacturer Warranty";
+            }
 
             document.getElementById('productDetailModal').classList.add('active');
             document.body.style.overflow = 'hidden';
